@@ -1,0 +1,45 @@
+generated: '2026-08-12'
+method: probed
+source: https://www.bonjoro.com/api/v2/industries
+docs: null
+limit_count: 1
+note: >-
+  Bonjoro publishes no rate-limit documentation anywhere on its public surface — the API V2 reference at
+  vimily.github.io/bonjoro-api-docs carries no limits section, and the help centre is behind a Cloudflare
+  interactive challenge. The limit below was OBSERVED on a live unauthenticated response, not read from
+  documentation. Because the probe was anonymous, the 600 ceiling is the unauthenticated per-client
+  allowance; the authenticated allowance is unknown and is not asserted here.
+limits:
+- scope: per-client (unauthenticated)
+  window: unknown
+  limit: 600
+  burst: null
+  endpoint: /api/v2/* (observed on GET /api/v2/industries)
+  evidence: 'response headers x-ratelimit-limit: 600, x-ratelimit-remaining: 597'
+headers:
+- name: x-ratelimit-limit
+  observed: true
+  example: '600'
+- name: x-ratelimit-remaining
+  observed: true
+  example: '597'
+- name: x-ratelimit-reset
+  observed: false
+  note: not present on the observed 200 response
+- name: retry-after
+  observed: false
+  note: not present on the observed 200 response; exhaustion behaviour not reached during probing
+exhaustion:
+  status_code: unknown
+  note: >-
+    No 429 was induced (deliberately — the pipeline does not exhaust a provider's limits). The header
+    names and the error envelope shape are consistent with a Laravel `throttle` middleware, which
+    conventionally answers 429 with Retry-After and X-RateLimit-Reset, but that was NOT observed and is
+    therefore not recorded as fact.
+x-evidence:
+- url: https://www.bonjoro.com/api/v2/industries
+  http_status: 200
+  fetched: '2026-08-12'
+  headers_seen:
+  - 'x-ratelimit-limit: 600'
+  - 'x-ratelimit-remaining: 597'

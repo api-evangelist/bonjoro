@@ -1,0 +1,69 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Bonjoro API V2
+  version: 1.0.0
+extends: openapi/bonjoro-api-v2-openapi.yml
+x-generated: '2026-08-12'
+x-method: generated
+x-source: openapi/_original/bonjoro-api-v2-openapi-original.json
+x-note: >-
+  Non-destructive enhancements over Bonjoro's published contract. The original is preserved verbatim in
+  openapi/_original/. The securityScheme added below is DECLARATIVE REPAIR, not invention: 116 of the
+  123 published operations already reference a scheme named `OAuth`, and the token operation
+  (`authenticate`) and its `accessToken` schema publish the Bearer token type, the token URL and the
+  three grant types. The overlay simply resolves the dangling reference so generated clients work.
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-profile: https://apievangelist.com/
+      x-apievangelist-reviewed: '2026-08-12'
+      x-api-host-note: >-
+        The published server is the site root (https://www.bonjoro.com/) and every path carries the
+        /api/v2 prefix, so the effective base URL is https://www.bonjoro.com/api/v2. Verified live on
+        2026-08-12: GET /api/v2/industries returns 200 and GET /api/v2/greets returns 401.
+      x-access-tier: >-
+        REST API access is published as a Company-tier (from $399/month) entitlement on
+        https://www.bonjoro.com/pricing.
+  - target: $.components
+    update:
+      securitySchemes:
+        OAuth:
+          type: oauth2
+          description: >-
+            Added by API Evangelist. The published contract references this scheme from 116 operations
+            but never defines it. Values below are taken from the contract's own `authenticate`
+            operation and `authenticationPayload` / `accessToken` schemas.
+          flows:
+            password:
+              tokenUrl: https://www.bonjoro.com/api/v2/oauth/2/token
+              scopes: {}
+            clientCredentials:
+              tokenUrl: https://www.bonjoro.com/api/v2/oauth/2/token
+              scopes: {}
+            authorizationCode:
+              authorizationUrl: https://www.bonjoro.com/auth/login
+              tokenUrl: https://www.bonjoro.com/api/v2/oauth/2/token
+              scopes: {}
+  - target: $.paths['/api/v2/greets'].post
+    update:
+      x-idempotency: none
+      x-agent-note: >-
+        No idempotency key exists on this operation. Do not auto-retry on timeout; reconcile with
+        getGreets first or duplicate video tasks will be sent to real customers.
+  - target: $.paths['/api/v2/greets/create'].post
+    update:
+      x-idempotency: none
+      x-max-recipients: 200
+      x-agent-note: Bulk create with no idempotency guard — reconcile, never blind-retry.
+  - target: $.paths['/api/v2/transmisions'].get
+    update:
+      x-path-typo: >-
+        The published path is misspelled ("transmisions"). It is served as-published; do not correct it
+        in a client.
+  - target: $.paths['/api/v2/pricing'].get
+    update:
+      x-observed-status: 500
+      x-observed-at: '2026-08-12'
+      x-agent-note: >-
+        This unauthenticated operation returned HTTP 500 when probed; the human pricing page at
+        https://www.bonjoro.com/pricing is the reliable source.

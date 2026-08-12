@@ -1,0 +1,82 @@
+generated: '2026-08-12'
+method: derived
+source: openapi/_original/bonjoro-api-v2-openapi-original.json
+docs: https://vimily.github.io/bonjoro-api-docs/
+summary:
+  types:
+  - oauth2
+  - http-bearer
+  api_key_in: []
+  oauth2_flows:
+  - password
+  - clientCredentials
+  - authorizationCode
+notes: >-
+  The published Bonjoro API V2 definition declares NO `components.securitySchemes` block, yet 116 of its
+  123 operations carry `security: [{ OAuth: [] }]`. The `OAuth` scheme name is therefore an unresolved
+  reference — a real defect in the contract, not an absence of authentication. The auth model below is
+  derived from the token operation (`authenticate`, POST /api/v2/oauth/2/token), its request/response
+  schemas, and the `Bearer` token_type the spec's own example returns.
+schemes:
+- name: OAuth
+  type: oauth2
+  declared_in_spec: false
+  referenced_by_operations: 116
+  token_url: https://www.bonjoro.com/api/v2/oauth/2/token
+  operation: authenticate
+  grant_types:
+  - password
+  - client_credentials
+  - authorization_code
+  grant_type_source: components.schemas.authenticationPayload.grant_type enum
+  request_fields:
+  - grant_type
+  - username
+  - password
+  - client_id
+  - client_secret
+  token_response:
+    token_type: Bearer
+    expires_in_example: 31536000
+    refresh_token: true
+    format: JWT (per spec example prefix eyJ0eXAiOiJKV1QiLCJh...)
+  sources:
+  - openapi/bonjoro-api-v2-openapi.yml
+- name: bearer
+  type: http
+  scheme: bearer
+  declared_in_spec: false
+  usage: >-
+    Authorization: Bearer <access_token> against https://www.bonjoro.com/api/v2. Confirmed live: an
+    unauthenticated GET of /api/v2/greets returns HTTP 401 with {"message":"Unauthenticated."}-shaped
+    JSON, while the two open operations (/api/v2/industries, /api/v2/pricing) require no credential.
+  sources:
+  - probe https://www.bonjoro.com/api/v2/greets
+scopes:
+  declared: 0
+  note: >-
+    Every operation-level requirement is `OAuth: []` — an empty scope array. Bonjoro publishes no OAuth
+    scope vocabulary, so no scopes/ artifact is emitted.
+unauthenticated_operations:
+- getIndustries
+- getPricing
+- loginViaGoogle
+- loginViaBranch
+- addUser
+- authenticate
+key_management:
+  console: https://www.bonjoro.com/settings/api
+  note: >-
+    API credentials are issued from the in-app settings screen (login required). The Bonjoro help centre
+    documents key issuance at help.bonjoro.com; that host answers HTTP 403 to non-browser clients behind
+    a Cloudflare interactive challenge, so it could not be captured verbatim.
+x-evidence:
+- url: https://www.bonjoro.com/api/v2/greets
+  http_status: 401
+  fetched: '2026-08-12'
+- url: https://www.bonjoro.com/api/v2/industries
+  http_status: 200
+  fetched: '2026-08-12'
+- url: https://vimily.github.io/bonjoro-api-docs/
+  http_status: 200
+  fetched: '2026-08-12'

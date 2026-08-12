@@ -1,0 +1,54 @@
+generated: '2026-08-12'
+method: searched
+source: https://vimily.github.io/bonjoro-api-docs/
+versioning:
+  scheme: uri-path
+  current: v2
+  path_prefix: /api/v2
+  spec_info_version: 1.0.0
+  docs: https://vimily.github.io/bonjoro-api-docs/
+  note: >-
+    The reference is titled "Bonjoro API V2" and every path is prefixed /api/v2. No v1 surface is
+    published and no version-negotiation header is documented. `info.version` in the spec is 1.0.0 and
+    has no date, so the age of the published contract cannot be established from it.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations: []
+  note: >-
+    No deprecation policy, no RFC 8594 Sunset/Deprecation header support, and not a single operation or
+    schema is flagged `deprecated: true` in the 123-operation contract. NO `Deprecation` pointer is
+    emitted.
+status_page:
+  url: null
+  note: >-
+    Bonjoro operates no public status page. status.bonjoro.com does not resolve (no DNS).
+    bonjoro.statuspage.io answers 200 but serves Atlassian's own Statuspage marketing page (title
+    "Real-Time Incident Communication with Statuspage"), and bonjoro.instatus.com answers 200 with
+    Instatus' "Get ready for downtime" placeholder — both are vendor catch-alls, not a Bonjoro status
+    page. NO `StatusPage` pointer is emitted; a 200 on a vendor catch-all is not a status page.
+sla:
+  url: null
+  uptime_target: null
+changelog:
+  url: https://www.bonjoro.com/changelog
+  public: false
+  note: >-
+    https://www.bonjoro.com/changelog answers 200 only after following a redirect to
+    https://www.bonjoro.com/auth/login — the changelog is behind the product login. No public dated
+    changelog, release-notes feed, or API version history exists, so no changelog/ artifact and no
+    `ChangeLog` pointer are emitted.
+support:
+  help_center: https://help.bonjoro.com/
+  help_center_note: >-
+    Reachable in a browser, but answers HTTP 403 with a Cloudflare "Just a moment..." interactive
+    challenge to every non-browser client, including well-behaved crawlers. The webhook and API-key
+    articles are therefore not machine-readable.
+  support_center: https://www.bonjoro.com/support-center
+x-evidence:
+- {url: 'https://www.bonjoro.com/changelog', http_status: 200, note: redirects to /auth/login, fetched: '2026-08-12'}
+- {url: 'https://status.bonjoro.com/', http_status: 0, note: no DNS record, fetched: '2026-08-12'}
+- {url: 'https://bonjoro.statuspage.io/', http_status: 200, note: Atlassian marketing catch-all, fetched: '2026-08-12'}
+- {url: 'https://bonjoro.instatus.com/', http_status: 200, note: Instatus placeholder catch-all, fetched: '2026-08-12'}
+- {url: 'https://help.bonjoro.com/', http_status: 403, note: Cloudflare bot challenge, fetched: '2026-08-12'}

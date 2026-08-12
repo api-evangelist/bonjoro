@@ -1,0 +1,67 @@
+generated: '2026-08-12'
+method: searched
+source: https://zapier.com/apps/bonjoro/integrations
+spec_type: none
+asyncapi_published: false
+note: >-
+  Bonjoro ships no AsyncAPI document, and its REST contract contains no webhook/callback declarations.
+  It does, however, operate a real outbound event surface: the help centre carries a "Webhooks
+  Integration" article (help.bonjoro.com/en/articles/1891432-webhooks-integration — reachable in a
+  browser, HTTP 403 with a Cloudflare interactive challenge to any non-browser client, so it could not
+  be captured verbatim), and Bonjoro's first-party Zapier app publishes the event catalogue below as
+  triggers. The event names and descriptions are quoted from the Zapier app listing; payload schemas are
+  NOT published anywhere public and are therefore not asserted here.
+transport:
+  - name: webhook
+    docs: https://help.bonjoro.com/en/articles/1891432-webhooks-integration
+    docs_readable: false
+    direction: both
+    detail: >-
+      Per the help-centre article summary, a webhook can both trigger creation of a Bonjoro task and
+      fire outbound when Bonjoro events occur.
+  - name: zapier
+    docs: https://zapier.com/apps/bonjoro/integrations
+    direction: outbound
+events:
+- name: Bonjoro Created
+  description: Triggers when a Bonjoro is created by a team member or automation.
+- name: Bonjoro Sent
+  description: Triggers when a Bonjoro is sent by a team member.
+- name: Bonjoro Email Opened
+  description: Triggers when a Bonjoro email is opened.
+- name: Bonjoro Watched
+  description: Triggers when a Bonjoro is watched.
+- name: Bonjoro Call to Action Clicked
+  description: Triggers when a user clicks the Bonjoro call to action.
+- name: Bonjoro Reply
+  description: Triggers when a Bonjoro is replied to.
+- name: Bonjoro Reaction
+  description: Triggers when a user reacts to a Bonjoro.
+- name: Bonjoro Shared
+  description: Triggers when a Bonjoro is shared on social media.
+- name: Bonjoro Reassigned
+  description: Triggers when an existing Bonjoro is assigned to a different team member.
+- name: Bonjoro Dismissed
+  description: Triggers when a Bonjoro is dismissed by a team member.
+- name: Bonjoro Bounced
+  description: Triggers when a Bonjoro email bounces.
+event_count: 11
+actions:
+- name: Create Task
+  description: >-
+    Creates a Bonjoro Task; the video message is then recorded on the Bonjoro platform. Requires an
+    email address and a workspace.
+related_rest_surface:
+  note: >-
+    The REST contract exposes the same event stream for polling rather than push — GET /api/v2/events
+    (getEvents, schema `event` with id/type/source/message/occured_at), GET
+    /api/v2/greets/{greet_id}/events (getGreetEvents), and GET /api/v2/transmisions (getTransmissions,
+    schema `transmissionEvent` with event_type e.g. "sent"). An agent with API credentials can poll
+    these instead of subscribing.
+  operations: [getEvents, getGreetEvents, getTransmissions]
+payload_schemas:
+  published: false
+  note: No webhook payload schema is published; sample payloads live only inside the Zapier UI.
+x-evidence:
+- {url: 'https://zapier.com/apps/bonjoro/integrations', http_status: 200, fetched: '2026-08-12'}
+- {url: 'https://help.bonjoro.com/en/articles/1891432-webhooks-integration', http_status: 403, note: 'Cloudflare bot challenge; article exists and is indexed', fetched: '2026-08-12'}

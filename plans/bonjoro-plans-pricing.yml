@@ -1,0 +1,71 @@
+generated: '2026-08-12'
+method: searched
+source: https://www.bonjoro.com/pricing
+currency: USD
+plan_count: 5
+api_access_note: >-
+  REST API access is called out as a COMPANY-tier (enterprise) entitlement on the pricing page. The
+  self-serve tiers below it are integration/Zapier-oriented, so a developer on Free/Starter/Pro/Grrrowth
+  cannot be assumed to hold API credentials.
+plans:
+- name: Free
+  price: 0
+  currency: USD
+  billing_period: month
+  included: >-
+    Video messaging, CRM integrations, unlimited screen recording, iOS and Android apps; Bonjoro
+    branding applied to sent videos.
+  api_access: false
+- name: Starter
+  price: 15
+  price_monthly_billing: 25
+  currency: USD
+  billing_period: month
+  billing_note: $15/mo billed annually, $25/mo billed monthly
+  included: >-
+    Custom branding, CTA buttons, unlimited CRM workflows, one-to-one training, 2 message templates.
+  api_access: false
+- name: Pro
+  price: 29
+  price_monthly_billing: 39
+  currency: USD
+  billing_period: month
+  billing_note: $29/mo billed annually, $39/mo billed monthly
+  included: >-
+    Unlimited branded videos, workspaces, video scheduling, 5 message templates.
+  api_access: false
+- name: Grrrowth
+  price: 79
+  price_monthly_billing: 99
+  currency: USD
+  billing_period: month
+  billing_note: $79/mo billed annually, $99/mo billed monthly
+  included: >-
+    3 users, team analytics, team training, one-to-many videos, custom domain/CNAME.
+  api_access: false
+- name: Company
+  price: 399
+  price_qualifier: starting at
+  currency: USD
+  billing_period: month
+  included: >-
+    Unlimited videos and templates, team workspaces, 10+ users, dedicated account manager, priority
+    support, REST API access.
+  api_access: true
+  contact_sales: true
+machine_readable_pricing:
+  endpoint: https://www.bonjoro.com/api/v2/pricing
+  operation: getPricing
+  status: 500
+  note: >-
+    The API publishes an unauthenticated pricing operation (getPricing, schema `pricing` with plans and
+    feature groups), but the live endpoint answered HTTP 500
+    {"error":{"message":"Something weirdly wrong","status_code":500}} when probed on 2026-08-12, so the
+    plans above are read from the human pricing page rather than the machine-readable one.
+x-evidence:
+- url: https://www.bonjoro.com/pricing
+  http_status: 200
+  fetched: '2026-08-12'
+- url: https://www.bonjoro.com/api/v2/pricing
+  http_status: 500
+  fetched: '2026-08-12'

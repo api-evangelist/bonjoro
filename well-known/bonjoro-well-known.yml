@@ -1,0 +1,37 @@
+generated: '2026-08-12'
+method: probed
+source: live probes of every Bonjoro host
+result: none
+note: >-
+  Every /.well-known/ path probed returned 404 on the API/website host (www.bonjoro.com) and was
+  unreachable behind a Cloudflare interactive challenge on api.bonjoro.com and help.bonjoro.com. No
+  WellKnown or SecurityTxt pointer is emitted in apis.yml — a recorded absence is data, not a surface.
+  The 404 bodies are the site's standard HTML 404 page, distinguishable from the site's 200 responses.
+hosts:
+- host: https://www.bonjoro.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /security.txt, status: 404}
+- host: https://api.bonjoro.com
+  note: >-
+    Cloudflare "Just a moment..." interactive challenge on every path; /.well-known/* returned 503 from
+    the origin behind it. Nothing readable. This host is NOT the API base — the live API answers at
+    https://www.bonjoro.com/api/v2.
+  documents:
+  - {path: /.well-known/security.txt, status: 503}
+  - {path: /.well-known/openid-configuration, status: 503}
+  - {path: /.well-known/oauth-authorization-server, status: 503}
+  - {path: /.well-known/api-catalog, status: 503}
+  - {path: /.well-known/ai-plugin.json, status: 503}
+  - {path: /.well-known/agent-card.json, status: 503}
+  - {path: /.well-known/agent.json, status: 503}
+subdomains_checked:
+  resolved: [www.bonjoro.com, api.bonjoro.com, help.bonjoro.com]
+  no_dns: [developers.bonjoro.com, developer.bonjoro.com, docs.bonjoro.com, apidocs.bonjoro.com, public-api.bonjoro.com, status.bonjoro.com]

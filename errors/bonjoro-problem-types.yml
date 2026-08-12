@@ -1,0 +1,75 @@
+generated: '2026-08-12'
+method: derived
+source: openapi/_original/bonjoro-api-v2-openapi-original.json
+format: proprietary
+rfc9457: false
+note: >-
+  Bonjoro does not use RFC 9457 problem+json. Errors come back as `application/json` in a proprietary
+  envelope, and the envelope is NOT uniform: 400/403/404 nest under an `error` object with `message` and
+  `status_code`, while 401 returns a flat `{"message": "..."}`. There is no machine-readable error
+  `type` URI, no error code vocabulary, and no remediation text — a client can only branch on the HTTP
+  status. Bonjoro publishes no error reference page to enrich this from; the API V2 reference at
+  vimily.github.io/bonjoro-api-docs documents responses per operation only.
+envelopes:
+- name: error-object
+  shape: '{"error": {"message": string, "status_code": integer}}'
+  used_by: [400, 403, 404, 500]
+  schemas: [badRequest, forbidden, notFound]
+- name: flat-message
+  shape: '{"message": string}'
+  used_by: [401]
+  schemas: [unauthorized]
+problems:
+- status: 400
+  schema: badRequest
+  title: Bad Request
+  example_message: Error message
+  operation_count: 24
+  sample_operations: [putCampaign, postUserDevices, postGreet, updateManyGreets, bulkCreateGreets]
+  remediation: Validate the request body against the operation's requestBody schema before retrying.
+- status: 401
+  schema: unauthorized
+  title: Unauthorized
+  example_message: Unauthorized.
+  operation_count: 122
+  sample_operations: [authenticate, getAttributes, getAutomations, getCampaigns, getGreets]
+  remediation: >-
+    Obtain a fresh access token from POST /api/v2/oauth/2/token and send it as
+    `Authorization: Bearer <token>`. Observed live on GET /api/v2/greets with no credential.
+- status: 403
+  schema: forbidden
+  title: Forbidden
+  example_message: No access
+  operation_count: 4
+  sample_operations: [getMessageTemplate, putMessageTemplate, deleteMessageTemplate, postReply]
+  remediation: >-
+    The token is valid but the authenticated user/team does not own the resource. Not retryable.
+- status: 404
+  schema: notFound
+  title: Not Found
+  example_message: Not Found
+  operation_count: 52
+  sample_operations: [getAutomation, getCampaign, getGreets, deleteDomain, getRecording]
+  remediation: Resource UUID does not exist or is outside the caller's team scope. Not retryable.
+- status: 500
+  schema: null
+  title: Server error
+  example_message: Something went weirdly wrong
+  documented_in_spec: false
+  observed: true
+  observed_at: https://www.bonjoro.com/api/v2/pricing
+  remediation: >-
+    Undocumented in the spec but observed live. Body carries the error-object envelope AND a duplicate
+    top-level `message` key: {"error":{"message":"Something went weirdly wrong","status_code":500},
+    "message":"Something went weirdly wrong"}. Retry with backoff.
+gaps:
+- No 429 response is declared on any operation, despite x-ratelimit-* headers being served.
+- No 5xx response is declared on any operation, despite 500 being observed live.
+- No error code vocabulary — only HTTP status plus a free-text human message.
+x-evidence:
+- url: https://www.bonjoro.com/api/v2/pricing
+  http_status: 500
+  fetched: '2026-08-12'
+- url: https://www.bonjoro.com/api/v2/greets
+  http_status: 401
+  fetched: '2026-08-12'

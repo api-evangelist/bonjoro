@@ -1,0 +1,139 @@
+generated: '2026-08-12'
+method: derived
+source: openapi/_original/bonjoro-api-v2-openapi-original.json
+note: >-
+  Entity graph derived from $ref links between the 126 component schemas and from the path parameters
+  the API addresses resources by. Bonjoro publishes no object reference page, so id prefixes and domains
+  could not be enriched from docs. Identifiers are bare UUIDs (schema `idUUID`) — there is no prefixed
+  id scheme.
+identifiers:
+  style: uuid
+  prefixed: false
+  schema: idUUID
+  example: 89ca52c2-a846-49e1-8019-6783802e363d
+entities:
+- name: greet
+  description: The core object — a personal video message ("a Bonjoro") addressed to one or more profiles.
+  schemas: [greet, greetFull, greets, greetProfiles, greetResults, greetEvents]
+  path: /api/v2/greets
+  key: greet_id
+  operations: [getGreets, postGreet, putGreet, deleteGreet, bulkCreateGreets, rollupGreets, updateManyGreets,
+    delete multipleGreets, getGreetProfiles, getGreetEvents, getGreetResults, getGreetTodos, getGreetUploadUrl,
+    postGreetProfiles, sendNotification]
+- name: profile
+  description: A recipient/contact record, with demographic and custom attribute data.
+  schemas: [profile, profiles, profileDemographic, profileBulkUpdatePayload, profileAttributes]
+  path: /api/v2/profiles
+  key: profile_id
+  operations: [getProfiles, getProfile, postProfile, putProfile, patchProfile]
+- name: campaign
+  description: A grouping of greets, optionally segmented, owned by users.
+  schemas: [campaign, campaigns, campaignWithUsers, campaignsSegmented, userCampaignsSegmented]
+  path: /api/v2/campaigns
+  key: campaign_id
+  operations: [getCampaigns, getCampaign, putCampaign, deleteCampaign, getSegmentedCampaigns, getUserCampaigns]
+- name: user
+  description: A team member who records and sends greets.
+  schemas: [user, users, userWithSignature]
+  path: /api/v2/users
+  key: user_id
+  operations: [getUsers, getUser, addUser, updateUserBio, updateSelfBio, updateUserAndTeamOnboarding]
+- name: team
+  description: The account/workspace that owns users, campaigns, domains and signatures.
+  schemas: [team, teams, teamWithSignatures]
+  path: /api/v2/teams
+  key: team_id
+  operations: [getTeams, getTeam, putTeam, getTeamLinks]
+- name: recording
+  description: The uploaded video asset a greet carries.
+  schemas: [recording, recordings]
+  path: /api/v2/recordings
+  key: recording_id
+  operations: [getRecordings, getRecording, updateARecording, deleteRecordings, getUploadURL]
+- name: messageTemplate
+  description: Branding/landing-page/email template applied to a greet.
+  schemas: [messageTemplate, messageTemplates, messageTemplateMinimal, mtTheme, mtLandingPage, mtEmailTemplate,
+    mtMedia, mtCallToAction, mtStats]
+  path: /api/v2/message-templates
+  key: message_template_id
+  operations: [getMessageTemplates, getMessageTemplate, postMessageTemplates, putMessageTemplate, deleteMessageTemplate]
+- name: result
+  description: Per-recipient outcome of a greet (opens, watches, clicks, replies).
+  schemas: [result, resultStats, resultGreet, greetResult, greetProfileStats]
+  path: /api/v2/results/{greet_id}/{profile_id}
+  operations: [getResults, putResult, getResultStats]
+- name: reply
+  description: A recipient response to a greet.
+  schemas: [reply, replies]
+  path: /api/v2/replies
+  operations: [getReplies, postReply]
+- name: transmission
+  description: The delivery record for a greet, with per-hop delivery events.
+  schemas: [transmission, transmissions, transmissionEvent]
+  path: /api/v2/transmisions
+  operations: [getTransmissions]
+- name: automation
+  description: A trigger-plus-action rule that creates greets from an integrated service.
+  schemas: [automation, automations, automationNoAction, trigger, action, automationTrigger, automationAction,
+    automationAccount, automationService, editorAutomation]
+  path: /api/v2/automations
+  key: automation_id
+  operations: [getAutomations, getAutomation, putAutomation, deleteAutomation, getAutomationTriggers,
+    postAutomationTrigger, putAutomationTrigger, addAutomationAction, updateAutomationAction, getAutomationAccounts,
+    getAutomationServices]
+- name: domain
+  description: Custom sending domain (CNAME) with DNS record set and verification.
+  schemas: [domain, domains, domainWithCanonical, domain_record_set]
+  path: /api/v2/domains
+  key: domain_id
+  operations: [getDomains, postDomain, deleteDomain, putVerifyDomain, getDomain]
+- name: signature
+  description: Verified sender email signature/identity.
+  schemas: [signature, signatures]
+  path: /api/v2/signatures
+  key: signature_id
+  operations: [getSignatures, postSignature, deleteSignature, verifySignature, getSignatureAvalability]
+- name: event
+  description: Account-level activity event stream.
+  schemas: [event, events]
+  path: /api/v2/events
+  operations: [getEvents, getGreetEvents]
+- name: media
+  description: Uploaded and stock media assets.
+  schemas: [media, allMedia, stockMedia]
+  path: /api/v2/media
+  key: media_id
+  operations: [getAllMedia, postMedia, deleteMedia, getStockMedia]
+relationships:
+- {from: greet, to: user, kind: belongs_to, via: user}
+- {from: greet, to: event, kind: has_many, via: events}
+- {from: greetFull, to: greet, kind: has_one, via: $ref}
+- {from: greetFull, to: profile, kind: has_many, via: profiles}
+- {from: greetFull, to: messageTemplate, kind: has_one, via: message_template}
+- {from: greetFull, to: profileDemographic, kind: has_one, via: demographic}
+- {from: campaign, to: user, kind: has_many, via: users}
+- {from: recording, to: user, kind: belongs_to, via: user}
+- {from: recording, to: messageTemplate, kind: has_one, via: message_template}
+- {from: messageTemplate, to: user, kind: belongs_to, via: user}
+- {from: messageTemplate, to: mtTheme, kind: has_one, via: theme}
+- {from: messageTemplate, to: mtLandingPage, kind: has_one, via: landing_page}
+- {from: messageTemplate, to: mtEmailTemplate, kind: has_one, via: email_template}
+- {from: messageTemplate, to: mtStats, kind: has_one, via: stats}
+- {from: result, to: resultGreet, kind: belongs_to, via: greet}
+- {from: result, to: reply, kind: has_many, via: replies}
+- {from: result, to: user, kind: belongs_to, via: user}
+- {from: result, to: greetProfileStats, kind: has_one, via: stats}
+- {from: transmission, to: user, kind: belongs_to, via: user}
+- {from: transmission, to: signature, kind: has_one, via: signature}
+- {from: transmission, to: transmissionEvent, kind: has_many, via: events}
+- {from: automation, to: trigger, kind: has_one, via: trigger}
+- {from: automation, to: action, kind: has_one, via: action}
+- {from: automationTrigger, to: automationAccount, kind: belongs_to, via: account_id}
+- {from: automationService, to: automationServiceDefaultTrigger, kind: has_one, via: default_trigger}
+- {from: domain, to: domain_record_set, kind: has_many, via: records}
+- {from: team, to: signature, kind: has_many, via: signatures}
+- {from: greet, to: profile, kind: has_many, via: 'path /api/v2/greets/{greet_id}/profiles'}
+counts:
+  schemas: 126
+  entities: 15
+  relationships: 27

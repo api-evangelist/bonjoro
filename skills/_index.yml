@@ -1,0 +1,23 @@
+generated: '2026-08-12'
+method: generated
+source: openapi/_original/bonjoro-api-v2-openapi-original.json
+note: >-
+  Bonjoro publishes no AGENTS.md, skill files, or agent documentation — searched before generating.
+  Every operationId referenced in these skills was grepped against the published API V2 contract.
+skills:
+- file: bonjoro-send-personal-video.md
+  name: Send a personal Bonjoro video to a new customer
+  api: openapi/bonjoro-api-v2-openapi.yml
+  operations: [authenticate, postProfile, postGreet, getGreetUploadUrl, sendNotification, bulkCreateGreets,
+    putGreet, getUploadURL]
+- file: bonjoro-track-video-engagement.md
+  name: Track engagement on sent Bonjoro videos
+  api: openapi/bonjoro-api-v2-openapi.yml
+  operations: [getGreetResults, getGreetResultsStats, getResults, getResultStats, getGreetEvents, getEvents,
+    getTransmissions, getReplies]
+- file: bonjoro-automate-greet-creation.md
+  name: Automate Bonjoro greet creation from a connected service
+  api: openapi/bonjoro-api-v2-openapi.yml
+  operations: [getAutomationServices, getAutomationAccounts, testAutomationAccount, getAutomationTriggers,
+    postAutomationTrigger, putAutomationTrigger, addAutomationAction, updateAutomationAction, getAutomations,
+    getAutomation, putAutomation, deleteAutomation]

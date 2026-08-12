@@ -1,0 +1,42 @@
+generated: '2026-08-12'
+method: derived
+status: candidate
+source: openapi/_original/bonjoro-api-v2-openapi-original.json
+server: null
+note: >-
+  Bonjoro operates NO MCP server. Searched: the docs host (vimily.github.io/bonjoro-api-docs), the
+  website, npm (`@modelcontextprotocol` and `bonjoro` queries), and the public MCP registries — nothing.
+  No `mcp.bonjoro.com` or equivalent host resolves. The tools below are a DERIVED CANDIDATE set, mapped
+  one-to-one onto real operationIds in the published contract, offered as a design starting point.
+  Because no server exists, this artifact deliberately carries NO `MCPServer` pointer in apis.yml — the
+  pointer would assert an agent surface Bonjoro does not serve. No tool-crosswalk artifact is emitted
+  either: there is no MCP tool list and no GraphQL surface to cross against the REST operations.
+searched:
+- {target: 'https://vimily.github.io/bonjoro-api-docs/', result: no MCP reference}
+- {target: 'npm search bonjoro', result: no MCP server package}
+- {target: 'dns mcp.bonjoro.com', result: NXDOMAIN}
+transport_suggested: http
+candidate_tools:
+- {name: create_greet, description: Create a personal video task for one or more recipients, source_operation: 'openapi/bonjoro-api-v2-openapi.yml#postGreet', consequence: write}
+- {name: bulk_create_greets, description: Create video tasks for a list of recipients (max 200 lines), source_operation: 'openapi/bonjoro-api-v2-openapi.yml#bulkCreateGreets', consequence: write}
+- {name: list_greets, description: List video tasks, source_operation: 'openapi/bonjoro-api-v2-openapi.yml#getGreets', consequence: read}
+- {name: list_greet_todos, description: List outstanding video tasks in the queue, source_operation: 'openapi/bonjoro-api-v2-openapi.yml#getGreetTodos', consequence: read}
+- {name: send_greet, description: Mark a greet complete and deliver it, source_operation: 'openapi/bonjoro-api-v2-openapi.yml#sendNotification', consequence: write}
+- {name: reassign_greet, description: Change the assignee of a greet, source_operation: 'openapi/bonjoro-api-v2-openapi.yml#putGreet', consequence: write}
+- {name: create_profile, description: Create a recipient profile, source_operation: 'openapi/bonjoro-api-v2-openapi.yml#postProfile', consequence: write}
+- {name: search_profiles, description: List/search recipient profiles, source_operation: 'openapi/bonjoro-api-v2-openapi.yml#getProfiles', consequence: read}
+- {name: list_campaigns, description: List campaigns/workspaces, source_operation: 'openapi/bonjoro-api-v2-openapi.yml#getCampaigns', consequence: read}
+- {name: get_greet_results, description: Paginated per-recipient engagement results, source_operation: 'openapi/bonjoro-api-v2-openapi.yml#getGreetResults', consequence: read}
+- {name: get_greet_result_stats, description: Aggregate engagement counters, source_operation: 'openapi/bonjoro-api-v2-openapi.yml#getGreetResultsStats', consequence: read}
+- {name: list_events, description: Account-wide activity event feed, source_operation: 'openapi/bonjoro-api-v2-openapi.yml#getEvents', consequence: read}
+- {name: list_transmissions, description: Delivery records and per-hop delivery events, source_operation: 'openapi/bonjoro-api-v2-openapi.yml#getTransmissions', consequence: read}
+- {name: list_replies, description: Inbound recipient replies, source_operation: 'openapi/bonjoro-api-v2-openapi.yml#getReplies', consequence: read}
+- {name: list_message_templates, description: List branding/message templates, source_operation: 'openapi/bonjoro-api-v2-openapi.yml#getMessageTemplates', consequence: read}
+- {name: list_automations, description: List trigger/action automation rules, source_operation: 'openapi/bonjoro-api-v2-openapi.yml#getAutomations', consequence: read}
+- {name: list_team_stats, description: Team-level sending statistics, source_operation: 'openapi/bonjoro-api-v2-openapi.yml#getTeamStam', consequence: read}
+candidate_tool_count: 17
+rest_operations_total: 123
+caveats:
+- No idempotency contract — write tools must not be auto-retried.
+- No securitySchemes in the spec; a generated MCP server must hand-wire the Bearer token.
+- REST API access is a Company-tier entitlement, so any hosted server would fail for most accounts.

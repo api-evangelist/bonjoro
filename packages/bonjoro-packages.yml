@@ -1,0 +1,60 @@
+generated: '2026-08-12'
+method: searched
+source: npm registry, PyPI, RubyGems, Packagist, crates.io, pkg.go.dev, GitHub search
+official_package_count: 0
+package_count: 2
+note: >-
+  Bonjoro publishes NO first-party client library in any public registry. npm, PyPI, RubyGems,
+  Packagist, crates.io and pkg.go.dev were searched; there is no `bonjoro` organisation on npm, no
+  `bonjoro` project on PyPI (404), and no `bonjoro` GitHub organisation (api.github.com/orgs/bonjoro
+  returns 404). Every `bonjoro`-named package in npm is a third-party integration connector authored by
+  an automation platform (Activepieces and its forks, TaskMagic, Autohive), not a Bonjoro SDK. Because
+  there is no official SDK, NO `SDKs` pointer is emitted in apis.yml — the sdk_count checks would
+  otherwise be credited to a provider that ships nothing.
+registries_checked:
+- {registry: npm, query: bonjoro, official_hits: 0}
+- {registry: pypi, query: bonjoro, status: 404}
+- {registry: rubygems, query: bonjoro, official_hits: 0}
+- {registry: packagist, query: bonjoro, official_hits: 0}
+- {registry: crates.io, query: bonjoro, official_hits: 0}
+- {registry: pkg.go.dev, query: bonjoro, official_hits: 0}
+- {registry: github, query: 'org:bonjoro', status: 404}
+packages:
+- language: typescript
+  registry: npm
+  name: '@activepieces/piece-bonjoro'
+  url: https://www.npmjs.com/package/@activepieces/piece-bonjoro
+  install: npm install @activepieces/piece-bonjoro
+  official: false
+  version: 0.1.7
+  published: '2026-08-04'
+  note: >-
+    Activepieces community connector. Its source is the most useful public artefact about the Bonjoro
+    API surface — it hard-codes the base URL https://www.bonjoro.com/api/v2, Bearer authMapping, and
+    cites the API reference at https://vimily.github.io/bonjoro-api-docs/ and the key screen at
+    https://www.bonjoro.com/settings/api. Third-party, not maintained by Bonjoro.
+- language: typescript
+  registry: npm
+  name: '@taskmagic/apps-bonjoro'
+  url: https://www.npmjs.com/package/@taskmagic/apps-bonjoro
+  install: npm install @taskmagic/apps-bonjoro
+  official: false
+  version: 0.0.5
+  published: '2026-06-26'
+  note: Activepieces fork, third-party.
+integration_surface:
+  note: >-
+    Bonjoro's distribution model is native connectors plus Zapier rather than SDKs — 18+ direct
+    integrations (HubSpot, Pipedrive, Keap, Mailchimp, MailerLite, AWeber, Drip, ActiveCampaign,
+    Intercom, Shopify, Thinkific, Kit, Patreon, GoHighLevel) listed at
+    https://www.bonjoro.com/integration.
+x-evidence:
+- url: https://registry.npmjs.org/-/v1/search?text=bonjoro
+  http_status: 200
+  fetched: '2026-08-12'
+- url: https://pypi.org/pypi/bonjoro/json
+  http_status: 404
+  fetched: '2026-08-12'
+- url: https://api.github.com/orgs/bonjoro
+  http_status: 404
+  fetched: '2026-08-12'

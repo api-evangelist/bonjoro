@@ -1,0 +1,76 @@
+generated: '2026-08-12'
+method: derived
+source: openapi/_original/bonjoro-api-v2-openapi-original.json
+note: >-
+  Derived from the published contract plus live probes. Bonjoro publishes no compliance programme, trust
+  centre, or certification page (probe-security-programs.py found none), so NO `Compliance` pointer is
+  emitted — only the standards actually evidenced below.
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: openapi 3.0.0 document, 94 paths / 123 operations / 126 component schemas, every operation
+    carries a unique-ish operationId and a summary
+- id: oauth2
+  conforms: partial
+  evidence: >-
+    POST /api/v2/oauth/2/token issues Bearer tokens with refresh_token, and authenticationPayload
+    declares the password, client_credentials and authorization_code grants — but
+    components.securitySchemes is absent entirely, so the `OAuth` scheme referenced by 116 operations is
+    an unresolved reference. Machine clients cannot resolve the auth model from the spec alone.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration 404 on www.bonjoro.com
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server 404 on www.bonjoro.com
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: errors use application/json with a proprietary {error:{message,status_code}} envelope, and
+    401 uses a different flat {message} shape
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt 404
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: no deprecation policy, no Sunset/Deprecation headers, no deprecated operations
+- id: rfc8615-well-known-uris
+  conforms: false
+  evidence: no /.well-known/ document served on any host
+- id: pagination
+  conforms: true
+  evidence: components.schemas.pagination — Laravel page-number envelope (current_page, per_page,
+    next_page_url, last_page)
+- id: idempotency
+  conforms: false
+  evidence: no Idempotency-Key header or parameter on any of the 123 operations, including bulk creates
+- id: rate-limit-headers
+  conforms: partial
+  evidence: 'x-ratelimit-limit and x-ratelimit-remaining observed live; the IETF RateLimit-* draft names
+    are not used and no reset/retry-after signal was observed'
+- id: json-api
+  conforms: false
+  evidence: no JSON:API media type or document structure
+- id: asyncapi
+  conforms: false
+  evidence: no AsyncAPI document published; the event surface is documented only through Zapier triggers
+    and a help-centre webhook article
+- id: cors
+  conforms: true
+  evidence: 'access-control-allow-origin: * observed on live API responses'
+- id: gdpr
+  conforms: unknown
+  evidence: privacy policy published at https://www.bonjoro.com/privacy-policy; no named certification
+    or DPA programme found on the public surface
+contract_defects:
+- operationId `getAttributes` is used twice (Profile Attributes and Task List), and `getEditorServices`
+  is used twice (Editor Automation Services and Editor Automation Triggers) — operationIds are not
+  unique, which breaks code generation.
+- operationId "delete multipleGreets" contains a space and is not a valid identifier for generators.
+- components.securitySchemes is missing while 116 operations reference a scheme named `OAuth`.
+- pagination.prev_page_url is typed integer while next_page_url is typed string.
+- path /api/v2/transmisions is misspelled in the published contract (transmissions).
+- no 429 or 5xx responses declared anywhere, though both are reachable in production.
+x-evidence:
+- {url: 'https://vimily.github.io/bonjoro-api-docs/', http_status: 200, fetched: '2026-08-12'}
+- {url: 'https://www.bonjoro.com/.well-known/openid-configuration', http_status: 404, fetched: '2026-08-12'}
+- {url: 'https://www.bonjoro.com/api/v2/industries', http_status: 200, fetched: '2026-08-12'}

@@ -1,0 +1,98 @@
+generated: '2026-08-12'
+method: derived
+source: openapi/_original/bonjoro-api-v2-openapi-original.json
+probes:
+- https://www.bonjoro.com/api/v2/industries
+- https://www.bonjoro.com/api/v2/greets
+api: Bonjoro API V2
+base_url: https://www.bonjoro.com/api/v2
+authentication:
+  style: oauth2-bearer
+  header: 'Authorization: Bearer <access_token>'
+  token_endpoint: /api/v2/oauth/2/token
+  grants: [password, client_credentials, authorization_code]
+  detail: authentication/bonjoro-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    No Idempotency-Key header, no idempotency parameter, and no idempotency language anywhere in the 123
+    published operations. POST /api/v2/greets and POST /api/v2/greets/create (bulk) are both
+    non-idempotent by contract. NO `Idempotency` pointer is emitted in apis.yml — the provider has no
+    idempotency contract to point at. This is a real gap for agent use: a retried bulk greet creation
+    will duplicate work.
+pagination:
+  style: page-number
+  implementation: Laravel paginator envelope
+  request_params:
+  - name: limit
+    in: query
+    note: present on 6 collection operations (per-page size)
+  - name: sort
+    in: query
+  - name: search
+    in: query
+  response_fields:
+  - current_page
+  - first_page_url
+  - last_page_url
+  - last_page
+  - next_page_url
+  - prev_page_url
+  - per_page
+  - from
+  - path
+  schema: components.schemas.pagination
+  note: >-
+    `per_page` example is 15. `prev_page_url` is typed `integer` in the published schema while
+    `next_page_url` is typed `string` — a contract defect a generated client will trip over.
+field_expansion:
+  supported: partial
+  params:
+  - name: includes
+    in: query
+    note: present on 3 operations; comma-style relation loading (Laravel eager-load convention)
+  - name: simple
+    in: query
+    note: present on 3 operations; returns a reduced representation
+metadata:
+  supported: false
+  note: no free-form metadata object on any resource schema
+request_tracing:
+  request_id_header: null
+  note: no request-id or correlation header documented, and none observed on live responses
+versioning:
+  scheme: uri-path
+  current: v2
+  path_prefix: /api/v2
+  detail: lifecycle/bonjoro-lifecycle.yml
+error_envelope:
+  shape: '{"error": {"message": string, "status_code": integer}}'
+  exception: >-
+    401 uses a different, flatter shape — {"message": "Unauthorized."} (schema `unauthorized`) — so a
+    client cannot parse all errors with one shape.
+  problem_json: false
+  rfc9457: false
+  detail: errors/bonjoro-problem-types.yml
+rate_limit_signaling:
+  headers: [x-ratelimit-limit, x-ratelimit-remaining]
+  observed: true
+  documented: false
+  detail: rate-limits/bonjoro-rate-limits.yml
+content_type:
+  request: application/json
+  response: application/json
+cors:
+  access_control_allow_origin: '*'
+  observed: true
+identifiers:
+  style: uuid
+  schema: components.schemas.idUUID
+  note: resources are addressed by UUID (greet_id, profile_id, campaign_id, automation_id, team_id)
+timestamps:
+  schema: components.schemas.timestamps
+  format: 'Y-m-d H:i:s (e.g. 2021-01-19 23:45:45) — not RFC 3339'
+security_headers_observed:
+- x-frame-options
+- x-content-type-options
+- x-xss-protection

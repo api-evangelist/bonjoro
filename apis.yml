@@ -1,18 +1,77 @@
 aid: bonjoro
 name: Bonjoro
-description: 'Bonjoro is a company surfaced via the API Evangelist harvest backlog (source: marketing-integration-graph)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Bonjoro is a personal-video customer engagement platform operated by Vimily Pty Ltd of Sydney,
+  Australia. Sales, marketing, customer success and education teams use it to record short one-to-one
+  videos — "Bonjoros" — and deliver them at the moments that decide a relationship: signup, onboarding,
+  first purchase, renewal and churn risk. Alongside the messaging product it runs a video testimonial
+  collection surface. Bonjoro publishes a REST API (API V2, 94 paths and 123 operations) covering
+  greets, recipient profiles, campaigns and workspaces, recordings and media, message templates,
+  engagement results and stats, transmissions and deliverability, replies, teams and users, custom
+  sending domains and verified signatures, and the trigger/action automation engine that wires Bonjoro
+  into CRMs and email platforms. REST API access is published as a Company-tier entitlement; the wider
+  integration surface runs through 18+ native connectors and a first-party Zapier app.
+image: https://www.bonjoro.com/apple-touch-icon-180x180.png
 url: https://raw.githubusercontent.com/api-evangelist/bonjoro/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:marketing-integration-graph
-x-tier: stub
-x-tier-reason: harvest
-specificationVersion: '0.20'
+x-tier: enriched
+x-tier-reason: enrichment-pipeline
+specificationVersion: '0.21'
 created: '2026-08-12'
 modified: '2026-08-12'
 tags:
-- Company
-apis: []
+- video-messaging
+- customer-engagement
+- customer-success
+- sales-engagement
+- marketing-automation
+- video
+- crm-integration
+- testimonials
+- saas
+- australia
+apis:
+- name: Bonjoro API V2
+  description: >-
+    REST API for the Bonjoro personal-video platform. Create and assign greets (video tasks) for one or
+    many recipients, manage recipient profiles and campaigns/workspaces, upload recordings to presigned
+    S3 URLs, apply message templates and branding, read engagement results, event streams and
+    transmission/deliverability records, manage teams, users, invites, custom sending domains and
+    verified email signatures, and build trigger/action automations against connected CRM and email
+    services. OAuth 2.0 bearer tokens issued from /api/v2/oauth/2/token.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - video-messaging
+  - customer-engagement
+  - customer-success
+  - sales-engagement
+  - marketing-automation
+  - crm-integration
+  properties:
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: OpenAPI
+    url: openapi/bonjoro-api-v2-openapi.yml
+  - type: Overlay
+    url: overlays/bonjoro-api-v2-overlay.yaml
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -21,7 +80,78 @@ maintainers:
 common:
 - type: Website
   url: https://bonjoro.com/
+- type: Documentation
+  url: https://vimily.github.io/bonjoro-api-docs/
+- type: APIReference
+  url: https://vimily.github.io/bonjoro-api-docs/
+- type: Support
+  url: https://www.bonjoro.com/support-center
+- type: HelpCenter
+  url: https://help.bonjoro.com/
+- type: Blog
+  url: https://www.bonjoro.com/blog
+- type: Pricing
+  url: https://www.bonjoro.com/pricing
+- type: SignUp
+  url: https://www.bonjoro.com/auth/register
+- type: Login
+  url: https://www.bonjoro.com/auth/login
+- type: TermsOfService
+  url: https://www.bonjoro.com/terms-and-conditions
+- type: PrivacyPolicy
+  url: https://www.bonjoro.com/privacy-policy
+- type: Integrations
+  url: https://www.bonjoro.com/integration
+- type: Plans
+  url: plans/bonjoro-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/bonjoro-rate-limits.yml
+- type: Authentication
+  url: authentication/bonjoro-authentication.yml
+- type: Conventions
+  url: conventions/bonjoro-conventions.yml
+- type: ErrorCatalog
+  url: errors/bonjoro-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/bonjoro-lifecycle.yml
+- type: DataModel
+  url: data-model/bonjoro-data-model.yml
+- type: Conformance
+  url: conformance/bonjoro-conformance.yml
+- type: Packages
+  url: packages/bonjoro-packages.yml
+- type: Webhooks
+  url: asyncapi/bonjoro-webhooks.yml
+- type: LLMsTxt
+  url: llms/bonjoro-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DomainSecurity
+  url: security/bonjoro-domain-security.yml
 x-vouched-by:
 - Drip
 - MailerLite
 x-vouch-count: 2
+x-enrichment:
+  date: '2026-08-12'
+  status: enriched
+  artifacts_added: 21
+  pass: local-v1
+x-enrichment-notes:
+  contract_discovery: >-
+    The API host api.bonjoro.com is a Cloudflare-challenged dead end (403 "Just a moment..." on every
+    path) and no developers/docs/status subdomain resolves. The real machine-readable contract was
+    found on the third pass: Bonjoro's own API reference is a Redoc standalone bundle at
+    https://vimily.github.io/bonjoro-api-docs/ (Vimily Pty Ltd is Bonjoro's operating company), with a
+    complete OpenAPI 3.0.0 document — 94 paths, 123 operations, 126 schemas, 42 tags — embedded in the
+    page's __redoc_state. It is saved verbatim in openapi/_original/.
+  pointers_deliberately_withheld: >-
+    No WellKnown or SecurityTxt (every /.well-known/ path 404s), no AgentCard (probed, absent), no
+    MCPServer (no server exists — mcp/ holds a derived candidate only), no ToolCrosswalk (no MCP or
+    GraphQL surface), no SDKs (no first-party client library in any registry), no Idempotency (no
+    idempotency contract anywhere in 123 operations), no StatusPage (status.bonjoro.com has no DNS; the
+    statuspage.io and instatus.com hosts are vendor catch-alls), no Deprecation (no policy, no Sunset
+    header, no deprecated operation), no ChangeLog (/changelog redirects to the product login), no
+    Security or Compliance (no disclosure policy, bug bounty, trust centre or named certification),
+    no AsyncAPI (webhooks documented, no spec), no OAuthScopes (every requirement is an empty scope
+    array).

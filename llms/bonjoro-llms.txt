@@ -1,0 +1,74 @@
+# Bonjoro
+
+> Bonjoro is a personal-video customer engagement platform (a wholly owned brand of Vimily Pty Ltd,
+> Sydney, Australia). Teams record short one-to-one videos — "Bonjoros" — and send them to customers at
+> moments that matter: signup, onboarding, purchase, renewal, churn risk. The product also runs a video
+> testimonial collection surface. Bonjoro publishes a REST API (API V2, 123 operations) covering
+> greets, recipient profiles, campaigns/workspaces, recordings and media, message templates, results
+> and engagement stats, transmissions/deliverability, replies, teams and users, custom sending domains
+> and signatures, and the trigger/action automation engine that connects Bonjoro to CRMs and email
+> platforms.
+
+generated: 2026-08-12
+method: generated
+source: apis.yml + repo artifacts (no /llms.txt is published by Bonjoro — www.bonjoro.com/llms.txt 404)
+
+## APIs
+
+- [Bonjoro API V2](https://vimily.github.io/bonjoro-api-docs/): REST API, base URL
+  https://www.bonjoro.com/api/v2. OAuth 2.0 bearer tokens from POST /api/v2/oauth/2/token. REST API
+  access is a Company-tier entitlement.
+
+## Specs
+
+- [OpenAPI 3.0.0 — Bonjoro API V2](openapi/bonjoro-api-v2-openapi.yml): 94 paths, 123 operations, 126
+  component schemas, 42 tags.
+- [OpenAPI original (verbatim, as published)](openapi/_original/bonjoro-api-v2-openapi-original.json)
+- [API Evangelist overlay](overlays/bonjoro-api-v2-overlay.yaml): resolves the dangling `OAuth`
+  security-scheme reference and annotates agent-safety notes.
+
+## Artifacts
+
+- [Authentication profile](authentication/bonjoro-authentication.yml)
+- [API conventions](conventions/bonjoro-conventions.yml): pagination, error envelope, versioning, no
+  idempotency
+- [Error catalogue](errors/bonjoro-problem-types.yml)
+- [Data model](data-model/bonjoro-data-model.yml): 15 entities, 27 relationships
+- [Lifecycle](lifecycle/bonjoro-lifecycle.yml): versioning, deprecation, status, changelog
+- [Rate limits](rate-limits/bonjoro-rate-limits.yml): x-ratelimit-limit 600 (observed, undocumented)
+- [Plans and pricing](plans/bonjoro-plans-pricing.yml)
+- [Webhook / event surface](asyncapi/bonjoro-webhooks.yml): 11 events, no AsyncAPI
+- [Conformance](conformance/bonjoro-conformance.yml)
+- [Packages](packages/bonjoro-packages.yml): no first-party SDK in any registry
+- [Well-known probe](well-known/bonjoro-well-known.yml): nothing served
+- [Domain security](security/bonjoro-domain-security.yml)
+- [MCP candidate tools](mcp/bonjoro-mcp.yml): derived, no server operated by Bonjoro
+
+## Agent Skills
+
+- [Send a personal Bonjoro video](skills/bonjoro-send-personal-video.md)
+- [Track engagement on sent videos](skills/bonjoro-track-video-engagement.md)
+- [Automate greet creation from a connected service](skills/bonjoro-automate-greet-creation.md)
+
+## Docs
+
+- [Website](https://www.bonjoro.com/)
+- [API reference](https://vimily.github.io/bonjoro-api-docs/)
+- [API key settings](https://www.bonjoro.com/settings/api)
+- [Help centre](https://help.bonjoro.com/) — browser only; answers 403 to non-browser clients
+- [Integrations](https://www.bonjoro.com/integration)
+- [Zapier app](https://zapier.com/apps/bonjoro/integrations) — 11 triggers, 1 action
+- [Pricing](https://www.bonjoro.com/pricing)
+- [Blog](https://www.bonjoro.com/blog)
+- [Terms](https://www.bonjoro.com/terms-and-conditions)
+- [Privacy](https://www.bonjoro.com/privacy-policy)
+
+## Notes for agents
+
+- Use https://www.bonjoro.com/api/v2 — NOT api.bonjoro.com, which sits behind a Cloudflare interactive
+  challenge and is not the API host.
+- The published spec declares no `components.securitySchemes`; wire `Authorization: Bearer <token>`
+  manually or apply the overlay.
+- There is no idempotency key anywhere in the contract. Never blind-retry a create — reconcile first.
+- Errors are not RFC 9457, and 401 uses a different envelope shape from 400/403/404.
+- Bonjoro serves no /.well-known/ documents, no agent card, no MCP server, and no status page.
