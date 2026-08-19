@@ -1,0 +1,2679 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bonjoro API V2",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Authenticate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/oauth/2/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticate"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Profile Attributes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the profile information related to the specified greet_id and profile_id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/attributes",
+            "params": [
+              {
+                "name": "profile_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "greet_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get the profile information related to the specified greet_id and profile_id"
+        },
+        {
+          "info": {
+            "name": "Get all profile attribute types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/attribute-types"
+          },
+          "docs": "Get all profile attribute types"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Automations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated automations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/automations"
+          },
+          "docs": "Get paginated automations"
+        },
+        {
+          "info": {
+            "name": "Update an automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/automations/:automation_id",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update an automation"
+        },
+        {
+          "info": {
+            "name": "Update the name or enabled status of an automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.bonjoro.com/api/v2/automations/:automation_id",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the name or enabled status of an automation"
+        },
+        {
+          "info": {
+            "name": "Delete an automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.bonjoro.com/api/v2/automations/:automation_id",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an automation"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Campaigns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/campaigns",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get paginated campaigns"
+        },
+        {
+          "info": {
+            "name": "Get segmented campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/campaigns/segmented"
+          },
+          "docs": "Get segmented campaigns"
+        },
+        {
+          "info": {
+            "name": "Get a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/campaigns/:campaign_id",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a campaign"
+        },
+        {
+          "info": {
+            "name": "Update a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.bonjoro.com/api/v2/campaigns/:campaign_id",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a campaign"
+        },
+        {
+          "info": {
+            "name": "Delete a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.bonjoro.com/api/v2/campaigns/:campaign_id",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a campaign"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Checklist",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated checklists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/checklist"
+          },
+          "docs": "Get paginated checklists"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Devices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add user devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/users/me/devices",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add user devices"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Domains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns the availability of the specified domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/domain-availabilities/:domain_name",
+            "params": [
+              {
+                "name": "domain_name",
+                "value": "bonjoro.com",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the availability of the specified domain"
+        },
+        {
+          "info": {
+            "name": "Returns paginated domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/domains"
+          },
+          "docs": "Returns paginated domains"
+        },
+        {
+          "info": {
+            "name": "Add a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/domains",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a domain"
+        },
+        {
+          "info": {
+            "name": "Delete a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.bonjoro.com/api/v2/domains/:domain_id",
+            "params": [
+              {
+                "name": "domain_id",
+                "value": "10",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a domain"
+        },
+        {
+          "info": {
+            "name": "Verify a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.bonjoro.com/api/v2/domains/:domain_id/verify",
+            "params": [
+              {
+                "name": "domain_id",
+                "value": "10",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Verify a domain"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/events"
+          },
+          "docs": "Get paginated events"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Feedback",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add a feedback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/feedback",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a feedback"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Greets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated greets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/greets",
+            "params": [
+              {
+                "name": "profile_id",
+                "value": "7b9d182a-a687-472b-8212-2c817a7ae088",
+                "type": "query"
+              },
+              {
+                "name": "assignee_id",
+                "value": "7b9d182a-a687-472b-8212-2c817a7ae088",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "open",
+                "type": "query"
+              },
+              {
+                "name": "simple",
+                "value": "true",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search for profiles where email, firstname and lastname matches the search term"
+              },
+              {
+                "name": "sort",
+                "value": "created_at",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get paginated greets"
+        },
+        {
+          "info": {
+            "name": "Add a greet",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/greets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a greet"
+        },
+        {
+          "info": {
+            "name": "Updates assignee_id and/or campaign_id of the specified greets",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://www.bonjoro.com/api/v2/greets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates assignee_id and/or campaign_id of the specified greets"
+        },
+        {
+          "info": {
+            "name": "Delete multiple greets",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.bonjoro.com/api/v2/greets",
+            "params": [
+              {
+                "name": "greets[]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete multiple greets"
+        },
+        {
+          "info": {
+            "name": "Update the assignee for a greet",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.bonjoro.com/api/v2/greets/:greet_id",
+            "params": [
+              {
+                "name": "greet_id",
+                "value": "7b9d182a-a687-472b-8212-2c817a7ae088",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the assignee for a greet"
+        },
+        {
+          "info": {
+            "name": "Delete a greet",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.bonjoro.com/api/v2/greets/:greet_id",
+            "params": [
+              {
+                "name": "greet_id",
+                "value": "7b9d182a-a687-472b-8212-2c817a7ae088",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a greet"
+        },
+        {
+          "info": {
+            "name": "Create greets in bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/greets/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create greets in bulk"
+        },
+        {
+          "info": {
+            "name": "Mark greet as complete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/greets/:greet_id/notifications",
+            "params": [
+              {
+                "name": "greet_id",
+                "value": "e885c1ff-0d2e-4b45-a4bb-ea8b09a30a19",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Mark greet as complete"
+        },
+        {
+          "info": {
+            "name": "Rollup and delete greets",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/greets/rollup",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rollup and delete greets"
+        },
+        {
+          "info": {
+            "name": "Update a greet profile and event message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/greets/:greet_id/:profile_id/update",
+            "params": [
+              {
+                "name": "greet_id",
+                "value": "7b9d182a-a687-472b-8212-2c817a7ae088",
+                "type": "path"
+              },
+              {
+                "name": "profile_id",
+                "value": "7b9d182a-a687-472b-8212-2c817a7ae088",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a greet profile and event message"
+        },
+        {
+          "info": {
+            "name": "Delete a greet profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.bonjoro.com/api/v2/greets/:greet_id/:profile_id",
+            "params": [
+              {
+                "name": "greet_id",
+                "value": "7b9d182a-a687-472b-8212-2c817a7ae088",
+                "type": "path"
+              },
+              {
+                "name": "profile_id",
+                "value": "7b9d182a-a687-472b-8212-2c817a7ae088",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a greet profile"
+        },
+        {
+          "info": {
+            "name": "Get paginated greet events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/greets/:greet_id/events",
+            "params": [
+              {
+                "name": "greet_id",
+                "value": "e885c1ff-0d2e-4b45-a4bb-ea8b09a30a19",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get paginated greet events"
+        },
+        {
+          "info": {
+            "name": "Get paginated greet profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/greets/:greet_id/profiles",
+            "params": [
+              {
+                "name": "greet_id",
+                "value": "e885c1ff-0d2e-4b45-a4bb-ea8b09a30a19",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get paginated greet profiles"
+        },
+        {
+          "info": {
+            "name": "Get paginated greet results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/greets/results",
+            "params": [
+              {
+                "name": "sort",
+                "value": "created_at",
+                "type": "query"
+              },
+              {
+                "name": "assignee_id",
+                "value": "7b9d182a-a687-472b-8212-2c817a7ae088",
+                "type": "query"
+              },
+              {
+                "name": "profile_id",
+                "value": "7b9d182a-a687-472b-8212-2c817a7ae088",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query"
+              },
+              {
+                "name": "simple",
+                "value": "true",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get paginated greet results"
+        },
+        {
+          "info": {
+            "name": "Get paginated lightweight greet results stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/greets/results/stats",
+            "params": [
+              {
+                "name": "sort",
+                "value": "created_at",
+                "type": "query"
+              },
+              {
+                "name": "assignee_id",
+                "value": "7b9d182a-a687-472b-8212-2c817a7ae088",
+                "type": "query"
+              },
+              {
+                "name": "profile_id",
+                "value": "7b9d182a-a687-472b-8212-2c817a7ae088",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query"
+              },
+              {
+                "name": "simple",
+                "value": "true",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get paginated lightweight greet results stats"
+        },
+        {
+          "info": {
+            "name": "Get paginated greet todos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/greets/todo",
+            "params": [
+              {
+                "name": "profile_id",
+                "value": "7b9d182a-a687-472b-8212-2c817a7ae088",
+                "type": "query"
+              },
+              {
+                "name": "assignee_id",
+                "value": "7b9d182a-a687-472b-8212-2c817a7ae088",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search for profiles where email, firstname and lastname matches the search term"
+              }
+            ]
+          },
+          "docs": "Get paginated greet todos"
+        },
+        {
+          "info": {
+            "name": "Get S3 upload url for a greet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/greets/:greet_id/upload-url",
+            "params": [
+              {
+                "name": "greet_id",
+                "value": "e885c1ff-0d2e-4b45-a4bb-ea8b09a30a19",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get S3 upload url for a greet"
+        },
+        {
+          "info": {
+            "name": "Update greet metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/greets/:greet_id/uploads",
+            "params": [
+              {
+                "name": "greet_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "thumbnail",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "video",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "message_template_id",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Update greet metadata"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Industries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get valid industries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/industries"
+          },
+          "docs": "Get valid industries"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/integrations"
+          },
+          "docs": "Get paginated integrations"
+        },
+        {
+          "info": {
+            "name": "Get an integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/integrations/:integration_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an integration"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Invites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated team invites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/invites",
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get paginated team invites"
+        },
+        {
+          "info": {
+            "name": "Add an invite",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/invites",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add an invite"
+        },
+        {
+          "info": {
+            "name": "Resend an invite",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.bonjoro.com/api/v2/:invite_id/resend",
+            "params": [
+              {
+                "name": "invite_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resend an invite"
+        },
+        {
+          "info": {
+            "name": "Delete an invite",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.bonjoro.com/api/v2/:invite_id",
+            "params": [
+              {
+                "name": "invite_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an invite"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Links",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated message template links",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/links"
+          },
+          "docs": "Get paginated message template links"
+        },
+        {
+          "info": {
+            "name": "Get a message template link",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/links/:link_id",
+            "params": [
+              {
+                "name": "link_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a message template link"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Login",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a token via google sign in",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/login/google",
+            "params": [
+              {
+                "name": "auth_code",
+                "value": "",
+                "type": "query",
+                "description": "Google auth code"
+              }
+            ]
+          },
+          "docs": "Retrieve a token via google sign in"
+        },
+        {
+          "info": {
+            "name": "Retrieve a token via branch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/login/branch",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "A user's id"
+              }
+            ]
+          },
+          "docs": "Retrieve a token via branch"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Media",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all paginated media",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/media"
+          },
+          "docs": "Get all paginated media"
+        },
+        {
+          "info": {
+            "name": "Add a media",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/media",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "tags",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Add a media"
+        },
+        {
+          "info": {
+            "name": "Delete a media",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.bonjoro.com/api/v2/media/:media_id",
+            "params": [
+              {
+                "name": "media_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete a media"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Message Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated message templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/message-templates",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get paginated message templates"
+        },
+        {
+          "info": {
+            "name": "Add message template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/message-templates"
+          },
+          "docs": "Add message template"
+        },
+        {
+          "info": {
+            "name": "Get message template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/message-templates/:message_template_id",
+            "params": [
+              {
+                "name": "message_template_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get message template"
+        },
+        {
+          "info": {
+            "name": "Update message template",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.bonjoro.com/api/v2/message-templates/:message_template_id",
+            "params": [
+              {
+                "name": "message_template_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update message template"
+        },
+        {
+          "info": {
+            "name": "Delete message template",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.bonjoro.com/api/v2/message-templates/:message_template_id",
+            "params": [
+              {
+                "name": "message_template_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete message template"
+        },
+        {
+          "info": {
+            "name": "Update demo message template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/message-templates/demo/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update demo message template"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Notifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/notifications"
+          },
+          "docs": "Get paginated notifications"
+        },
+        {
+          "info": {
+            "name": "Mark notification as read",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/notifications/:notification_id/reads",
+            "params": [
+              {
+                "name": "notification_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Mark notification as read"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Pricing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all pricing details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/pricing"
+          },
+          "docs": "Get all pricing details"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Profiles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/profiles"
+          },
+          "docs": "Get paginated profiles"
+        },
+        {
+          "info": {
+            "name": "Add profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/profiles",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add profile"
+        },
+        {
+          "info": {
+            "name": "Bulk Update profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://www.bonjoro.com/api/v2/profiles",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk Update profiles"
+        },
+        {
+          "info": {
+            "name": "Get profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/profiles/:profile_id",
+            "params": [
+              {
+                "name": "profile_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get profile"
+        },
+        {
+          "info": {
+            "name": "Update profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.bonjoro.com/api/v2/profiles/:profile_id",
+            "params": [
+              {
+                "name": "profile_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update profile"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Recordings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated recordings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/recordings"
+          },
+          "docs": "Get paginated recordings"
+        },
+        {
+          "info": {
+            "name": "Update recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.bonjoro.com/api/v2/recordings",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "etags",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "image",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Update recording"
+        },
+        {
+          "info": {
+            "name": "Get recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/recordings/:recording_id",
+            "params": [
+              {
+                "name": "recording_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get recording"
+        },
+        {
+          "info": {
+            "name": "Delete recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.bonjoro.com/api/v2/recordings/:recording_id",
+            "params": [
+              {
+                "name": "recording_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete recording"
+        },
+        {
+          "info": {
+            "name": "Get recording upload url",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/recordings/:recording_id/upload-url",
+            "params": [
+              {
+                "name": "recording_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "part_number",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get recording upload url"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Replies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated replies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/replies",
+            "params": [
+              {
+                "name": "greet_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "propfile_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get paginated replies"
+        },
+        {
+          "info": {
+            "name": "Add reply",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/replies",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The greet should have a completed/sent status in order to add a reply"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get results for the specified greet and profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/results/:greet_id/:profile_id",
+            "params": [
+              {
+                "name": "greet_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "profile_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get results for the specified greet and profile"
+        },
+        {
+          "info": {
+            "name": "Mark result as replied",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.bonjoro.com/api/v2/results/:greet_id/:profile_id",
+            "params": [
+              {
+                "name": "greet_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "profile_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Mark result as replied"
+        },
+        {
+          "info": {
+            "name": "Get lightweight results stats for the specified greet and profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/results/:greet_id/:profile_id/stats",
+            "params": [
+              {
+                "name": "greet_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "profile_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get lightweight results stats for the specified greet and profile"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Signature Avalabilities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Show the status for the given email address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/signature-availabilities/:email_address",
+            "params": [
+              {
+                "name": "email_address",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "transport_type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Show the status for the given email address"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Signatures",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated sender signatures",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/signatures",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "transport_type",
+                "value": "",
+                "type": "query",
+                "description": "Required if email parameter is supplied"
+              },
+              {
+                "name": "exclude_default",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "includes",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get paginated sender signatures"
+        },
+        {
+          "info": {
+            "name": "Add signature",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/signatures",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add signature"
+        },
+        {
+          "info": {
+            "name": "Delete signature",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.bonjoro.com/api/v2/signatures/:signature_id",
+            "params": [
+              {
+                "name": "signature_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete signature"
+        },
+        {
+          "info": {
+            "name": "Verify signature",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/signatures/:signature_id/verify",
+            "params": [
+              {
+                "name": "signature_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Verify signature"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Stats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/stats"
+          },
+          "docs": "Get paginated stats"
+        },
+        {
+          "info": {
+            "name": "Get user stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/stats/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "A user id that is in the same team"
+              }
+            ]
+          },
+          "docs": "Get user stats"
+        },
+        {
+          "info": {
+            "name": "Get team stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/stats/team"
+          },
+          "docs": "Get team stats"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Stock Media",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated stock media",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/stock-media",
+            "params": [
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get paginated stock media"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Task List",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get tasklist counts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/tasklist"
+          },
+          "docs": "Get tasklist counts"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Teams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/teams",
+            "params": [
+              {
+                "name": "includes",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get paginated teams"
+        },
+        {
+          "info": {
+            "name": "Get a team",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/teams/:team_id",
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a team"
+        },
+        {
+          "info": {
+            "name": "Update a team landing page subdomain",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.bonjoro.com/api/v2/teams/:team_id",
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a team landing page subdomain"
+        },
+        {
+          "info": {
+            "name": "Get a team",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/teams/:team_id/links/:link_id",
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "link_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a team"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Transmissions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get transmitted greet data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/transmisions",
+            "params": [
+              {
+                "name": "recipient_id",
+                "value": "",
+                "type": "query",
+                "description": "The profile id of the receipient for the provided context_id"
+              },
+              {
+                "name": "context_id",
+                "value": "",
+                "type": "query",
+                "description": "A valid greet id"
+              }
+            ]
+          },
+          "docs": "Get transmitted greet data"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated users in the same team",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/users",
+            "params": [
+              {
+                "name": "includes",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get paginated users in the same team"
+        },
+        {
+          "info": {
+            "name": "Add a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/users",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a user"
+        },
+        {
+          "info": {
+            "name": "Get a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a user"
+        },
+        {
+          "info": {
+            "name": "Update a user bio",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a user bio"
+        },
+        {
+          "info": {
+            "name": "Get campaigns for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/users/:user_id/campaigns",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get campaigns for a user"
+        },
+        {
+          "info": {
+            "name": "Get segmented campaigns for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/users/:user_id/segmented-campaigns",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get segmented campaigns for a user"
+        },
+        {
+          "info": {
+            "name": "Update self bio",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/me",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update self bio"
+        },
+        {
+          "info": {
+            "name": "Update user onboarding info",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/users/:user_id/onboarding",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Update user onboarding info"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Automation Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated automation accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/automation/accounts",
+            "params": [
+              {
+                "name": "service",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get paginated automation accounts"
+        },
+        {
+          "info": {
+            "name": "Get an automation account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/automation/accounts/:account_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an automation account"
+        },
+        {
+          "info": {
+            "name": "Delete an automation account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.bonjoro.com/api/v2/automation/accounts/:account_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an automation account"
+        },
+        {
+          "info": {
+            "name": "Test an automation account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/automation/accounts/:account_id/test",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Test an automation account"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Automation Actions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/automation/actions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add action"
+        },
+        {
+          "info": {
+            "name": "Update automation action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.bonjoro.com/api/v2/automation/actions/:action_id",
+            "params": [
+              {
+                "name": "action_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update automation action"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Automation Services",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all automation services",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/automation/services"
+          },
+          "docs": "Get all automation services"
+        },
+        {
+          "info": {
+            "name": "Get an automation service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/automation/services/:service_id"
+          },
+          "docs": "Get an automation service"
+        },
+        {
+          "info": {
+            "name": "Get an automation service's contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/automation/services/:service_id/contacts",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get an automation service's contacts"
+        },
+        {
+          "info": {
+            "name": "Create a new automation assigned to the specified account_id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/automation/services/:service_id/contacts/parameters",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Create a new automation assigned to the specified account_id"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Editor Automations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated editor automations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/automation/editor/automations"
+          },
+          "docs": "Get paginated editor automations"
+        },
+        {
+          "info": {
+            "name": "Get an editor automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/automation/editor/automations/:automation_id",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get an editor automation"
+        },
+        {
+          "info": {
+            "name": "Update an editor automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.bonjoro.com/api/v2/automation/editor/automations/:automation_id",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an editor automation"
+        },
+        {
+          "info": {
+            "name": "Delete an editor automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.bonjoro.com/api/v2/automation/editor/automations/:automation_id",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete an editor automation"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Editor Automation Actions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get an editor action for the specified service and trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/automation/editor/actions",
+            "params": [
+              {
+                "name": "service",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "trigger",
+                "value": "",
+                "type": "query",
+                "description": "Value should be formatted as service_name.trigger_name like 'bonjoro.bonjoro_created'"
+              }
+            ]
+          },
+          "docs": "Get an editor action for the specified service and trigger"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Editor Actions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get an editor action for the specified action_id and service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/automation/editor/actions/:action_id",
+            "params": [
+              {
+                "name": "action_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get an editor action for the specified action_id and service"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Editor Automation Parameters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get an editor parameter from the specified item_id and parameter_name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/automation/editor/:item_id/parameter/:parameter_name",
+            "params": [
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "query",
+                "description": "A valid trigger or action id"
+              },
+              {
+                "name": "parameter_name",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get an editor parameter from the specified item_id and parameter_name"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Editor Automation Services",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get editor services",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/automation/editor/services",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "show_hidden",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "trigger",
+                "value": "",
+                "type": "query",
+                "description": "Value should be formatted as service_name.trigger_name like 'bonjoro.bonjoro_created'"
+              }
+            ]
+          },
+          "docs": "Get editor services"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Editor Services",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get an editor service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/automation/editor/services/:service_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "show_hidden",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "trigger",
+                "value": "",
+                "type": "query",
+                "description": "Value should be formatted as service_name.trigger_name like 'bonjoro.bonjoro_created'"
+              }
+            ]
+          },
+          "docs": "Get an editor service"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Editor Automation Triggers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all available triggers for the specified service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/automation/editor/triggers",
+            "params": [
+              {
+                "name": "service",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get all available triggers for the specified service"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Automation Triggers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all automation triggers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.bonjoro.com/api/v2/automation/triggers"
+          },
+          "docs": "Get all automation triggers"
+        },
+        {
+          "info": {
+            "name": "Add a trigger to the specified service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.bonjoro.com/api/v2/automation/triggers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a trigger to the specified service"
+        },
+        {
+          "info": {
+            "name": "Assign the specified account to the trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.bonjoro.com/api/v2/automation/triggers/:trigger_id",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assign the specified account to the trigger"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
