@@ -21,6 +21,17 @@ specificationVersion: '0.23'
 created: '2026-08-12'
 modified: '2026-08-12'
 tags:
+- Video Messaging
+- Customer Engagement
+- Customer Success
+- Sales Engagement
+- Marketing Automation
+- Video
+- CRM Integration
+- Testimonials
+- Software-as-a-Service
+- Australia
+tags_raw:
 - video-messaging
 - customer-engagement
 - customer-success
@@ -43,6 +54,13 @@ apis:
   humanURL: https://vimily.github.io/bonjoro-api-docs/
   baseURL: https://www.bonjoro.com/api/v2
   tags:
+  - Video Messaging
+  - Customer Engagement
+  - Customer Success
+  - Sales Engagement
+  - Marketing Automation
+  - CRM Integration
+  tags_raw:
   - video-messaging
   - customer-engagement
   - customer-success
