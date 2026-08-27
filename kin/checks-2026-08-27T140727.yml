@@ -3,14 +3,14 @@ kin_checks:
   slug: bonjoro
   schema_version: 0.15.1
   scored_at: '2026-08-27'
-  run_ts: 2026-08-27T103455
+  run_ts: 2026-08-27T140727
   note: Actionable checks only (missed + partial). earned/na are every other check
     in rubric/scoring-0.15.1.yml; counts below let you verify that.
   counts:
     total: 130
     earned: 44
-    partial: 8
-    missed: 54
+    partial: 7
+    missed: 55
     na: 24
   checks:
   - id: multiple_apis
@@ -33,7 +33,10 @@ kin_checks:
   - id: operations_description_coverage
     status: missed
     detail: 0 of 1 openapi documents pass
-  - id: operations_operation_ids
+  - id: response_coverage
+    status: missed
+    detail: 0 of 1 openapi documents pass
+  - id: components_reuse
     status: missed
     detail: 0 of 1 openapi documents pass
   - id: security_schemes_defined
@@ -130,7 +133,7 @@ kin_checks:
     status: missed
   - id: examples_present
     status: partial
-    earned: 1.98
+    earned: 2.45
   - id: lifecycle_documented
     status: partial
     earned: 1.52
@@ -144,10 +147,6 @@ kin_checks:
     status: partial
     earned: 3.5
     detail: 'grade: bearer'
-  - id: openapi_examples
-    status: partial
-    earned: 3.5
-    detail: 'grade: partial'
   - id: rate_limit_signal
     status: partial
     earned: 3.5
