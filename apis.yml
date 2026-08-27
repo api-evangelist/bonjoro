@@ -43,39 +43,1173 @@ tags_raw:
 - saas
 - australia
 apis:
-- name: Bonjoro API V2
-  description: >-
-    REST API for the Bonjoro personal-video platform. Create and assign greets (video tasks) for one or
-    many recipients, manage recipient profiles and campaigns/workspaces, upload recordings to presigned
-    S3 URLs, apply message templates and branding, read engagement results, event streams and
-    transmission/deliverability records, manage teams, users, invites, custom sending domains and
-    verified email signatures, and build trigger/action automations against connected CRM and email
-    services. OAuth 2.0 bearer tokens issued from /api/v2/oauth/2/token.
+- aid: bonjoro:bonjoro-authentications-api
+  name: Bonjoro Authentications API
+  description: The Authentications API from Bonjoro — 1 operation(s) for authentications.
   humanURL: https://vimily.github.io/bonjoro-api-docs/
   baseURL: https://www.bonjoro.com/api/v2
   tags:
-  - Video Messaging
-  - Customer Engagement
-  - Customer Success
-  - Sales Engagement
-  - Marketing Automation
-  - CRM Integration
-  tags_raw:
-  - video-messaging
-  - customer-engagement
-  - customer-success
-  - sales-engagement
-  - marketing-automation
-  - crm-integration
+  - Authentications
   properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-authentications-api-openapi.yml
   - type: Documentation
     url: https://vimily.github.io/bonjoro-api-docs/
   - type: APIReference
     url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-automation-accounts-api
+  name: Bonjoro Automation Accounts API
+  description: The Automation Accounts API from Bonjoro — 3 operation(s) for automation accounts.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Automation Accounts
+  properties:
   - type: OpenAPI
-    url: openapi/bonjoro-api-v2-openapi.yml
-  - type: Overlay
-    url: overlays/bonjoro-api-v2-overlay.yaml
+    url: openapi/bonjoro-automation-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-automation-actions-api
+  name: Bonjoro Automation Actions API
+  description: The Automation Actions API from Bonjoro — 2 operation(s) for automation actions.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Automation Actions
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-automation-actions-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-automation-services-api
+  name: Bonjoro Automation Services API
+  description: The Automation Services API from Bonjoro — 4 operation(s) for automation services.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Automation Services
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-automation-services-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-automation-triggers-api
+  name: Bonjoro Automation Triggers API
+  description: The Automation Triggers API from Bonjoro — 2 operation(s) for automation triggers.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Automation Triggers
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-automation-triggers-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-automations-api
+  name: Bonjoro Automations API
+  description: The Automations API from Bonjoro — 2 operation(s) for automations.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Automations
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-automations-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-campaigns-api
+  name: Bonjoro Campaigns API
+  description: The Campaigns API from Bonjoro — 3 operation(s) for campaigns.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-campaigns-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-checklist-api
+  name: Bonjoro Checklist API
+  description: The Checklist API from Bonjoro — 1 operation(s) for checklist.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Checklist
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-checklist-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-devices-api
+  name: Bonjoro Devices API
+  description: The Devices API from Bonjoro — 1 operation(s) for devices.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-devices-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-domains-api
+  name: Bonjoro Domains API
+  description: The Domains API from Bonjoro — 4 operation(s) for domains.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Domains
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-domains-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-editor-actions-api
+  name: Bonjoro Editor Actions API
+  description: The Editor Actions API from Bonjoro — 1 operation(s) for editor actions.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Editor Actions
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-editor-actions-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-editor-automation-actions-api
+  name: Bonjoro Editor Automation Actions API
+  description: >-
+    The Editor Automation Actions API from Bonjoro — 1 operation(s) for editor automation actions.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Editor Automation Actions
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-editor-automation-actions-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-editor-automation-parameters-api
+  name: Bonjoro Editor Automation Parameters API
+  description: >-
+    The Editor Automation Parameters API from Bonjoro — 1 operation(s) for editor automation parameters.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Editor Automation Parameters
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-editor-automation-parameters-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-editor-automation-services-api
+  name: Bonjoro Editor Automation Services API
+  description: >-
+    The Editor Automation Services API from Bonjoro — 1 operation(s) for editor automation services.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Editor Automation Services
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-editor-automation-services-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-editor-automation-triggers-api
+  name: Bonjoro Editor Automation Triggers API
+  description: >-
+    The Editor Automation Triggers API from Bonjoro — 1 operation(s) for editor automation triggers.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Editor Automation Triggers
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-editor-automation-triggers-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-editor-automations-api
+  name: Bonjoro Editor Automations API
+  description: The Editor Automations API from Bonjoro — 2 operation(s) for editor automations.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Editor Automations
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-editor-automations-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-editor-services-api
+  name: Bonjoro Editor Services API
+  description: The Editor Services API from Bonjoro — 1 operation(s) for editor services.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Editor Services
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-editor-services-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-events-api
+  name: Bonjoro Events API
+  description: The Events API from Bonjoro — 1 operation(s) for events.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-events-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-feedback-api
+  name: Bonjoro Feedback API
+  description: The Feedback API from Bonjoro — 1 operation(s) for feedback.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Feedback
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-feedback-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-greets-api
+  name: Bonjoro Greets API
+  description: The Greets API from Bonjoro — 14 operation(s) for greets.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Greets
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-greets-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-industries-api
+  name: Bonjoro Industries API
+  description: The Industries API from Bonjoro — 1 operation(s) for industries.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Industries
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-industries-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-integrations-api
+  name: Bonjoro Integrations API
+  description: The Integrations API from Bonjoro — 2 operation(s) for integrations.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-integrations-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-invites-api
+  name: Bonjoro Invites API
+  description: The Invites API from Bonjoro — 3 operation(s) for invites.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Invites
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-invites-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-links-api
+  name: Bonjoro Links API
+  description: The Links API from Bonjoro — 2 operation(s) for links.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Links
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-links-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-login-api
+  name: Bonjoro Login API
+  description: The Login API from Bonjoro — 2 operation(s) for login.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Login
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-login-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-media-api
+  name: Bonjoro Media API
+  description: The Media API from Bonjoro — 2 operation(s) for media.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Media
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-media-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-message-templates-api
+  name: Bonjoro Message Templates API
+  description: The Message Templates API from Bonjoro — 3 operation(s) for message templates.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Message Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-message-templates-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-notifications-api
+  name: Bonjoro Notifications API
+  description: The Notifications API from Bonjoro — 2 operation(s) for notifications.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Notifications
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-notifications-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-pricing-api
+  name: Bonjoro Pricing API
+  description: The Pricing API from Bonjoro — 1 operation(s) for pricing.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Pricing
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-pricing-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-profile-attributes-api
+  name: Bonjoro Profile Attributes API
+  description: The Profile Attributes API from Bonjoro — 2 operation(s) for profile attributes.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Profile Attributes
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-profile-attributes-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-profiles-api
+  name: Bonjoro Profiles API
+  description: The Profiles API from Bonjoro — 2 operation(s) for profiles.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Profiles
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-profiles-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-recordings-api
+  name: Bonjoro Recordings API
+  description: The Recordings API from Bonjoro — 3 operation(s) for recordings.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Recordings
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-recordings-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-replies-api
+  name: Bonjoro Replies API
+  description: The Replies API from Bonjoro — 1 operation(s) for replies.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Replies
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-replies-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-results-api
+  name: Bonjoro Results API
+  description: The Results API from Bonjoro — 2 operation(s) for results.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Results
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-results-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-signature-avalabilities-api
+  name: Bonjoro Signature Avalabilities API
+  description: >-
+    The Signature Avalabilities API from Bonjoro — 1 operation(s) for signature avalabilities.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Signature Avalabilities
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-signature-avalabilities-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-signatures-api
+  name: Bonjoro Signatures API
+  description: The Signatures API from Bonjoro — 3 operation(s) for signatures.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Signatures
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-signatures-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-stats-api
+  name: Bonjoro Stats API
+  description: The Stats API from Bonjoro — 3 operation(s) for stats.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Stats
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-stats-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-stock-media-api
+  name: Bonjoro Stock Media API
+  description: The Stock Media API from Bonjoro — 1 operation(s) for stock media.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Stock Media
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-stock-media-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-task-list-api
+  name: Bonjoro Task List API
+  description: The Task List API from Bonjoro — 1 operation(s) for task list.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Task List
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-task-list-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-teams-api
+  name: Bonjoro Teams API
+  description: The Teams API from Bonjoro — 3 operation(s) for teams.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Teams
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-teams-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-transmissions-api
+  name: Bonjoro Transmissions API
+  description: The Transmissions API from Bonjoro — 1 operation(s) for transmissions.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Transmissions
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-transmissions-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: Authentication
+    url: authentication/bonjoro-authentication.yml
+  - type: Conventions
+    url: conventions/bonjoro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bonjoro-problem-types.yml
+  - type: DataModel
+    url: data-model/bonjoro-data-model.yml
+  - type: RateLimits
+    url: rate-limits/bonjoro-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/bonjoro-webhooks.yml
+  - type: Conformance
+    url: conformance/bonjoro-conformance.yml
+- aid: bonjoro:bonjoro-users-api
+  name: Bonjoro Users API
+  description: The Users API from Bonjoro — 6 operation(s) for users.
+  humanURL: https://vimily.github.io/bonjoro-api-docs/
+  baseURL: https://www.bonjoro.com/api/v2
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/bonjoro-users-api-openapi.yml
+  - type: Documentation
+    url: https://vimily.github.io/bonjoro-api-docs/
+  - type: APIReference
+    url: https://vimily.github.io/bonjoro-api-docs/
   - type: Authentication
     url: authentication/bonjoro-authentication.yml
   - type: Conventions
@@ -96,6 +1230,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/bonjoro-api-v2-overlay.yaml
 - type: Website
   url: https://bonjoro.com/
 - type: Documentation
