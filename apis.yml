@@ -11,6 +11,18 @@ description: >-
   sending domains and verified signatures, and the trigger/action automation engine that wires Bonjoro
   into CRMs and email platforms. REST API access is published as a Company-tier entitlement; the wider
   integration surface runs through 18+ native connectors and a first-party Zapier app.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://www.bonjoro.com/apple-touch-icon-180x180.png
 url: https://raw.githubusercontent.com/api-evangelist/bonjoro/refs/heads/main/apis.yml
 x-type: company
