@@ -1242,6 +1242,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/bonjoro-capability-edges.yml
+  name: Bonjoro Business Capability Map
 - type: Overlay
   url: overlays/bonjoro-api-v2-overlay.yaml
 - type: Website
