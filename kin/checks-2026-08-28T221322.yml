@@ -2,18 +2,20 @@
 kin_checks:
   slug: bonjoro
   schema_version: 0.15.1
-  scored_at: '2026-08-27'
-  run_ts: 2026-08-27T140727
+  scored_at: '2026-08-28'
+  run_ts: 2026-08-28T221322
   note: Actionable checks only (missed + partial). earned/na are every other check
     in rubric/scoring-0.15.1.yml; counts below let you verify that.
   counts:
     total: 130
-    earned: 44
-    partial: 7
-    missed: 55
+    earned: 42
+    partial: 10
+    missed: 54
     na: 24
   checks:
-  - id: multiple_apis
+  - id: maintainer_present
+    status: missed
+  - id: base_url_per_api
     status: missed
   - id: well_known_published
     status: missed
@@ -23,28 +25,22 @@ kin_checks:
     status: missed
   - id: openapi_3_2
     status: missed
-    detail: 0 of 1 openapi documents pass
+    detail: 0 of 42 openapi documents pass
   - id: openapi_3_1
     status: missed
-    detail: 0 of 1 openapi documents pass
+    detail: 0 of 42 openapi documents pass
   - id: info_complete
     status: missed
-    detail: 0 of 1 openapi documents pass
+    detail: 0 of 42 openapi documents pass
   - id: operations_description_coverage
     status: missed
-    detail: 0 of 1 openapi documents pass
-  - id: response_coverage
-    status: missed
-    detail: 0 of 1 openapi documents pass
-  - id: components_reuse
-    status: missed
-    detail: 0 of 1 openapi documents pass
+    detail: 0 of 42 openapi documents pass
   - id: security_schemes_defined
     status: missed
-    detail: 0 of 1 openapi documents pass
+    detail: 0 of 42 openapi documents pass
   - id: webhooks_or_callbacks
     status: missed
-    detail: 0 of 1 openapi documents pass
+    detail: 0 of 42 openapi documents pass
   - id: json_schema_present
     status: missed
   - id: json_schema_per_resource
@@ -133,7 +129,15 @@ kin_checks:
     status: missed
   - id: examples_present
     status: partial
-    earned: 2.45
+    earned: 1.34
+  - id: components_reuse
+    status: partial
+    earned: 1.64
+    detail: 23 of 42 openapi documents pass
+  - id: security_applied
+    status: partial
+    earned: 2.71
+    detail: 38 of 42 openapi documents pass
   - id: lifecycle_documented
     status: partial
     earned: 1.52
@@ -147,6 +151,10 @@ kin_checks:
     status: partial
     earned: 3.5
     detail: 'grade: bearer'
+  - id: openapi_examples
+    status: partial
+    earned: 3.5
+    detail: 'grade: partial'
   - id: rate_limit_signal
     status: partial
     earned: 3.5
