@@ -1,0 +1,283 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Stats API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Stats
+paths:
+  /api/v2/stats:
+    get:
+      tags:
+      - Stats
+      summary: Get paginated stats
+      operationId: getStats
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/statistics'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+  /api/v2/stats/{user_id}:
+    get:
+      tags:
+      - Stats
+      summary: Get user stats
+      operationId: getStat
+      parameters:
+      - name: user_id
+        in: path
+        description: A user id that is in the same team
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/statisticGreetForUser'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+  /api/v2/stats/team:
+    get:
+      tags:
+      - Stats
+      summary: Get team stats
+      operationId: getTeamStam
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/statisticTeam'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    statistic:
+      allOf:
+      - properties:
+          unique_opens:
+            type: string
+            example: '1'
+          unique_views:
+            type: string
+            example: '1'
+          unique_clicks:
+            type: string
+            example: '1'
+          unique_reactions:
+            type: string
+            example: '1'
+          greet_total:
+            type: integer
+            example: 1
+          greet_opens:
+            type: string
+            example: '1'
+          greet_views:
+            type: string
+            example: '1'
+          greet_clicks:
+            type: string
+            example: '1'
+          greet_reactions:
+            type: string
+            example: '1'
+          greet_open_percentage:
+            type: string
+            example: '1'
+          greet_view_percentage:
+            type: string
+            example: '1'
+          greet_click_percentage:
+            type: string
+            example: '1'
+          greet_reply_percentage:
+            type: string
+            example: '1'
+          greet_reaction_percentage:
+            type: string
+            example: '1'
+          assignee:
+            type: object
+            allOf:
+            - properties:
+                email:
+                  type: string
+                  format: email
+                first_name:
+                  type: string
+                  example: Elizabeth
+                last_name:
+                  type: string
+                  example: Keen
+              type: object
+            - $ref: '#/components/schemas/idUUID'
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
+    statistics:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/statistic'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    statisticGreetForUser:
+      properties:
+        opens:
+          type: string
+          example: '1'
+        views:
+          type: string
+          example: '1'
+        clicks:
+          type: string
+          example: '1'
+        replies:
+          type: string
+          example: '1'
+        reactions:
+          type: string
+          example: '1'
+        unique_opens:
+          type: string
+          example: '1'
+        unique_views:
+          type: string
+          example: '1'
+        unique_clicks:
+          type: string
+          example: '1'
+        unique_reactions:
+          type: string
+          example: '1'
+        unique_replies:
+          type: string
+          example: '1'
+        percentage_opens:
+          type: string
+          example: '1'
+        percentage_replies:
+          type: string
+          example: '1'
+        total:
+          type: integer
+          example: 1
+        minimumComplete:
+          type: integer
+          example: 1
+        averageOpens:
+          type: integer
+          example: 1
+        averageViews:
+          type: integer
+          example: 1
+        averageClicks:
+          type: integer
+          example: 1
+        averageReactions:
+          type: integer
+          example: 1
+      type: object
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object
+    statisticTeam:
+      properties:
+        unique_opens:
+          type: string
+          example: '1'
+        unique_views:
+          type: string
+          example: '1'
+        unique_clicks:
+          type: string
+          example: '1'
+        unique_reactions:
+          type: string
+          example: '1'
+        greet_total:
+          type: integer
+          example: 1
+        greet_opens:
+          type: string
+          example: '1'
+        greet_views:
+          type: string
+          example: '1'
+        greet_clicks:
+          type: string
+          example: '1'
+        greet_reactions:
+          type: string
+          example: '1'
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object

@@ -1,0 +1,92 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Events API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Events
+paths:
+  /api/v2/events:
+    get:
+      tags:
+      - Events
+      summary: Get paginated events
+      operationId: getEvents
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/events'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
+    events:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/event'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    event:
+      properties:
+        message:
+          type: string
+          example: Send a practice message to yourself
+        occured_at:
+          type: string
+          example: '2021-01-11 01:21:28'
+        id:
+          type: string
+          example: 89ca52c2-a846-49e1-8019-6783802e363d
+        type:
+          type: string
+          example: DemoEvent
+        source:
+          type: string
+          example: User
+      type: object

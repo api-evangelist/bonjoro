@@ -1,0 +1,595 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Users API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Users
+paths:
+  /api/v2/users:
+    get:
+      tags:
+      - Users
+      summary: Get paginated users in the same team
+      operationId: getUsers
+      parameters:
+      - name: includes
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - signatures
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: number
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+    post:
+      tags:
+      - Users
+      summary: Add a user
+      operationId: addUser
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  example: eX@mP13p@$$w0rD
+              type: object
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Created
+                  data:
+                    $ref: '#/components/schemas/user'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+  /api/v2/users/{user_id}:
+    get:
+      tags:
+      - Users
+      summary: Get a user
+      operationId: getUser
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+    post:
+      tags:
+      - Users
+      summary: Update a user bio
+      operationId: updateUserBio
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                bio:
+                  type: string
+                  example: Example bio
+              type: object
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Updated
+                  data:
+                    $ref: '#/components/schemas/user'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+  /api/v2/users/{user_id}/campaigns:
+    get:
+      tags:
+      - Users
+      summary: Get campaigns for a user
+      operationId: getUserCampaigns
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/campaigns'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+  /api/v2/users/{user_id}/segmented-campaigns:
+    get:
+      tags:
+      - Users
+      summary: Get segmented campaigns for a user
+      operationId: getUserSegmentedCampaigns
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userCampaignsSegmented'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+  /api/v2/me:
+    post:
+      tags:
+      - Users
+      summary: Update self bio
+      operationId: updateSelfBio
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                bio:
+                  type: string
+                  example: Example bio
+              type: object
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Updated
+                  data:
+                    $ref: '#/components/schemas/user'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+  /api/v2/users/{user_id}/onboarding:
+    post:
+      tags:
+      - Users
+      summary: Update user onboarding info
+      operationId: updateUserAndTeamOnboarding
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/userUpdateOnboardingPayload'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Updated
+                  data:
+                    $ref: '#/components/schemas/userWithSignature'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    signature:
+      properties:
+        id:
+          type: number
+          example: 7
+        name:
+          type: string
+          example: John Jones
+        address:
+          type: string
+          example: example@domain-email.com
+        via:
+          type: string
+          enum:
+          - Default
+          - Gmail
+          - Microsoft
+          - CNAME
+          - CNAME - Enhanced
+        is_private:
+          type: boolean
+          enum:
+          - true
+          - false
+        is_verified:
+          type: boolean
+          enum:
+          - true
+          - false
+        is_confirmed:
+          type: boolean
+          enum:
+          - true
+          - false
+        transport_type:
+          type: string
+          enum:
+          - transport_google
+          - transport_microsoft
+          - transport_postmark
+          - transport_sparkpost
+          - postmark_domain
+        descriptive_address:
+          type: string
+          example: example@domain.com (Default)
+        forwarding_address:
+          type: string
+          example: 'Off'
+        is_default:
+          type: boolean
+          enum:
+          - true
+          - false
+      type: object
+    user:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: bbf3195e-21a3-4e6a-9698-9b8c09ec0b5b
+        bio:
+          type: string
+          example: Example bio
+        first_name:
+          type: string
+          example: John
+        image:
+          type: string
+          format: uri
+          example: https://example-path-to-image.jpg
+        last_name:
+          type: string
+          example: Jones
+        name:
+          type: string
+          example: John Jones
+        self_url:
+          type: string
+          format: uri
+          example: https://example-path-to-self-url
+        team_url:
+          type: string
+          format: uri
+          example: https://example-path-to-team-url
+      type: object
+    campaignWithUsers:
+      type: object
+      allOf:
+      - properties:
+          users:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/user'
+      - $ref: '#/components/schemas/campaign'
+    users:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/userWithSignature'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
+    campaign:
+      properties:
+        id:
+          type: integer
+          example: 5
+        uuid:
+          type: string
+          format: uuid
+        slug:
+          type: string
+          example: task-list
+        name:
+          type: string
+          example: Task List
+        goal:
+          type:
+          - string
+          - 'null'
+        type:
+          type: string
+          example: Default
+        is_default:
+          type: boolean
+          example: true
+        is_private:
+          type: boolean
+          example: false
+        archived_at:
+          type:
+          - string
+          - 'null'
+        creator:
+          $ref: '#/components/schemas/user'
+      type: object
+    userCampaignsSegmented:
+      properties:
+        data:
+          properties:
+            public:
+              type: array
+              items:
+                allOf:
+                - $ref: '#/components/schemas/campaignWithUsers'
+            private:
+              type: array
+              items:
+                allOf:
+                - $ref: '#/components/schemas/campaignWithUsers'
+          type: object
+      type: object
+    userWithSignature:
+      allOf:
+      - properties:
+          signatures:
+            description: Only visible when `inclues` parameter is provided or signature is being updated
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/signature'
+          from_signature:
+            $ref: '#/components/schemas/signature'
+          replyto_signature:
+            $ref: '#/components/schemas/signature'
+        type: object
+      - $ref: '#/components/schemas/user'
+    campaigns:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/campaignWithUsers'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
+    userUpdateOnboardingPayload:
+      properties:
+        visitor:
+          $ref: '#/components/schemas/utmExamplePayload'
+        industry:
+          description: Retrieve valid values from prismic `industries`
+          type:
+          - string
+          - 'null'
+        company:
+          description: This will be used as the team name
+          type:
+          - string
+          - 'null'
+        avatar:
+          type: string
+          format: binary
+        email:
+          type: string
+          format: email
+        timezone:
+          type: string
+          example: UTC
+        type:
+          type: string
+          example: default
+        signature_id:
+          type: integer
+          example: 7
+      type: object
+    utmExamplePayload:
+      description: Properties may vary
+      properties:
+        referrer:
+          type: string
+          example: example-referrer
+        landing_page:
+          type: string
+          example: example-landing-page
+        utm_source:
+          type: string
+          example: active urser
+        utm_medium:
+          type: string
+          example: email
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object

@@ -1,0 +1,169 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Links API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Links
+paths:
+  /api/v2/links:
+    get:
+      tags:
+      - Links
+      summary: Get paginated message template links
+      operationId: getLinks
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/links'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+  /api/v2/links/{link_id}:
+    get:
+      tags:
+      - Links
+      summary: Get a message template link
+      operationId: getLink
+      parameters:
+      - name: link_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/link'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    timestamps:
+      properties:
+        created_at:
+          type: string
+          format: datetime
+          example: '2021-01-11 01:51:26'
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+          example: '2021-01-11 01:51:26'
+      type: object
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
+    links:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/link'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object
+    link:
+      allOf:
+      - properties:
+          team_id:
+            type: string
+            format: uuid
+          subject:
+            type: string
+            example: Here's a personal video I recorded for you.
+          color:
+            type: string
+            example: '#fc5a00'
+          cta:
+            properties:
+              text:
+                type: string
+                example: Send your own videos
+              color:
+                type: string
+                example: '#ffffff'
+              url:
+                type: string
+                format: uri
+                example: http://domain.com
+            type: object
+          logo_url:
+            type: string
+            format: uri
+            example: /path-to-logo-url
+          background_url:
+            type: string
+            format: uri
+            example: /path-to-background-url
+          is_default:
+            type: boolean
+            format: boolean
+          self_url:
+            type: string
+            format: uri
+            example: http://example-self-url
+          team_url:
+            type: string
+            format: uri
+            example: http://example-team-url
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object

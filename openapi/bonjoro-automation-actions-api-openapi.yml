@@ -1,0 +1,151 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Automation Actions API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Automation Actions
+paths:
+  /api/v2/automation/actions:
+    post:
+      tags:
+      - Automation Actions
+      summary: Add action
+      operationId: addAutomationAction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                service:
+                  type: string
+                  enum:
+                  - active_campaign
+                  - bonjoro
+                  - convertkit
+                  - drip
+                  - hubspot_crm
+                  - infusionsoft
+                  - intercom
+                  - mailchimp
+                  - mailerlite
+                  - ontraport
+                  - patreon-v2
+                  - shopify
+                  - slack
+                action:
+                  type: string
+                  example: send_message
+                trigger_id:
+                  type: string
+                  format: uuid
+              type: object
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Ok
+                  data:
+                    $ref: '#/components/schemas/automationAction'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+  /api/v2/automation/actions/{action_id}:
+    put:
+      tags:
+      - Automation Actions
+      summary: Update automation action
+      operationId: updateAutomationAction
+      parameters:
+      - name: action_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                account_id:
+                  type: string
+                  format: uuid
+              type: object
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Updated
+                  data:
+                    $ref: '#/components/schemas/automationAction'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    automationAction:
+      allOf:
+      - properties:
+          params:
+            type:
+            - string
+            - 'null'
+          type:
+            type: string
+            example: send_message
+          service:
+            type: string
+            enum:
+            - active_campaign
+            - bonjoro
+            - convertkit
+            - drip
+            - hubspot_crm
+            - infusionsoft
+            - intercom
+            - mailchimp
+            - mailerlite
+            - ontraport
+            - patreon-v2
+            - shopify
+            - slack
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object

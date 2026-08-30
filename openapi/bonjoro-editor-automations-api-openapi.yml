@@ -1,0 +1,438 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Editor Automations API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Editor Automations
+paths:
+  /api/v2/automation/editor/automations:
+    get:
+      tags:
+      - Editor Automations
+      summary: Get paginated editor automations
+      operationId: getEditorAutomation
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/editorAutomations'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+  /api/v2/automation/editor/automations/{automation_id}:
+    get:
+      tags:
+      - Editor Automations
+      summary: Get an editor automation
+      operationId: getAutomationForEditor
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/editorAutomation'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+    put:
+      tags:
+      - Editor Automations
+      summary: Update an editor automation
+      operationId: updateAutomationEditor
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/editorAutomationUpdatePayload'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/editorAutomationUpdateResponseItem'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+    delete:
+      tags:
+      - Editor Automations
+      summary: Delete an editor automation
+      operationId: deleteAutomationEditor
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                message:
+                  type: string
+                  example: Deleted
+                data:
+                  $ref: '#/components/schemas/editorAutomation'
+              type: object
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/editorAutomationUpdateResponseItem'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    editorAutomation:
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: Example automation name
+        enabled:
+          type: boolean
+          enum:
+          - true
+          - false
+        editor_url:
+          type: string
+          format: uri
+          example: http://example-path-to-editor-url
+        self_url:
+          type: string
+          format: uri
+          example: http://example-path-to-self-url
+        trigger_client_logo:
+          type: string
+          format: uri
+          example: /path-to-logo.png
+        action_client_logo:
+          type: string
+          format: uri
+          example: /path-to-logo.png
+      type: object
+    editorAutmationActionItem:
+      properties:
+        id:
+          type: string
+          example: create_bonjoro
+        service:
+          type: string
+          example: bonjoro
+        name:
+          type: string
+          example: Create Bonjoro
+        description:
+          type: string
+          example: Example description
+        self_url:
+          type: string
+          format: uri
+          example: http://example-path-to-self-url
+        service_url:
+          type: string
+          format: uri
+          example: http://example-path-to-service-url
+        parameters:
+          properties:
+            example_property_name:
+              type: object
+              example:
+                name: Add fields
+          type: object
+      type: object
+    editorAutomationUpdateResponseItem:
+      properties:
+        name:
+          type: string
+          example: Example name
+        enabled:
+          type: boolean
+          enum:
+          - true
+          - false
+        trigger:
+          $ref: '#/components/schemas/editorAutomationTrigger'
+        action:
+          $ref: '#/components/schemas/editorAutomationAction'
+        id:
+          type: string
+          format: uuid
+        trigger_id:
+          type: string
+          format: uuid
+        action_id:
+          type: string
+          format: uuid
+        activeStep:
+          type:
+          - string
+          - 'null'
+          example: finish
+      type: object
+    editorAutomationService:
+      properties:
+        id:
+          type: string
+          example: bonjoro
+        name:
+          type: string
+          example: Bonjoro
+        description:
+          type: string
+          example: Example description
+        logo_url:
+          type: string
+          format: uri
+          example: /example-path-to-logo.png
+        actions:
+          type: boolean
+          enum:
+          - true
+          - false
+        triggers:
+          type: boolean
+          enum:
+          - true
+          - false
+        self_url:
+          type: string
+          format: uri
+          example: http://example-path-to-self-url
+        auth_url:
+          type: string
+          format: uri
+          example: http://example-path-to-auth-url
+        disabled:
+          type: boolean
+          enum:
+          - true
+          - false
+        default_trigger:
+          type: array
+          items:
+            allOf:
+            - properties:
+                id:
+                  type: string
+                  example: contact_updated
+                name:
+                  type: string
+                  example: Contact Updated
+                description:
+                  type: string
+                  example: Example description
+              type: object
+        capability:
+          properties:
+            primary_collection:
+              type: boolean
+              enum:
+              - true
+              - false
+            external_profiles:
+              type: boolean
+              enum:
+              - true
+              - false
+            creates_greets:
+              type: boolean
+              enum:
+              - true
+              - false
+          type: object
+        hidden:
+          type: boolean
+          enum:
+          - true
+          - false
+        actions_url:
+          type: string
+          format: uri
+          example: http://example-path-to-action-url
+      type: object
+    editorAutomationTriggerItem:
+      properties:
+        id:
+          type: string
+          example: bonjoro_created
+        name:
+          type: string
+          example: Bonjoro Created
+        description:
+          type: string
+          example: Example description
+        variables:
+          properties:
+            example_property:
+              properties:
+                name:
+                  type: string
+                  example: example name
+                description:
+                  type: string
+                  example: example name
+              type: object
+          type: object
+      type: object
+    editorAutomationAccount:
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: Example account name
+        service:
+          type: string
+          example: hubspot_crm
+        created_at:
+          type: string
+          format: datetime
+          example: hubspot_crm
+      type: object
+    editorAutomationTrigger:
+      properties:
+        service:
+          $ref: '#/components/schemas/editorAutomationService'
+        item:
+          $ref: '#/components/schemas/editorAutomationTriggerItem'
+        account:
+          $ref: '#/components/schemas/editorAutomationAccount'
+        options:
+          type:
+          - object
+          - 'null'
+          example:
+            tag_id: 618194a6-9c58-3703-90b8-e0243265eaea
+      type: object
+    editorAutomations:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/editorAutomation'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
+    editorAutomationUpdatePayload:
+      properties:
+        trigger_id:
+          type: string
+          format: uuid
+        action_id:
+          type: string
+          format: uuid
+        enabled:
+          type: boolean
+          enum:
+          - true
+          - false
+        state:
+          type: object
+          example:
+            activeStep: finish
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    editorAutomationAction:
+      properties:
+        service:
+          $ref: '#/components/schemas/editorAutomationService'
+        action:
+          $ref: '#/components/schemas/editorAutmationActionItem'
+        account:
+          $ref: '#/components/schemas/editorAutomationAccount'
+        options:
+          type:
+          - object
+          - 'null'
+          example:
+            assignee: 3b12757c-97e5-4193-a7c8-14029a4aae4f
+            campaign: 5
+            reason: Dd
+      type: object

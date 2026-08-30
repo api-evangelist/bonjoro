@@ -1,0 +1,439 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Recordings API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Recordings
+paths:
+  /api/v2/recordings:
+    get:
+      tags:
+      - Recordings
+      summary: Get paginated recordings
+      operationId: getRecordings
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recordings'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+    put:
+      tags:
+      - Recordings
+      summary: Update recording
+      operationId: updateARecording
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                etags:
+                  type: array
+                  items:
+                    type: string
+                image:
+                  type: string
+                  format: binary
+              type: object
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: updated
+                  data:
+                    $ref: '#/components/schemas/recording'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+  /api/v2/recordings/{recording_id}:
+    get:
+      tags:
+      - Recordings
+      summary: Get recording
+      operationId: getRecording
+      parameters:
+      - name: recording_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/recording'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+    delete:
+      tags:
+      - Recordings
+      summary: Delete recording
+      operationId: deleteRecordings
+      parameters:
+      - name: recording_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Deleted
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+  /api/v2/recordings/{recording_id}/upload-url:
+    get:
+      tags:
+      - Recordings
+      summary: Get recording upload url
+      operationId: getUploadURL
+      parameters:
+      - name: recording_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: part_number
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: number
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: ok
+                  upload_url:
+                    type: string
+                    format: uri
+                    example: http://example-path-to-upload-url
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    recording:
+      allOf:
+      - properties:
+          name:
+            type: string
+            example: Example recording name
+          state:
+            type: string
+            example: recording
+          type:
+            type: string
+            enum:
+            - screen_recording
+            - webcam
+          message_template:
+            $ref: '#/components/schemas/messageTemplate'
+          creator:
+            $ref: '#/components/schemas/user'
+          interactions:
+            properties:
+              views:
+                type: integer
+                example: 1
+              clicks:
+                type: integer
+                example: 0
+            type: object
+          media:
+            properties:
+              thumbnail_source:
+                type: string
+                format: uri
+                example: /example-path-to-thumbnail-source
+              thumbnail_play:
+                type: string
+                format: uri
+                example: /example-path-to-thumbnail-play
+            type: object
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    user:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: bbf3195e-21a3-4e6a-9698-9b8c09ec0b5b
+        bio:
+          type: string
+          example: Example bio
+        first_name:
+          type: string
+          example: John
+        image:
+          type: string
+          format: uri
+          example: https://example-path-to-image.jpg
+        last_name:
+          type: string
+          example: Jones
+        name:
+          type: string
+          example: John Jones
+        self_url:
+          type: string
+          format: uri
+          example: https://example-path-to-self-url
+        team_url:
+          type: string
+          format: uri
+          example: https://example-path-to-team-url
+      type: object
+    recordings:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/recording'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    timestamps:
+      properties:
+        created_at:
+          type: string
+          format: datetime
+          example: '2021-01-11 01:51:26'
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+          example: '2021-01-11 01:51:26'
+      type: object
+    mtMedia:
+      allOf:
+      - properties:
+          type:
+            type: string
+            enum:
+            - Media
+            - StockMedia
+            example: Media
+          name:
+            type: string
+            example: like.png
+          tags:
+            type: string
+            example: background image
+          url:
+            type: string
+            format: uri
+            example: http://example-path-to-url
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    mtCallToAction:
+      allOf:
+      - properties:
+          text:
+            type: string
+            example: Send your own videos
+          url:
+            type: string
+            format: uri
+            example: http://example-path-to-url
+          is_displayed:
+            type: boolean
+            example: false
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
+    mtLandingPage:
+      properties:
+        background:
+          $ref: '#/components/schemas/mtMedia'
+        background_type:
+          type: string
+          enum:
+          - Media
+          - StockMedia
+          example: Media
+        logo:
+          $ref: '#/components/schemas/mtMedia'
+        cta:
+          $ref: '#/components/schemas/mtCallToAction'
+      type: object
+    mtEmailTemplate:
+      properties:
+        layout:
+          type: string
+          enum:
+          - html
+          - plain
+          example: html
+        subject_line:
+          type: string
+          example: Here's a personal video I recorded for you.
+        message_template:
+          type: string
+          example: Hi {first_name|there}, I recorded a message for you, check it out!
+      type: object
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object
+    messageTemplate:
+      allOf:
+      - properties:
+          name:
+            type: string
+            example: Magic
+          is_greet_shareable:
+            type: boolean
+            example: true
+          theme:
+            $ref: '#/components/schemas/mtTheme'
+          landing_page:
+            $ref: '#/components/schemas/mtLandingPage'
+          state:
+            type: string
+            enum:
+            - open
+            - demo
+            - locked
+            example: open
+          email_template:
+            $ref: '#/components/schemas/mtEmailTemplate'
+          creator:
+            $ref: '#/components/schemas/user'
+          stats:
+            $ref: '#/components/schemas/mtStats'
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    mtTheme:
+      allOf:
+      - properties:
+          primary_color:
+            type: string
+            example: '#fc5a00'
+          secondary_color:
+            type: string
+            example: '#ffffff'
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    mtStats:
+      properties:
+        total:
+          type: integer
+          example: 0
+        percentage_replies:
+          type: integer
+          example: 0
+        percentage_views:
+          type: integer
+          example: 0
+        percentage_reactions:
+          type: integer
+          example: 0
+        percentage_clicks:
+          type: integer
+          example: 0
+        percentage_opens:
+          type: integer
+          example: 0
+      type: object

@@ -1,0 +1,92 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Stock Media API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Stock Media
+paths:
+  /api/v2/stock-media:
+    get:
+      tags:
+      - Stock Media
+      summary: Get paginated stock media
+      operationId: getStockMedia
+      parameters:
+      - name: tags
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: true
+        schema:
+          type: integer
+      - name: page
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/stockMedia'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    timestamps:
+      properties:
+        created_at:
+          type: string
+          format: datetime
+          example: '2021-01-11 01:51:26'
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+          example: '2021-01-11 01:51:26'
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    stockMedia:
+      allOf:
+      - properties:
+          type:
+            type: string
+            example: StockMedia
+          name:
+            type: string
+            example: example-media-name.jpg
+          tags:
+            type: string
+            example: background image
+          url:
+            type: string
+            format: uri
+            example: /example-path-to-url-image.jpg
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object

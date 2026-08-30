@@ -1,0 +1,303 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Domains API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Domains
+paths:
+  /api/v2/domain-availabilities/{domain_name}:
+    get:
+      tags:
+      - Domains
+      summary: Returns the availability of the specified domain
+      operationId: getDomain
+      parameters:
+      - name: domain_name
+        in: path
+        required: true
+        example: bonjoro.com
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - domain_available
+                    - domain_not_available
+                    example: domain_available
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+  /api/v2/domains:
+    get:
+      tags:
+      - Domains
+      summary: Returns paginated domains
+      operationId: getDomains
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/domains'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+    post:
+      tags:
+      - Domains
+      summary: Add a domain
+      operationId: postDomain
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                domain:
+                  type: string
+              type: object
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Created
+                  data:
+                    $ref: '#/components/schemas/domain'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+  /api/v2/domains/{domain_id}:
+    delete:
+      tags:
+      - Domains
+      summary: Delete a domain
+      operationId: deleteDomain
+      parameters:
+      - name: domain_id
+        in: path
+        required: true
+        example: '10'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Domain deleted
+                  data:
+                    $ref: '#/components/schemas/domain'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+  /api/v2/domains/{domain_id}/verify:
+    put:
+      tags:
+      - Domains
+      summary: Verify a domain
+      operationId: putVerifyDomain
+      parameters:
+      - name: domain_id
+        in: path
+        required: true
+        example: '10'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Congrats, your domain is now verified
+                  data:
+                    properties:
+                      is_verified:
+                        type: boolean
+                        example: true
+                    type: object
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    domainWithCanonical:
+      allOf:
+      - properties:
+          canonical:
+            type: array
+            items:
+              $ref: '#/components/schemas/domain'
+        type: object
+      - $ref: '#/components/schemas/domain'
+    domain_record_set:
+      properties:
+        cname:
+          type: string
+          example: cname
+        purpose:
+          type: string
+          example: dkim
+        host:
+          type: string
+          example: host.com
+        key:
+          type: string
+          example: 20210111035208pm._domainkey
+        value:
+          type: string
+          example: 9c2790de-7a48-47ea-8e4b-6ae8fbd16218.dkim.test.bonjoro.com
+        is_verified:
+          type: boolean
+          example: true
+      type: object
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
+    domain:
+      properties:
+        is_verified_as_sender:
+          type: boolean
+          example: true
+        name:
+          type: string
+          example: bonjoro.com
+        type:
+          type: string
+          example: byo
+        status:
+          type: string
+          example: created
+        id:
+          type: integer
+          example: 1
+        provider:
+          type: string
+          example: postmark
+        provider_id:
+          type: string
+          example: 40f02857-fcb5-4320-bade-491e61a7e4aa
+        is_compliant:
+          type: boolean
+          example: false
+        requires_manual_verification:
+          type: boolean
+          example: true
+        verify_domain_url:
+          type: string
+          example: http://domain.com/settings/mailer/domains/2/verify
+        delete_domain_url:
+          type: string
+          example: http://domain.com/settings/mailer/domains/2
+        record_sets:
+          type: array
+          items:
+            $ref: '#/components/schemas/domain_record_set'
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    domains:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/domainWithCanonical'
+        type: object
+      - $ref: '#/components/schemas/pagination'

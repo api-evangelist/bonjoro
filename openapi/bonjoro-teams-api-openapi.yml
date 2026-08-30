@@ -1,0 +1,389 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Teams API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Teams
+paths:
+  /api/v2/teams:
+    get:
+      tags:
+      - Teams
+      summary: Get paginated teams
+      operationId: getTeams
+      parameters:
+      - name: includes
+        in: query
+        schema:
+          type: string
+          enum:
+          - signatures
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/teams'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+  /api/v2/teams/{team_id}:
+    get:
+      tags:
+      - Teams
+      summary: Get a team
+      operationId: getTeam
+      parameters:
+      - name: team_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/team'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+    put:
+      tags:
+      - Teams
+      summary: Update a team landing page subdomain
+      operationId: putTeam
+      parameters:
+      - name: team_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                landing_page_subdomain:
+                  type: string
+                  example: example-subdomain
+              type: object
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Updated
+                  data:
+                    $ref: '#/components/schemas/team'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+  /api/v2/teams/{team_id}/links/{link_id}:
+    get:
+      tags:
+      - Teams
+      summary: Get a team
+      operationId: getTeamLinks
+      parameters:
+      - name: team_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: link_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/link'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    signature:
+      properties:
+        id:
+          type: number
+          example: 7
+        name:
+          type: string
+          example: John Jones
+        address:
+          type: string
+          example: example@domain-email.com
+        via:
+          type: string
+          enum:
+          - Default
+          - Gmail
+          - Microsoft
+          - CNAME
+          - CNAME - Enhanced
+        is_private:
+          type: boolean
+          enum:
+          - true
+          - false
+        is_verified:
+          type: boolean
+          enum:
+          - true
+          - false
+        is_confirmed:
+          type: boolean
+          enum:
+          - true
+          - false
+        transport_type:
+          type: string
+          enum:
+          - transport_google
+          - transport_microsoft
+          - transport_postmark
+          - transport_sparkpost
+          - postmark_domain
+        descriptive_address:
+          type: string
+          example: example@domain.com (Default)
+        forwarding_address:
+          type: string
+          example: 'Off'
+        is_default:
+          type: boolean
+          enum:
+          - true
+          - false
+      type: object
+    teams:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/teamWithSignatures'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    timestamps:
+      properties:
+        created_at:
+          type: string
+          format: datetime
+          example: '2021-01-11 01:51:26'
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+          example: '2021-01-11 01:51:26'
+      type: object
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
+    teamWithSignatures:
+      allOf:
+      - properties:
+          signatures:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/signature'
+        type: object
+      - $ref: '#/components/schemas/team'
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object
+    link:
+      allOf:
+      - properties:
+          team_id:
+            type: string
+            format: uuid
+          subject:
+            type: string
+            example: Here's a personal video I recorded for you.
+          color:
+            type: string
+            example: '#fc5a00'
+          cta:
+            properties:
+              text:
+                type: string
+                example: Send your own videos
+              color:
+                type: string
+                example: '#ffffff'
+              url:
+                type: string
+                format: uri
+                example: http://domain.com
+            type: object
+          logo_url:
+            type: string
+            format: uri
+            example: /path-to-logo-url
+          background_url:
+            type: string
+            format: uri
+            example: /path-to-background-url
+          is_default:
+            type: boolean
+            format: boolean
+          self_url:
+            type: string
+            format: uri
+            example: http://example-self-url
+          team_url:
+            type: string
+            format: uri
+            example: http://example-team-url
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
+    team:
+      allOf:
+      - properties:
+          name:
+            type:
+            - string
+            - 'null'
+            example: Example team name
+          landing_page_subdomain:
+            type:
+            - string
+            - 'null'
+            example: example-subomdain
+          landing_page_host:
+            type: string
+            example: example-hostname
+          owner_id:
+            type: string
+            format: uuid
+          owner_url:
+            type: string
+            format: uri
+            example: http://path-to-owner-url
+          self_url:
+            type: string
+            format: uri
+            example: http://path-to-self-url
+          invites_url:
+            type: string
+            format: uri
+            example: http://path-to-invites-url
+          links_url:
+            type: string
+            format: uri
+            example: http://path-to-links-url
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object

@@ -1,0 +1,152 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Login API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Login
+paths:
+  /api/v2/login/google:
+    post:
+      tags:
+      - Login
+      summary: Retrieve a token via google sign in
+      operationId: loginViaGoogle
+      parameters:
+      - name: auth_code
+        in: query
+        description: Google auth code
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/googleLoginToken'
+        '400':
+          description: 400 Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+  /api/v2/login/branch:
+    post:
+      tags:
+      - Login
+      summary: Retrieve a token via branch
+      operationId: loginViaBranch
+      parameters:
+      - name: token
+        in: query
+        description: A user's id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/branchLoginToken'
+        '400':
+          description: 400 Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+components:
+  schemas:
+    branchLoginToken:
+      properties:
+        api_token:
+          properties:
+            accessToken:
+              type: string
+              example: exampleAccessToken.eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjM1YzEyYjU
+            token:
+              properties:
+                id:
+                  type: string
+                  example: 4c3c94fb5c723bf85b3c3524c3e4131b94867ce62f3a1deec5f475cda9cab310f52a386b1ba6b942
+                user_id:
+                  type: string
+                  format: uuid
+                client_id:
+                  type: integer
+                  example: 5
+                name:
+                  type: string
+                  example: Branch Autologin
+                scope:
+                  type: array
+                  items: {}
+                revoked:
+                  type: boolean
+                  format: boolean
+                created_at:
+                  type: string
+                  format: datetime
+                  example: '2021-01-15 03:16:40'
+                updated_at:
+                  type: string
+                  format: datetime
+                  example: '2021-01-15 03:16:40'
+                expires_at:
+                  type: string
+                  format: datetime
+                  example: '2022-01-15 03:16:40'
+              type: object
+          type: object
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    googleLoginToken:
+      properties:
+        token:
+          properties:
+            accessToken:
+              type: string
+              example: exampleAccessToken.eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjM1YzEyYjU
+            expires:
+              type: integer
+              example: 1642215881
+            type:
+              type: string
+              example: Bearer
+          type: object
+      type: object
+    badRequest:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Error message
+            status_code:
+              type: integer
+              example: 400
+          type: object
+      type: object

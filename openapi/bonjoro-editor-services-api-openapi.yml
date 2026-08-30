@@ -1,0 +1,163 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Editor Services API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Editor Services
+paths:
+  /api/v2/automation/editor/services/{service_id}:
+    get:
+      tags:
+      - Editor Services
+      summary: Get an editor service
+      operationId: getEditorService
+      parameters:
+      - name: service_id
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        schema:
+          type:
+          - string
+          - 'null'
+          enum:
+          - action
+          - trigger
+      - name: show_hidden
+        in: query
+        schema:
+          type:
+          - boolean
+          - 'null'
+          enum:
+          - true
+          - false
+      - name: trigger
+        in: query
+        description: Value should be formatted as service_name.trigger_name like 'bonjoro.bonjoro_created'
+        schema:
+          type:
+          - string
+          - 'null'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/automationService'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    automationServiceDefaultTrigger:
+      properties:
+        id:
+          type: string
+          example: subscriber_created
+        name:
+          type: string
+          example: Person created
+        description:
+          type: string
+          example: Example description
+        greetable_reason:
+          type: string
+          example: Example greetable reason
+        parameters:
+          type: object
+          example:
+            form_id:
+              required: true
+              type: dropdown
+              name: Form
+              description: Your chosen form
+      type: object
+    automationService:
+      properties:
+        id:
+          type: string
+          example: active_campaign
+        name:
+          type: string
+          example: ActiveCampaign
+        description:
+          type: string
+          example: Example description
+        logo_url:
+          type: string
+          format: uri
+          example: /example-path-to-logo.png
+        actions:
+          type: boolean
+          enum:
+          - true
+          - false
+        triggers:
+          type: boolean
+          enum:
+          - true
+          - false
+        self_url:
+          type: string
+          format: uri
+          example: http://example-path-to-self-url
+        auth_url:
+          type: string
+          format: uri
+          example: http://example-path-to-auth-url
+        disabled:
+          type: boolean
+          enum:
+          - true
+          - false
+        default_trigger:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/automationServiceDefaultTrigger'
+        capability:
+          properties:
+            primary_collection:
+              type: boolean
+              enum:
+              - true
+              - false
+            external_profiles:
+              type: boolean
+              enum:
+              - true
+              - false
+            creates_greets:
+              type: boolean
+              enum:
+              - true
+              - false
+          type: object
+        hidden:
+          type: boolean
+          enum:
+          - true
+          - false
+      type: object

@@ -1,0 +1,75 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Authentications API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Authentications
+paths:
+  /api/v2/oauth/2/token:
+    post:
+      tags:
+      - Authentications
+      summary: Authenticate
+      operationId: authenticate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authenticationPayload'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/accessToken'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+components:
+  schemas:
+    accessToken:
+      properties:
+        token_type:
+          type: string
+          example: Bearer
+        expires_in:
+          type: integer
+          example: 31536000
+        access_token:
+          type: string
+          example: eyJ0eXAiOiJKV1QiLCJh...
+        refresh_token:
+          type: string
+          example: eyJ0eXAiOiJKV1QiLCJh...
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    authenticationPayload:
+      properties:
+        grant_type:
+          type: string
+          enum:
+          - password
+          - client_credentials
+          - authorization_code
+        username:
+          type: string
+          format: email
+        password:
+          type: string
+        client_id:
+          type: string
+        client_secret:
+          type: string
+      type: object

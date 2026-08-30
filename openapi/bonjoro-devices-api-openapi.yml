@@ -1,0 +1,90 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Devices API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Devices
+paths:
+  /api/v2/users/me/devices:
+    post:
+      tags:
+      - Devices
+      summary: Add user devices
+      operationId: postUserDevices
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/devices'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Created
+                  data:
+                    $ref: '#/components/schemas/devices'
+                type: object
+        '400':
+          description: 400 Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    devices:
+      required:
+      - token
+      - type
+      properties:
+        token:
+          type: string
+        type:
+          type: string
+          enum:
+          - ios
+          - android
+          example: android
+        model:
+          type:
+          - string
+          - 'null'
+        manufacturer:
+          type:
+          - string
+          - 'null'
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    badRequest:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Error message
+            status_code:
+              type: integer
+              example: 400
+          type: object
+      type: object

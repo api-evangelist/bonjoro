@@ -1,0 +1,410 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Profiles API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Profiles
+paths:
+  /api/v2/profiles:
+    get:
+      tags:
+      - Profiles
+      summary: Get paginated profiles
+      operationId: getProfiles
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/profile'
+                - $ref: '#/components/schemas/profileDemographic'
+                - $ref: '#/components/schemas/timestamps'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+    post:
+      tags:
+      - Profiles
+      summary: Add profile
+      operationId: postProfile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - email
+              properties:
+                email:
+                  type: string
+                  format: email
+                first_name:
+                  type: string
+                  example: Frank
+                last_name:
+                  type: string
+                  example: Castle
+              type: object
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Created
+                  data:
+                    type: object
+                    allOf:
+                    - $ref: '#/components/schemas/profile'
+                    - $ref: '#/components/schemas/profileDemographic'
+                    - $ref: '#/components/schemas/timestamps'
+                type: object
+        '400':
+          description: 400 Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+    patch:
+      tags:
+      - Profiles
+      summary: Bulk Update profiles
+      operationId: patchProfile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                profiles:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/profileBulkUpdatePayload'
+              type: object
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/profile'
+                - $ref: '#/components/schemas/profileDemographic'
+                - $ref: '#/components/schemas/timestamps'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+  /api/v2/profiles/{profile_id}:
+    get:
+      tags:
+      - Profiles
+      summary: Get profile
+      operationId: getProfile
+      parameters:
+      - name: profile_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/profile'
+                - $ref: '#/components/schemas/profileDemographic'
+                - $ref: '#/components/schemas/timestamps'
+                - $ref: '#/components/schemas/greetProfileStats'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+    put:
+      tags:
+      - Profiles
+      summary: Update profile
+      operationId: putProfile
+      parameters:
+      - name: profile_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - email
+              properties:
+                email:
+                  type: string
+                  format: email
+                first_name:
+                  type: string
+                  example: Frank
+                last_name:
+                  type: string
+                  example: Castle
+              type: object
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/profile'
+                - $ref: '#/components/schemas/profileDemographic'
+                - $ref: '#/components/schemas/timestamps'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    profile:
+      allOf:
+      - properties:
+          email:
+            type: string
+            format: email
+            example: mail@mail.com
+          name:
+            type: string
+            example: Michael Burnham
+          first_name:
+            type:
+            - string
+            - 'null'
+            example: Michael
+          last_name:
+            type:
+            - string
+            - 'null'
+            example: Burnham
+          image:
+            type: string
+            format: uri
+            example: http://example-path-to-image.jpg
+          work:
+            properties:
+              current:
+                type:
+                - string
+                - 'null'
+              title:
+                type:
+                - string
+                - 'null'
+            type: object
+          self_url:
+            type: string
+            format: uri
+            example: http://example-path-to-self-url
+          attributes_url:
+            type: string
+            format: uri
+            example: http://example-path-to-attributes-url
+          events_url:
+            type: string
+            format: uri
+            example: http://example-path-to-events-url
+          unsubscribed:
+            type: boolean
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+    greetProfileStats:
+      properties:
+        stats:
+          properties:
+            opened:
+              type: boolean
+              example: true
+            watched:
+              type: boolean
+              example: true
+            clicked:
+              type: boolean
+              example: false
+            reacted:
+              type: boolean
+              example: false
+            viewed:
+              type: boolean
+              example: true
+            shared:
+              type: boolean
+              example: false
+            recipient_replied:
+              type: boolean
+              example: false
+            date_opened:
+              type:
+              - string
+              - 'null'
+              format: datetime
+              example: '2021-01-10T12:22:41.000000Z'
+            date_replied:
+              type:
+              - string
+              - 'null'
+              format: datetime
+              example: '2021-01-10T12:22:41.000000Z'
+            opens:
+              type: integer
+              example: 0
+            clicks:
+              type: integer
+              example: 0
+            views:
+              type: integer
+              example: 0
+            shares:
+              type: integer
+              example: 0
+            reactions:
+              type: integer
+              example: 0
+          type: object
+      type: object
+    timestamps:
+      properties:
+        created_at:
+          type: string
+          format: datetime
+          example: '2021-01-11 01:51:26'
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+          example: '2021-01-11 01:51:26'
+      type: object
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object
+    profileBulkUpdatePayload:
+      allOf:
+      - properties:
+          email:
+            type: string
+            format: email
+          first_name:
+            type: string
+            example: Frank
+          last_name:
+            type: string
+            example: Castle
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    badRequest:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Error message
+            status_code:
+              type: integer
+              example: 400
+          type: object
+      type: object
+    profileDemographic:
+      properties:
+        demographic:
+          properties:
+            location:
+              type:
+              - string
+              - 'null'
+            country:
+              type:
+              - string
+              - 'null'
+            age:
+              type:
+              - string
+              - 'null'
+            sex:
+              type:
+              - string
+              - 'null'
+          type: object
+      type: object

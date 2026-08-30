@@ -1,0 +1,280 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Automations API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Automations
+paths:
+  /api/v2/automations:
+    get:
+      tags:
+      - Automations
+      summary: Get paginated automations
+      operationId: getAutomations
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/automations'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+  /api/v2/automations/{automation_id}:
+    get:
+      tags:
+      - Automations
+      summary: Update an automation
+      operationId: getAutomation
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/automation'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+    put:
+      tags:
+      - Automations
+      summary: Update the name or enabled status of an automation
+      operationId: putAutomation
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+                  example: New name
+                enabled:
+                  type: boolean
+                  example: true
+              type: object
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/automation'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+    delete:
+      tags:
+      - Automations
+      summary: Delete an automation
+      operationId: deleteAutomation
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+      responses:
+        '203':
+          description: ok
+          content:
+            application/json:
+              schema:
+                allOf:
+                - properties:
+                    message:
+                      type: string
+                      example: Deleted
+                  type: object
+                - properties:
+                    data:
+                      $ref: '#/components/schemas/automationNoAction'
+                  type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    automationNoAction:
+      properties:
+        id:
+          type: string
+          example: fa51a57c-fc9a-4732-b08e-9a6839efa045
+        name:
+          type: string
+          example: My Funnel
+        enabled:
+          type: boolean
+          example: false
+        is_setup:
+          type: boolean
+          example: false
+        trigger:
+          $ref: '#/components/schemas/trigger'
+      type: object
+    automation:
+      properties:
+        id:
+          type: string
+          example: fa51a57c-fc9a-4732-b08e-9a6839efa045
+        name:
+          type: string
+          example: My Funnel
+        enabled:
+          type: boolean
+          example: false
+        is_setup:
+          type: boolean
+          example: false
+        trigger:
+          $ref: '#/components/schemas/trigger'
+        action:
+          $ref: '#/components/schemas/action'
+      type: object
+    automations:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/automation'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
+    action:
+      properties:
+        id:
+          type: string
+          example: 44a68dc7-ca53-431b-a559-3332655d273a
+        name:
+          type: string
+          example: Subscribe
+        short_name:
+          type: boolean
+          example: subscribe
+        service_id:
+          type: boolean
+          example: mailchimp
+        logo_url:
+          type: boolean
+          example: /assets/images/integrations/logo_mailchimp.svg
+      type:
+      - object
+      - 'null'
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    trigger:
+      properties:
+        id:
+          type: string
+          example: 44a68dc7-ca53-431b-a559-3332655d273a
+        name:
+          type: string
+          example: Subscribe
+        short_name:
+          type: boolean
+          example: subscribe
+        service_id:
+          type: boolean
+          example: mailchimp
+        logo_url:
+          type: boolean
+          example: /assets/images/integrations/logo_mailchimp.svg
+      type:
+      - object
+      - 'null'

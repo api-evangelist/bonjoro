@@ -1,0 +1,382 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Signatures API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Signatures
+paths:
+  /api/v2/signatures:
+    get:
+      tags:
+      - Signatures
+      summary: Get paginated sender signatures
+      operationId: getSignatures
+      parameters:
+      - name: email
+        in: query
+        schema:
+          type: string
+          format: email
+      - name: transport_type
+        in: query
+        description: Required if email parameter is supplied
+        schema:
+          type: string
+          enum:
+          - transport_google
+          - transport_microsoft
+          - transport_postmark
+          - transport_sparkpost
+          - postmark_domain
+      - name: exclude_default
+        in: query
+        schema:
+          type: integer
+          enum:
+          - 1
+          - 0
+      - name: includes
+        in: query
+        schema:
+          type: string
+          enum:
+          - users.signatures
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/signatures'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+    post:
+      tags:
+      - Signatures
+      summary: Add signature
+      operationId: postSignature
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                email:
+                  type: string
+                  format: email
+                first_name:
+                  type: string
+                  example: Diana
+                last_name:
+                  type: string
+                  example: Bishop
+              type: object
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Created
+                  data:
+                    $ref: '#/components/schemas/signature'
+                type: object
+        '400':
+          description: 400 Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+  /api/v2/signatures/{signature_id}:
+    delete:
+      tags:
+      - Signatures
+      summary: Delete signature
+      operationId: deleteSignature
+      parameters:
+      - name: signature_id
+        in: query
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                from:
+                  description: An object containing a userid and a signature id
+                  type: object
+                  example:
+                    03180f5e-382e-4f72-a546-27be5db1683f: '514'
+                replyto:
+                  description: An object containing a userid and a signature id
+                  type: object
+                  example:
+                    03180f5e-382e-4f72-a546-27be5db1683f: '514'
+              type: object
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Email deleted
+                  data:
+                    $ref: '#/components/schemas/signature'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+  /api/v2/signatures/{signature_id}/verify:
+    post:
+      tags:
+      - Signatures
+      summary: Verify signature
+      operationId: verifySignature
+      parameters:
+      - name: signature_id
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Please check your inbox for the verification email
+                  data:
+                    $ref: '#/components/schemas/signature'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    signature:
+      properties:
+        id:
+          type: number
+          example: 7
+        name:
+          type: string
+          example: John Jones
+        address:
+          type: string
+          example: example@domain-email.com
+        via:
+          type: string
+          enum:
+          - Default
+          - Gmail
+          - Microsoft
+          - CNAME
+          - CNAME - Enhanced
+        is_private:
+          type: boolean
+          enum:
+          - true
+          - false
+        is_verified:
+          type: boolean
+          enum:
+          - true
+          - false
+        is_confirmed:
+          type: boolean
+          enum:
+          - true
+          - false
+        transport_type:
+          type: string
+          enum:
+          - transport_google
+          - transport_microsoft
+          - transport_postmark
+          - transport_sparkpost
+          - postmark_domain
+        descriptive_address:
+          type: string
+          example: example@domain.com (Default)
+        forwarding_address:
+          type: string
+          example: 'Off'
+        is_default:
+          type: boolean
+          enum:
+          - true
+          - false
+      type: object
+    user:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: bbf3195e-21a3-4e6a-9698-9b8c09ec0b5b
+        bio:
+          type: string
+          example: Example bio
+        first_name:
+          type: string
+          example: John
+        image:
+          type: string
+          format: uri
+          example: https://example-path-to-image.jpg
+        last_name:
+          type: string
+          example: Jones
+        name:
+          type: string
+          example: John Jones
+        self_url:
+          type: string
+          format: uri
+          example: https://example-path-to-self-url
+        team_url:
+          type: string
+          format: uri
+          example: https://example-path-to-team-url
+      type: object
+    signatures:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - properties:
+                  user_count:
+                    type: integer
+                    example: 1
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/userWithSignature'
+                type: object
+              - $ref: '#/components/schemas/signature'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
+    userWithSignature:
+      allOf:
+      - properties:
+          signatures:
+            description: Only visible when `inclues` parameter is provided or signature is being updated
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/signature'
+          from_signature:
+            $ref: '#/components/schemas/signature'
+          replyto_signature:
+            $ref: '#/components/schemas/signature'
+        type: object
+      - $ref: '#/components/schemas/user'
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    badRequest:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Error message
+            status_code:
+              type: integer
+              example: 400
+          type: object
+      type: object

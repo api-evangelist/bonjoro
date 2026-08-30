@@ -1,0 +1,583 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Message Templates API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Message Templates
+paths:
+  /api/v2/message-templates:
+    get:
+      tags:
+      - Message Templates
+      summary: Get paginated message templates
+      operationId: getMessageTemplates
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: number
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/messageTemplates'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+    post:
+      tags:
+      - Message Templates
+      summary: Add message template
+      operationId: postMessageTemplates
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Created
+                  data:
+                    $ref: '#/components/schemas/messageTemplateMinimal'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+  /api/v2/message-templates/{message_template_id}:
+    get:
+      tags:
+      - Message Templates
+      summary: Get message template
+      operationId: getMessageTemplate
+      parameters:
+      - name: message_template_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/messageTemplate'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '403':
+          description: 403 Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forbidden'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+    put:
+      tags:
+      - Message Templates
+      summary: Update message template
+      operationId: putMessageTemplate
+      parameters:
+      - name: message_template_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/messageTemplateUpdatePayload'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/messageTemplate'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '403':
+          description: 403 Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forbidden'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+    delete:
+      tags:
+      - Message Templates
+      summary: Delete message template
+      operationId: deleteMessageTemplate
+      parameters:
+      - name: message_template_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Deleted
+                  data:
+                    $ref: '#/components/schemas/messageTemplateMinimal'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '403':
+          description: 403 Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forbidden'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+  /api/v2/message-templates/demo/update:
+    post:
+      tags:
+      - Message Templates
+      summary: Update demo message template
+      operationId: updateDemoTemplate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/messageTemplateDemoUpdatePayload'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Demo Updated
+                  data:
+                    $ref: '#/components/schemas/messageTemplateMinimal'
+                type: object
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    messageTemplateMinimal:
+      allOf:
+      - properties:
+          name:
+            type: string
+            example: Magic
+          is_greet_shareable:
+            type: boolean
+            example: true
+          landing_page:
+            type:
+            - object
+            - 'null'
+          state:
+            type: string
+            enum:
+            - open
+            - demo
+            - locked
+            example: open
+          email_template:
+            $ref: '#/components/schemas/mtEmailTemplate'
+          stats:
+            $ref: '#/components/schemas/mtStats'
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
+    mtEmailTemplate:
+      properties:
+        layout:
+          type: string
+          enum:
+          - html
+          - plain
+          example: html
+        subject_line:
+          type: string
+          example: Here's a personal video I recorded for you.
+        message_template:
+          type: string
+          example: Hi {first_name|there}, I recorded a message for you, check it out!
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    mtMedia:
+      allOf:
+      - properties:
+          type:
+            type: string
+            enum:
+            - Media
+            - StockMedia
+            example: Media
+          name:
+            type: string
+            example: like.png
+          tags:
+            type: string
+            example: background image
+          url:
+            type: string
+            format: uri
+            example: http://example-path-to-url
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    user:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: bbf3195e-21a3-4e6a-9698-9b8c09ec0b5b
+        bio:
+          type: string
+          example: Example bio
+        first_name:
+          type: string
+          example: John
+        image:
+          type: string
+          format: uri
+          example: https://example-path-to-image.jpg
+        last_name:
+          type: string
+          example: Jones
+        name:
+          type: string
+          example: John Jones
+        self_url:
+          type: string
+          format: uri
+          example: https://example-path-to-self-url
+        team_url:
+          type: string
+          format: uri
+          example: https://example-path-to-team-url
+      type: object
+    mtThemeUpdatePayload:
+      allOf:
+      - properties:
+          primary_color:
+            type: string
+            example: '#fc5a00'
+          secondary_color:
+            type: string
+            example: '#ffffff'
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+    mtLandingPage:
+      properties:
+        background:
+          $ref: '#/components/schemas/mtMedia'
+        background_type:
+          type: string
+          enum:
+          - Media
+          - StockMedia
+          example: Media
+        logo:
+          $ref: '#/components/schemas/mtMedia'
+        cta:
+          $ref: '#/components/schemas/mtCallToAction'
+      type: object
+    timestamps:
+      properties:
+        created_at:
+          type: string
+          format: datetime
+          example: '2021-01-11 01:51:26'
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+          example: '2021-01-11 01:51:26'
+      type: object
+    mtCallToAction:
+      allOf:
+      - properties:
+          text:
+            type: string
+            example: Send your own videos
+          url:
+            type: string
+            format: uri
+            example: http://example-path-to-url
+          is_displayed:
+            type: boolean
+            example: false
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    messageTemplate:
+      allOf:
+      - properties:
+          name:
+            type: string
+            example: Magic
+          is_greet_shareable:
+            type: boolean
+            example: true
+          theme:
+            $ref: '#/components/schemas/mtTheme'
+          landing_page:
+            $ref: '#/components/schemas/mtLandingPage'
+          state:
+            type: string
+            enum:
+            - open
+            - demo
+            - locked
+            example: open
+          email_template:
+            $ref: '#/components/schemas/mtEmailTemplate'
+          creator:
+            $ref: '#/components/schemas/user'
+          stats:
+            $ref: '#/components/schemas/mtStats'
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    mtTheme:
+      allOf:
+      - properties:
+          primary_color:
+            type: string
+            example: '#fc5a00'
+          secondary_color:
+            type: string
+            example: '#ffffff'
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    mtLandingPageUpdatePayload:
+      properties:
+        background:
+          properties:
+            id:
+              type: string
+              format: uuid
+            type:
+              type: string
+              enum:
+              - Media
+              - StockMedia
+          type:
+          - object
+          - 'null'
+        logo:
+          properties:
+            id:
+              type: string
+              format: uuid
+          type: object
+        cta:
+          properties:
+            id:
+              description: A new CTA will be created if id is empty
+              type: string
+              format: uuid
+            text:
+              type: string
+              example: You can also send your own videos!
+            uri:
+              type: string
+              format: uri
+              example: http://example.com
+            is_displayed:
+              type: boolean
+              enum:
+              - true
+              - false
+          type: object
+      type: object
+    mtStats:
+      properties:
+        total:
+          type: integer
+          example: 0
+        percentage_replies:
+          type: integer
+          example: 0
+        percentage_views:
+          type: integer
+          example: 0
+        percentage_reactions:
+          type: integer
+          example: 0
+        percentage_clicks:
+          type: integer
+          example: 0
+        percentage_opens:
+          type: integer
+          example: 0
+      type: object
+    messageTemplates:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/messageTemplate'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    forbidden:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: No access
+            status_code:
+              type: integer
+              example: 403
+          type: object
+      type: object
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object
+    messageTemplateUpdatePayload:
+      properties:
+        name:
+          type: string
+          example: Magic
+        is_greet_shareable:
+          type: boolean
+          example: true
+        theme:
+          $ref: '#/components/schemas/mtThemeUpdatePayload'
+        landing_page:
+          $ref: '#/components/schemas/mtLandingPageUpdatePayload'
+        email_template:
+          $ref: '#/components/schemas/mtEmailTemplate'
+      type: object
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
+    messageTemplateDemoUpdatePayload:
+      properties:
+        landing_page:
+          properties:
+            id:
+              type: string
+              format: uuid
+          type: object
+        theme:
+          $ref: '#/components/schemas/mtThemeUpdatePayload'
+      type: object

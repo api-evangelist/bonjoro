@@ -1,0 +1,72 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Editor Automation Parameters API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Editor Automation Parameters
+paths:
+  /api/v2/automation/editor/{item_id}/parameter/{parameter_name}:
+    get:
+      tags:
+      - Editor Automation Parameters
+      summary: Get an editor parameter from the specified item_id and parameter_name
+      operationId: getEditorParameter
+      parameters:
+      - name: item_id
+        in: query
+        description: A valid trigger or action id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: parameter_name
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/automationEditorParameters'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    automationEditorParameters:
+      properties:
+        required:
+          type: boolean
+          enum:
+          - true
+          - false
+        placeholder:
+          type: string
+          example: Select a mailing list...
+        type:
+          type: string
+          example: Dropdown
+        description:
+          type: string
+          example: Example description
+        options:
+          type: array
+          items: {}
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object

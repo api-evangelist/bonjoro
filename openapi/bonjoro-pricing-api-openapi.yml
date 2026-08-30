@@ -1,0 +1,160 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Pricing API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Pricing
+paths:
+  /api/v2/pricing:
+    get:
+      tags:
+      - Pricing
+      summary: Get all pricing details
+      operationId: getPricing
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pricing'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+components:
+  schemas:
+    pricingPlan:
+      properties:
+        title:
+          type: string
+          example: Example plan title
+        image:
+          type: string
+          example: example.jpg
+        price:
+          $ref: '#/components/schemas/pricingPrice'
+        copy:
+          type: string
+          example: For individuals & teams running multiple campaigns
+        features:
+          type: array
+          items:
+            anyOf:
+            - properties:
+                text:
+                  type: string
+                  example: Unlimited videos
+              type: object
+            - properties:
+                text:
+                  type: string
+                  example: Unlimited videos
+                text-anchor:
+                  type: string
+                  example: '#standard-features'
+              type: object
+      type: object
+    pricingPlanFeature:
+      properties:
+        icon:
+          type: string
+          example: message-templates
+        heading:
+          type: string
+          example: Screen recorder
+        body:
+          type: string
+          example: Record and share helpful screen recordings for your customers with Bonjoro’s Chrome extension.
+      type: object
+    pricing:
+      properties:
+        plans:
+          type: object
+          allOf:
+          - properties:
+              free:
+                $ref: '#/components/schemas/pricingPlanWithImageSet'
+            type: object
+          - properties:
+              basic:
+                $ref: '#/components/schemas/pricingPlan'
+            type: object
+        features:
+          properties:
+            standard:
+              type: array
+              items:
+                $ref: '#/components/schemas/pricingPlanFeature'
+            pro:
+              type: array
+              items:
+                $ref: '#/components/schemas/pricingPlanFeature'
+            growth:
+              type: array
+              items:
+                $ref: '#/components/schemas/pricingPlanFeature'
+          type: object
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    pricingPlanWithImageSet:
+      allOf:
+      - properties:
+          imageset:
+            properties:
+              1x:
+                type: string
+                format: uri
+                example: /example-path-to-image
+              2x:
+                type: string
+                format: uri
+                example: /example-path-to-image
+            type: object
+        type: object
+      - $ref: '#/components/schemas/pricingPlan'
+    pricingPrice:
+      anyOf:
+      - properties:
+          per_unit:
+            properties:
+              monthly:
+                type: string
+                example: '50'
+              annual:
+                type: string
+                example: '12.50'
+            type: object
+          tier:
+            properties:
+              monthly:
+                type: string
+                example: '50'
+              annual:
+                type: string
+                example: '12.50'
+            type: object
+          notes:
+            type: object
+            anyOf:
+            - properties:
+                monthly:
+                  type: string
+                  example: first user/month<br/>$20 per additional user
+              type: object
+            - properties:
+                annual:
+                  type: string
+                  example: <span class='plan-item-sub-note'>Billed annually</span>
+              type: object
+        type: object

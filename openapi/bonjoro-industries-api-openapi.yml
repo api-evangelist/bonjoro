@@ -1,0 +1,42 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Industries API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Industries
+paths:
+  /api/v2/industries:
+    get:
+      tags:
+      - Industries
+      summary: Get valid industries
+      operationId: getIndustries
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  industries:
+                    type: object
+                    example:
+                      property: value
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+components:
+  schemas:
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object

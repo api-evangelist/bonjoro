@@ -1,0 +1,154 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Integrations API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Integrations
+paths:
+  /api/v2/integrations:
+    get:
+      tags:
+      - Integrations
+      summary: Get paginated integrations
+      operationId: getIntegrations
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                allOf:
+                - properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/integration'
+                  type: object
+                - $ref: '#/components/schemas/pagination'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+  /api/v2/integrations/{integration_id}:
+    get:
+      tags:
+      - Integrations
+      summary: Get an integration
+      operationId: getIntegration
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                allOf:
+                - properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/integration'
+                  type: object
+                - $ref: '#/components/schemas/pagination'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    integration:
+      allOf:
+      - properties:
+          name:
+            type: string
+            example: Roob, Kling and Haley integration
+          is_set_up:
+            type: boolean
+            example: false
+          provider:
+            type: string
+            enum:
+            - zapier
+            - google
+            - microsoft
+            - infusionsoft
+            - intercom
+            - mailchimp
+            - convertkit
+            - drip
+            - patreon
+            - hubspot
+            - trello
+            - slack
+            - activecampaign
+            - campaignmonitor
+            - sharpspring
+            - shopify
+            - mailerlite
+            - vero
+            - clearbit
+            - facebook
+            - salesforce
+            - stripe
+            - twitter
+            - webhook
+            - ontraport
+            - mailers
+            example: webhook
+        type: object
+      - $ref: '#/components/schemas/idUUID'

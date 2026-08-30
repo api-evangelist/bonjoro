@@ -1,0 +1,51 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Task List API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Task List
+paths:
+  /api/v2/tasklist:
+    get:
+      tags:
+      - Task List
+      summary: Get tasklist counts
+      operationId: getAttributes
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tasklistResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    tasklistResponse:
+      properties:
+        counts:
+          properties:
+            replies:
+              type: integer
+              example: 0
+            tasks:
+              type: integer
+              example: 10
+          type: object
+      type: object

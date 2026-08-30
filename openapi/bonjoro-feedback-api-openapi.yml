@@ -1,0 +1,64 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Feedback API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Feedback
+paths:
+  /api/v2/feedback:
+    post:
+      tags:
+      - Feedback
+      summary: Add a feedback
+      operationId: postFeedback
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/feedbackPayload'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Created
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    feedbackPayload:
+      required:
+      - topic
+      - url
+      - data
+      properties:
+        topic:
+          type: string
+          example: string
+        url:
+          type: string
+          example: string
+        data:
+          type: array
+          items: {}
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object

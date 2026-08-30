@@ -1,0 +1,192 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Replies API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Replies
+paths:
+  /api/v2/replies:
+    get:
+      tags:
+      - Replies
+      summary: Get paginated replies
+      operationId: getReplies
+      parameters:
+      - name: greet_id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: propfile_id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/replies'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+    post:
+      tags:
+      - Replies
+      summary: Add reply
+      description: The greet should have a completed/sent status in order to add a reply
+      operationId: postReply
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                greet_id:
+                  type: string
+                  format: uuid
+                profile_id:
+                  type: string
+                  format: uuid
+                content:
+                  type: string
+                  example: This is an example response
+                author_id:
+                  type:
+                  - string
+                  - 'null'
+                  example: '1234'
+                author_type:
+                  type:
+                  - string
+                  - 'null'
+                  enum:
+                  - profile
+                  - user
+                  example: profile
+              type: object
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/reply'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '403':
+          description: 403 Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forbidden'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    replies:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/reply'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    forbidden:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: No access
+            status_code:
+              type: integer
+              example: 403
+          type: object
+      type: object
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object
+    reply:
+      allOf:
+      - properties:
+          content:
+            type: string
+            example: This is en example response
+          author:
+            type: object
+            allOf:
+            - properties:
+                name:
+                  type: string
+                  example: Takeshi Kovaks
+                is_recepient:
+                  type: boolean
+                  enum:
+                  - true
+                  - false
+                is_current_user:
+                  type: boolean
+                  enum:
+                  - true
+                  - false
+                created_at:
+                  type: string
+                  format: datetime
+                  example: 2021-01-18T06:26:56+0000
+              type: object
+            - $ref: '#/components/schemas/idUUID'
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object

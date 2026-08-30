@@ -1,0 +1,747 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Results API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Results
+paths:
+  /api/v2/results/{greet_id}/{profile_id}:
+    get:
+      tags:
+      - Results
+      summary: Get results for the specified greet and profile
+      operationId: getResults
+      parameters:
+      - name: greet_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: profile_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/result'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+    put:
+      tags:
+      - Results
+      summary: Mark result as replied
+      operationId: putResult
+      parameters:
+      - name: greet_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: profile_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                mark_as_replied:
+                  type: boolean
+                  enum:
+                  - true
+                  - false
+              type: object
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Updated
+                  data:
+                    $ref: '#/components/schemas/result'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+  /api/v2/results/{greet_id}/{profile_id}/stats:
+    get:
+      tags:
+      - Results
+      summary: Get lightweight results stats for the specified greet and profile
+      operationId: getResultStats
+      parameters:
+      - name: greet_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: profile_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resultStats'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    greetProfileStats:
+      properties:
+        stats:
+          properties:
+            opened:
+              type: boolean
+              example: true
+            watched:
+              type: boolean
+              example: true
+            clicked:
+              type: boolean
+              example: false
+            reacted:
+              type: boolean
+              example: false
+            viewed:
+              type: boolean
+              example: true
+            shared:
+              type: boolean
+              example: false
+            recipient_replied:
+              type: boolean
+              example: false
+            date_opened:
+              type:
+              - string
+              - 'null'
+              format: datetime
+              example: '2021-01-10T12:22:41.000000Z'
+            date_replied:
+              type:
+              - string
+              - 'null'
+              format: datetime
+              example: '2021-01-10T12:22:41.000000Z'
+            opens:
+              type: integer
+              example: 0
+            clicks:
+              type: integer
+              example: 0
+            views:
+              type: integer
+              example: 0
+            shares:
+              type: integer
+              example: 0
+            reactions:
+              type: integer
+              example: 0
+          type: object
+      type: object
+    result:
+      properties:
+        greet:
+          $ref: '#/components/schemas/resultGreet'
+        profile:
+          $ref: '#/components/schemas/user'
+        message:
+          type: string
+          example: Hi there, I recorded a message for you, check it out!
+        stats:
+          $ref: '#/components/schemas/greetProfileStats'
+        replies:
+          type: array
+          items:
+            $ref: '#/components/schemas/reply'
+        sent_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+        results_url:
+          type: string
+          format: uri
+          example: http://example-path-to-results-url
+        results_modal_url:
+          type: string
+          format: uri
+          example: http://example-path-to-results-modal-url
+        awaiting_reply:
+          type:
+          - string
+          - 'null'
+          format: boolean
+          enum:
+          - true
+          - false
+        last_replied_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+          example: '2021-01-18 05:21:04'
+      type: object
+    mtEmailTemplate:
+      properties:
+        layout:
+          type: string
+          enum:
+          - html
+          - plain
+          example: html
+        subject_line:
+          type: string
+          example: Here's a personal video I recorded for you.
+        message_template:
+          type: string
+          example: Hi {first_name|there}, I recorded a message for you, check it out!
+      type: object
+    greetFull:
+      allOf:
+      - properties:
+          profiles:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/profile'
+              - $ref: '#/components/schemas/profileDemographic'
+        type: object
+      - properties:
+          message_template:
+            $ref: '#/components/schemas/messageTemplate'
+        type: object
+      - $ref: '#/components/schemas/greet'
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    mtMedia:
+      allOf:
+      - properties:
+          type:
+            type: string
+            enum:
+            - Media
+            - StockMedia
+            example: Media
+          name:
+            type: string
+            example: like.png
+          tags:
+            type: string
+            example: background image
+          url:
+            type: string
+            format: uri
+            example: http://example-path-to-url
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    user:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: bbf3195e-21a3-4e6a-9698-9b8c09ec0b5b
+        bio:
+          type: string
+          example: Example bio
+        first_name:
+          type: string
+          example: John
+        image:
+          type: string
+          format: uri
+          example: https://example-path-to-image.jpg
+        last_name:
+          type: string
+          example: Jones
+        name:
+          type: string
+          example: John Jones
+        self_url:
+          type: string
+          format: uri
+          example: https://example-path-to-self-url
+        team_url:
+          type: string
+          format: uri
+          example: https://example-path-to-team-url
+      type: object
+    resultGreet:
+      allOf:
+      - properties:
+          profiles:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/profile'
+              - $ref: '#/components/schemas/profileDemographic'
+        type: object
+      - properties:
+          assignee:
+            $ref: '#/components/schemas/user'
+          event:
+            $ref: '#/components/schemas/event'
+          link_id:
+            type: string
+            format: uuid
+          status:
+            type: string
+            example: sent
+          draft:
+            type: boolean
+            enum:
+            - false
+            - true
+          thumb_url:
+            type: string
+            format: uri
+            example: /example-path-to-thumb-url
+          public_url:
+            type: string
+            format: uri
+            example: http://example-path-to-thumb-url
+          video_url:
+            type: string
+            format: uri
+            example: http://example-path-to-thumb-url
+          preview:
+            properties:
+              image:
+                type:
+                - string
+                - 'null'
+                format: uri
+                example: /path-to-image
+              gif:
+                type:
+                - string
+                - 'null'
+                format: uri
+                example: /path-to-gif
+              video:
+                type:
+                - string
+                - 'null'
+                format: uri
+                example: /path-to-video
+            type: object
+          self_url:
+            type:
+            - string
+            - 'null'
+            format: uri
+            example: http://example-path-to-self-url
+          assignee_url:
+            type:
+            - string
+            - 'null'
+            format: uri
+            example: http://example-path-to-assigne-url
+          profiles_url:
+            type:
+            - string
+            - 'null'
+            format: uri
+            example: http://example-path-to-profiles-url
+          event_url:
+            type:
+            - string
+            - 'null'
+            format: uri
+            example: http://example-path-to-event-url
+        type: object
+      - properties:
+          message_template:
+            $ref: '#/components/schemas/messageTemplate'
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    mtLandingPage:
+      properties:
+        background:
+          $ref: '#/components/schemas/mtMedia'
+        background_type:
+          type: string
+          enum:
+          - Media
+          - StockMedia
+          example: Media
+        logo:
+          $ref: '#/components/schemas/mtMedia'
+        cta:
+          $ref: '#/components/schemas/mtCallToAction'
+      type: object
+    resultStats:
+      properties:
+        greet:
+          $ref: '#/components/schemas/greetFull'
+        profile:
+          $ref: '#/components/schemas/user'
+        stats:
+          $ref: '#/components/schemas/greetProfileStats'
+        replies:
+          type: array
+          items:
+            $ref: '#/components/schemas/reply'
+        sent_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+        awaiting_reply:
+          type:
+          - string
+          - 'null'
+          format: boolean
+          enum:
+          - true
+          - false
+        last_replied_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+          example: '2021-01-18 05:21:04'
+      type: object
+    timestamps:
+      properties:
+        created_at:
+          type: string
+          format: datetime
+          example: '2021-01-11 01:51:26'
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+          example: '2021-01-11 01:51:26'
+      type: object
+    mtCallToAction:
+      allOf:
+      - properties:
+          text:
+            type: string
+            example: Send your own videos
+          url:
+            type: string
+            format: uri
+            example: http://example-path-to-url
+          is_displayed:
+            type: boolean
+            example: false
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    messageTemplate:
+      allOf:
+      - properties:
+          name:
+            type: string
+            example: Magic
+          is_greet_shareable:
+            type: boolean
+            example: true
+          theme:
+            $ref: '#/components/schemas/mtTheme'
+          landing_page:
+            $ref: '#/components/schemas/mtLandingPage'
+          state:
+            type: string
+            enum:
+            - open
+            - demo
+            - locked
+            example: open
+          email_template:
+            $ref: '#/components/schemas/mtEmailTemplate'
+          creator:
+            $ref: '#/components/schemas/user'
+          stats:
+            $ref: '#/components/schemas/mtStats'
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    reply:
+      allOf:
+      - properties:
+          content:
+            type: string
+            example: This is en example response
+          author:
+            type: object
+            allOf:
+            - properties:
+                name:
+                  type: string
+                  example: Takeshi Kovaks
+                is_recepient:
+                  type: boolean
+                  enum:
+                  - true
+                  - false
+                is_current_user:
+                  type: boolean
+                  enum:
+                  - true
+                  - false
+                created_at:
+                  type: string
+                  format: datetime
+                  example: 2021-01-18T06:26:56+0000
+              type: object
+            - $ref: '#/components/schemas/idUUID'
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+    mtTheme:
+      allOf:
+      - properties:
+          primary_color:
+            type: string
+            example: '#fc5a00'
+          secondary_color:
+            type: string
+            example: '#ffffff'
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    mtStats:
+      properties:
+        total:
+          type: integer
+          example: 0
+        percentage_replies:
+          type: integer
+          example: 0
+        percentage_views:
+          type: integer
+          example: 0
+        percentage_reactions:
+          type: integer
+          example: 0
+        percentage_clicks:
+          type: integer
+          example: 0
+        percentage_opens:
+          type: integer
+          example: 0
+      type: object
+    profile:
+      allOf:
+      - properties:
+          email:
+            type: string
+            format: email
+            example: mail@mail.com
+          name:
+            type: string
+            example: Michael Burnham
+          first_name:
+            type:
+            - string
+            - 'null'
+            example: Michael
+          last_name:
+            type:
+            - string
+            - 'null'
+            example: Burnham
+          image:
+            type: string
+            format: uri
+            example: http://example-path-to-image.jpg
+          work:
+            properties:
+              current:
+                type:
+                - string
+                - 'null'
+              title:
+                type:
+                - string
+                - 'null'
+            type: object
+          self_url:
+            type: string
+            format: uri
+            example: http://example-path-to-self-url
+          attributes_url:
+            type: string
+            format: uri
+            example: http://example-path-to-attributes-url
+          events_url:
+            type: string
+            format: uri
+            example: http://example-path-to-events-url
+          unsubscribed:
+            type: boolean
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object
+    greet:
+      allOf:
+      - properties:
+          assignee:
+            $ref: '#/components/schemas/user'
+          link_id:
+            type: string
+            format: uuid
+            example: 1b8c061b-058c-4636-a34d-95bc0ac6acbb
+          event:
+            $ref: '#/components/schemas/event'
+          status:
+            type: string
+            example: open
+          draft:
+            type: boolean
+            example: false
+          thumb_url:
+            type: string
+            format: uri
+            example: http://example-path-to-thumb-url.png
+          record_url:
+            type: string
+            format: uri
+            example: http://example-path-to-record-url
+          uploads_url:
+            type: string
+            format: uri
+            example: http://example-path-to-uploads-url
+          self_url:
+            type: string
+            format: uri
+            example: http://example-path-to-self-url
+          attributes_url:
+            type: string
+            format: uri
+            example: http://example-path-to-attributes-url
+          events_url:
+            type: string
+            format: uri
+            example: http://example-path-to-events-url
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
+    event:
+      properties:
+        message:
+          type: string
+          example: Send a practice message to yourself
+        occured_at:
+          type: string
+          example: '2021-01-11 01:21:28'
+        id:
+          type: string
+          example: 89ca52c2-a846-49e1-8019-6783802e363d
+        type:
+          type: string
+          example: DemoEvent
+        source:
+          type: string
+          example: User
+      type: object
+    profileDemographic:
+      properties:
+        demographic:
+          properties:
+            location:
+              type:
+              - string
+              - 'null'
+            country:
+              type:
+              - string
+              - 'null'
+            age:
+              type:
+              - string
+              - 'null'
+            sex:
+              type:
+              - string
+              - 'null'
+          type: object
+      type: object

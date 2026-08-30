@@ -1,0 +1,88 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Editor Automation Triggers API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Editor Automation Triggers
+paths:
+  /api/v2/automation/editor/triggers:
+    get:
+      tags:
+      - Editor Automation Triggers
+      summary: Get all available triggers for the specified service
+      operationId: getEditorServices
+      parameters:
+      - name: service
+        in: query
+        schema:
+          type: string
+          enum:
+          - active_campaign
+          - bonjoro
+          - convertkit
+          - drip
+          - hubspot_crm
+          - infusionsoft
+          - intercom
+          - mailchimp
+          - mailerlite
+          - ontraport
+          - patreon-v2
+          - shopify
+          - slack
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    type: array
+                    items:
+                      allOf:
+                      - $ref: '#/components/schemas/editorAutomationTriggerItem'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    editorAutomationTriggerItem:
+      properties:
+        id:
+          type: string
+          example: bonjoro_created
+        name:
+          type: string
+          example: Bonjoro Created
+        description:
+          type: string
+          example: Example description
+        variables:
+          properties:
+            example_property:
+              properties:
+                name:
+                  type: string
+                  example: example name
+                description:
+                  type: string
+                  example: example name
+              type: object
+          type: object
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object

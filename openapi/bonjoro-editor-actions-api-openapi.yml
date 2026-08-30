@@ -1,0 +1,85 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Editor Actions API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Editor Actions
+paths:
+  /api/v2/automation/editor/actions/{action_id}:
+    get:
+      tags:
+      - Editor Actions
+      summary: Get an editor action for the specified action_id and service
+      operationId: getEditorAction
+      parameters:
+      - name: action_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: service
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/automationEditorAction'
+                type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    automationEditorAction:
+      properties:
+        id:
+          type: string
+          example: send_message
+        service:
+          type: string
+          example: slack
+        name:
+          type: string
+          example: Send To Slack
+        description:
+          type: string
+          example: Example description
+        self_url:
+          type: string
+          format: uri
+          example: http://path-to-self-url
+        service_url:
+          type: string
+          format: uri
+          example: http://path-to-service-url
+        parameters:
+          description: Properties will vary
+          type: object
+          example:
+            channel:
+              name: Channel
+              description: Select the channel where you want to send the message
+              required: true
+              type: dropdown
+      type: object

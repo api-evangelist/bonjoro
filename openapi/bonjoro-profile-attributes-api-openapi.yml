@@ -1,0 +1,124 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Profile Attributes API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Profile Attributes
+paths:
+  /api/v2/attributes:
+    get:
+      tags:
+      - Profile Attributes
+      summary: Get the profile information related to the specified greet_id and profile_id
+      operationId: getAttributes
+      parameters:
+      - name: profile_id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: greet_id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profileAttributes'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+  /api/v2/attribute-types:
+    get:
+      tags:
+      - Profile Attributes
+      summary: Get all profile attribute types
+      operationId: getAttributeTypes
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                  - $ref: '#/components/schemas/profileAttributeType1'
+                  - $ref: '#/components/schemas/profileAttributeType2'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    profileAttributeType1:
+      properties:
+        key:
+          type: string
+          example: number
+        name:
+          type: string
+          example: Number
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    profileAttributes:
+      properties:
+        message:
+          type: string
+          example: Ok
+        data:
+          type: array
+          items:
+            properties:
+              source:
+                type: string
+                example: bonjoro
+              type:
+                type: string
+                example: string
+              name:
+                type: string
+                example: Reputation
+              value:
+                type: string
+                example: Risky (Business role email)
+            type: object
+        profile_was_updated:
+          type: boolean
+          example: false
+      type: object
+    profileAttributeType2:
+      properties:
+        key:
+          type: string
+          example: facebook
+        name:
+          type: string
+          example: Facebook
+        subtype:
+          type: string
+          example: social
+      type: object

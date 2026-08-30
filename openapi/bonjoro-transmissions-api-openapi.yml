@@ -1,0 +1,214 @@
+openapi: 3.2.0
+info:
+  title: Bonjoro API V2 Transmissions API
+  description: Bonjoro API definitions
+  version: 1.0.0
+servers:
+- url: https://www.bonjoro.com/
+tags:
+- name: Transmissions
+paths:
+  /api/v2/transmisions:
+    get:
+      tags:
+      - Transmissions
+      summary: Get transmitted greet data
+      operationId: getTransmissions
+      parameters:
+      - name: recipient_id
+        in: query
+        description: The profile id of the receipient for the provided context_id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: context_id
+        in: query
+        description: A valid greet id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/transmission'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFound'
+      security:
+      - OAuth: []
+components:
+  schemas:
+    signature:
+      properties:
+        id:
+          type: number
+          example: 7
+        name:
+          type: string
+          example: John Jones
+        address:
+          type: string
+          example: example@domain-email.com
+        via:
+          type: string
+          enum:
+          - Default
+          - Gmail
+          - Microsoft
+          - CNAME
+          - CNAME - Enhanced
+        is_private:
+          type: boolean
+          enum:
+          - true
+          - false
+        is_verified:
+          type: boolean
+          enum:
+          - true
+          - false
+        is_confirmed:
+          type: boolean
+          enum:
+          - true
+          - false
+        transport_type:
+          type: string
+          enum:
+          - transport_google
+          - transport_microsoft
+          - transport_postmark
+          - transport_sparkpost
+          - postmark_domain
+        descriptive_address:
+          type: string
+          example: example@domain.com (Default)
+        forwarding_address:
+          type: string
+          example: 'Off'
+        is_default:
+          type: boolean
+          enum:
+          - true
+          - false
+      type: object
+    user:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: bbf3195e-21a3-4e6a-9698-9b8c09ec0b5b
+        bio:
+          type: string
+          example: Example bio
+        first_name:
+          type: string
+          example: John
+        image:
+          type: string
+          format: uri
+          example: https://example-path-to-image.jpg
+        last_name:
+          type: string
+          example: Jones
+        name:
+          type: string
+          example: John Jones
+        self_url:
+          type: string
+          format: uri
+          example: https://example-path-to-self-url
+        team_url:
+          type: string
+          format: uri
+          example: https://example-path-to-team-url
+      type: object
+    transmissionEvent:
+      properties:
+        event_type:
+          type: string
+          example: sent
+        message:
+          type: string
+          example: We received the message and are sending it to the recipient’s mail server.
+        created_at:
+          type: string
+          format: datetime
+          example: '2021-01-19 23:45:45'
+      type: object
+    transmission:
+      allOf:
+      - properties:
+          title:
+            type: string
+            example: Example title
+          status:
+            type: string
+            enum:
+            - bounce
+            - click
+            - complaint
+            - delay
+            - delivery
+            - open
+            - sent
+            - unsubscribe
+            - failed
+            - resolved
+          endpoint:
+            type: string
+            format: email
+          created_at:
+            type: string
+            format: datetime
+            example: '2021-01-19 23:32:04'
+          events:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/transmissionEvent'
+          user:
+            $ref: '#/components/schemas/user'
+          signature:
+            $ref: '#/components/schemas/signature'
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
