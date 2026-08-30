@@ -33,16 +33,16 @@ specificationVersion: '0.23'
 created: '2026-08-12'
 modified: '2026-08-12'
 tags:
-- Video Messaging
+- video-messaging
 - Customer Engagement
-- Customer Success
+- customer-success
 - Sales Engagement
-- Marketing Automation
+- marketing-automation
 - Video
-- CRM Integration
-- Testimonials
-- Software-as-a-Service
-- Australia
+- crm-integration
+- testimonials
+- saas
+- australia
 tags_raw:
 - video-messaging
 - customer-engagement
@@ -541,6 +541,8 @@ apis:
   humanURL: https://vimily.github.io/bonjoro-api-docs/
   baseURL: https://www.bonjoro.com/api/v2
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -653,6 +655,8 @@ apis:
   humanURL: https://vimily.github.io/bonjoro-api-docs/
   baseURL: https://www.bonjoro.com/api/v2
   tags:
+  - Integration
+  tags_raw:
   - Integrations
   properties:
   - type: OpenAPI
@@ -821,6 +825,8 @@ apis:
   humanURL: https://vimily.github.io/bonjoro-api-docs/
   baseURL: https://www.bonjoro.com/api/v2
   tags:
+  - Notification
+  tags_raw:
   - Notifications
   properties:
   - type: OpenAPI
@@ -1158,6 +1164,8 @@ apis:
   humanURL: https://vimily.github.io/bonjoro-api-docs/
   baseURL: https://www.bonjoro.com/api/v2
   tags:
+  - Team
+  tags_raw:
   - Teams
   properties:
   - type: OpenAPI
@@ -1214,6 +1222,8 @@ apis:
   humanURL: https://vimily.github.io/bonjoro-api-docs/
   baseURL: https://www.bonjoro.com/api/v2
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
