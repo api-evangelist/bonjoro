@@ -216,6 +216,8 @@ apis:
   humanURL: https://vimily.github.io/bonjoro-api-docs/
   baseURL: https://www.bonjoro.com/api/v2
   tags:
+  - Automation
+  tags_raw:
   - Automations
   properties:
   - type: OpenAPI
@@ -954,6 +956,8 @@ apis:
   humanURL: https://vimily.github.io/bonjoro-api-docs/
   baseURL: https://www.bonjoro.com/api/v2
   tags:
+  - Recording
+  tags_raw:
   - Recordings
   properties:
   - type: OpenAPI
@@ -1209,6 +1213,8 @@ apis:
   humanURL: https://vimily.github.io/bonjoro-api-docs/
   baseURL: https://www.bonjoro.com/api/v2
   tags:
+  - Transmission
+  tags_raw:
   - Transmissions
   properties:
   - type: OpenAPI
