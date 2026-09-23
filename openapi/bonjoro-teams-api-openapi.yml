@@ -166,6 +166,79 @@ paths:
       - OAuth: []
 components:
   schemas:
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    timestamps:
+      properties:
+        created_at:
+          type: string
+          format: datetime
+          example: '2021-01-11 01:51:26'
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+          example: '2021-01-11 01:51:26'
+      type: object
+    link:
+      allOf:
+      - properties:
+          team_id:
+            type: string
+            format: uuid
+          subject:
+            type: string
+            example: Here's a personal video I recorded for you.
+          color:
+            type: string
+            example: '#fc5a00'
+          cta:
+            properties:
+              text:
+                type: string
+                example: Send your own videos
+              color:
+                type: string
+                example: '#ffffff'
+              url:
+                type: string
+                format: uri
+                example: http://domain.com
+            type: object
+          logo_url:
+            type: string
+            format: uri
+            example: /path-to-logo-url
+          background_url:
+            type: string
+            format: uri
+            example: /path-to-background-url
+          is_default:
+            type: boolean
+            format: boolean
+          self_url:
+            type: string
+            format: uri
+            example: http://example-self-url
+          team_url:
+            type: string
+            format: uri
+            example: http://example-team-url
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
     signature:
       properties:
         id:
@@ -220,118 +293,6 @@ components:
           - true
           - false
       type: object
-    teams:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/teamWithSignatures'
-        type: object
-      - $ref: '#/components/schemas/pagination'
-    timestamps:
-      properties:
-        created_at:
-          type: string
-          format: datetime
-          example: '2021-01-11 01:51:26'
-        updated_at:
-          type:
-          - string
-          - 'null'
-          format: datetime
-          example: '2021-01-11 01:51:26'
-      type: object
-    pagination:
-      properties:
-        current_page:
-          type: integer
-          example: 1
-        first_page_url:
-          type: string
-        last_page_url:
-          type: string
-        path:
-          type: string
-        from:
-          type: integer
-          example: 1
-        last_page:
-          type: integer
-          example: 2
-        next_page_url:
-          type: string
-        per_page:
-          type: integer
-          example: 15
-        prev_page_url:
-          type: integer
-      type: object
-    teamWithSignatures:
-      allOf:
-      - properties:
-          signatures:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/signature'
-        type: object
-      - $ref: '#/components/schemas/team'
-    idUUID:
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
-      type: object
-    link:
-      allOf:
-      - properties:
-          team_id:
-            type: string
-            format: uuid
-          subject:
-            type: string
-            example: Here's a personal video I recorded for you.
-          color:
-            type: string
-            example: '#fc5a00'
-          cta:
-            properties:
-              text:
-                type: string
-                example: Send your own videos
-              color:
-                type: string
-                example: '#ffffff'
-              url:
-                type: string
-                format: uri
-                example: http://domain.com
-            type: object
-          logo_url:
-            type: string
-            format: uri
-            example: /path-to-logo-url
-          background_url:
-            type: string
-            format: uri
-            example: /path-to-background-url
-          is_default:
-            type: boolean
-            format: boolean
-          self_url:
-            type: string
-            format: uri
-            example: http://example-self-url
-          team_url:
-            type: string
-            format: uri
-            example: http://example-team-url
-        type: object
-      - $ref: '#/components/schemas/idUUID'
-      - $ref: '#/components/schemas/timestamps'
     notFound:
       properties:
         error:
@@ -344,6 +305,16 @@ components:
               example: 404
           type: object
       type: object
+    teamWithSignatures:
+      allOf:
+      - properties:
+          signatures:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/signature'
+        type: object
+      - $ref: '#/components/schemas/team'
     team:
       allOf:
       - properties:
@@ -381,9 +352,38 @@ components:
             example: http://path-to-links-url
         type: object
       - $ref: '#/components/schemas/idUUID'
-    unauthorized:
+    pagination:
       properties:
-        message:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
           type: string
-          example: Unauthorized.
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
       type: object
+    teams:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/teamWithSignatures'
+        type: object
+      - $ref: '#/components/schemas/pagination'

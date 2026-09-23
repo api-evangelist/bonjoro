@@ -206,6 +206,24 @@ paths:
       - OAuth: []
 components:
   schemas:
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    badRequest:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Error message
+            status_code:
+              type: integer
+              example: 400
+          type: object
+      type: object
     signature:
       properties:
         id:
@@ -291,25 +309,33 @@ components:
           format: uri
           example: https://example-path-to-team-url
       type: object
-    signatures:
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
+    userWithSignature:
       allOf:
       - properties:
-          data:
+          signatures:
+            description: Only visible when `inclues` parameter is provided or signature is being updated
             type: array
             items:
               allOf:
-              - properties:
-                  user_count:
-                    type: integer
-                    example: 1
-                  users:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/userWithSignature'
-                type: object
               - $ref: '#/components/schemas/signature'
+          from_signature:
+            $ref: '#/components/schemas/signature'
+          replyto_signature:
+            $ref: '#/components/schemas/signature'
         type: object
-      - $ref: '#/components/schemas/pagination'
+      - $ref: '#/components/schemas/user'
     pagination:
       properties:
         current_page:
@@ -335,48 +361,22 @@ components:
         prev_page_url:
           type: integer
       type: object
-    userWithSignature:
+    signatures:
       allOf:
       - properties:
-          signatures:
-            description: Only visible when `inclues` parameter is provided or signature is being updated
+          data:
             type: array
             items:
               allOf:
+              - properties:
+                  user_count:
+                    type: integer
+                    example: 1
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/userWithSignature'
+                type: object
               - $ref: '#/components/schemas/signature'
-          from_signature:
-            $ref: '#/components/schemas/signature'
-          replyto_signature:
-            $ref: '#/components/schemas/signature'
         type: object
-      - $ref: '#/components/schemas/user'
-    notFound:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    badRequest:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Error message
-            status_code:
-              type: integer
-              example: 400
-          type: object
-      type: object
+      - $ref: '#/components/schemas/pagination'

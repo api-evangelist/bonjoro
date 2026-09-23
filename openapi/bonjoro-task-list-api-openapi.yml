@@ -31,12 +31,6 @@ paths:
       - OAuth: []
 components:
   schemas:
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
     tasklistResponse:
       properties:
         counts:
@@ -48,4 +42,10 @@ components:
               type: integer
               example: 10
           type: object
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
       type: object

@@ -154,6 +154,19 @@ paths:
       - OAuth: []
 components:
   schemas:
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
     inviteAddPayload:
       properties:
         team_id:
@@ -170,6 +183,28 @@ components:
           - admin
           - filmer
       type: object
+    badRequest:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Error message
+            status_code:
+              type: integer
+              example: 400
+          type: object
+      type: object
+    invites:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/invite'
+        type: object
+      - $ref: '#/components/schemas/pagination'
     pagination:
       properties:
         current_page:
@@ -194,41 +229,6 @@ components:
           example: 15
         prev_page_url:
           type: integer
-      type: object
-    invites:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/invite'
-        type: object
-      - $ref: '#/components/schemas/pagination'
-    idUUID:
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
-      type: object
-    badRequest:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Error message
-            status_code:
-              type: integer
-              example: 400
-          type: object
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
       type: object
     invite:
       allOf:

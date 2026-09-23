@@ -45,18 +45,12 @@ paths:
       - OAuth: []
 components:
   schemas:
-    timestamps:
+    idUUID:
       properties:
-        created_at:
+        id:
           type: string
-          format: datetime
-          example: '2021-01-11 01:51:26'
-        updated_at:
-          type:
-          - string
-          - 'null'
-          format: datetime
-          example: '2021-01-11 01:51:26'
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
       type: object
     unauthorized:
       properties:
@@ -83,10 +77,16 @@ components:
         type: object
       - $ref: '#/components/schemas/idUUID'
       - $ref: '#/components/schemas/timestamps'
-    idUUID:
+    timestamps:
       properties:
-        id:
+        created_at:
           type: string
-          format: uuid
-          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+          format: datetime
+          example: '2021-01-11 01:51:26'
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+          example: '2021-01-11 01:51:26'
       type: object

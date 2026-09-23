@@ -153,6 +153,12 @@ components:
           - 'null'
           format: uuid
       type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
     automationTriggers:
       allOf:
       - properties:
@@ -163,6 +169,30 @@ components:
               - $ref: '#/components/schemas/automationTrigger'
         type: object
       - $ref: '#/components/schemas/pagination'
+    badRequest:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Error message
+            status_code:
+              type: integer
+              example: 400
+          type: object
+      type: object
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
     pagination:
       properties:
         current_page:
@@ -187,34 +217,4 @@ components:
           example: 15
         prev_page_url:
           type: integer
-      type: object
-    notFound:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    badRequest:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Error message
-            status_code:
-              type: integer
-              example: 400
-          type: object
       type: object

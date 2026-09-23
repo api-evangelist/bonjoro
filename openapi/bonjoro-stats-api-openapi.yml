@@ -84,6 +84,52 @@ paths:
       - OAuth: []
 components:
   schemas:
+    statisticTeam:
+      properties:
+        unique_opens:
+          type: string
+          example: '1'
+        unique_views:
+          type: string
+          example: '1'
+        unique_clicks:
+          type: string
+          example: '1'
+        unique_reactions:
+          type: string
+          example: '1'
+        greet_total:
+          type: integer
+          example: 1
+        greet_opens:
+          type: string
+          example: '1'
+        greet_views:
+          type: string
+          example: '1'
+        greet_clicks:
+          type: string
+          example: '1'
+        greet_reactions:
+          type: string
+          example: '1'
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    statistics:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/statistic'
+        type: object
+      - $ref: '#/components/schemas/pagination'
     statistic:
       allOf:
       - properties:
@@ -146,41 +192,6 @@ components:
             - $ref: '#/components/schemas/idUUID'
         type: object
       - $ref: '#/components/schemas/idUUID'
-    pagination:
-      properties:
-        current_page:
-          type: integer
-          example: 1
-        first_page_url:
-          type: string
-        last_page_url:
-          type: string
-        path:
-          type: string
-        from:
-          type: integer
-          example: 1
-        last_page:
-          type: integer
-          example: 2
-        next_page_url:
-          type: string
-        per_page:
-          type: integer
-          example: 15
-        prev_page_url:
-          type: integer
-      type: object
-    statistics:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/statistic'
-        type: object
-      - $ref: '#/components/schemas/pagination'
     statisticGreetForUser:
       properties:
         opens:
@@ -245,39 +256,28 @@ components:
           format: uuid
           example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
       type: object
-    statisticTeam:
+    pagination:
       properties:
-        unique_opens:
-          type: string
-          example: '1'
-        unique_views:
-          type: string
-          example: '1'
-        unique_clicks:
-          type: string
-          example: '1'
-        unique_reactions:
-          type: string
-          example: '1'
-        greet_total:
+        current_page:
           type: integer
           example: 1
-        greet_opens:
+        first_page_url:
           type: string
-          example: '1'
-        greet_views:
+        last_page_url:
           type: string
-          example: '1'
-        greet_clicks:
+        path:
           type: string
-          example: '1'
-        greet_reactions:
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
           type: string
-          example: '1'
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
       type: object

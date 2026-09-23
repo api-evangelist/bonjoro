@@ -135,35 +135,29 @@ paths:
       - OAuth: []
 components:
   schemas:
-    editorAutomation:
+    editorAutomationUpdatePayload:
       properties:
-        uuid:
+        trigger_id:
           type: string
           format: uuid
-        name:
+        action_id:
           type: string
-          example: Example automation name
+          format: uuid
         enabled:
           type: boolean
           enum:
           - true
           - false
-        editor_url:
+        state:
+          type: object
+          example:
+            activeStep: finish
+      type: object
+    unauthorized:
+      properties:
+        message:
           type: string
-          format: uri
-          example: http://example-path-to-editor-url
-        self_url:
-          type: string
-          format: uri
-          example: http://example-path-to-self-url
-        trigger_client_logo:
-          type: string
-          format: uri
-          example: /path-to-logo.png
-        action_client_logo:
-          type: string
-          format: uri
-          example: /path-to-logo.png
+          example: Unauthorized.
       type: object
     editorAutmationActionItem:
       properties:
@@ -223,6 +217,21 @@ components:
           - string
           - 'null'
           example: finish
+      type: object
+    editorAutomationTrigger:
+      properties:
+        service:
+          $ref: '#/components/schemas/editorAutomationService'
+        item:
+          $ref: '#/components/schemas/editorAutomationTriggerItem'
+        account:
+          $ref: '#/components/schemas/editorAutomationAccount'
+        options:
+          type:
+          - object
+          - 'null'
+          example:
+            tag_id: 618194a6-9c58-3703-90b8-e0243265eaea
       type: object
     editorAutomationService:
       properties:
@@ -329,6 +338,53 @@ components:
               type: object
           type: object
       type: object
+    editorAutomation:
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: Example automation name
+        enabled:
+          type: boolean
+          enum:
+          - true
+          - false
+        editor_url:
+          type: string
+          format: uri
+          example: http://example-path-to-editor-url
+        self_url:
+          type: string
+          format: uri
+          example: http://example-path-to-self-url
+        trigger_client_logo:
+          type: string
+          format: uri
+          example: /path-to-logo.png
+        action_client_logo:
+          type: string
+          format: uri
+          example: /path-to-logo.png
+      type: object
+    editorAutomationAction:
+      properties:
+        service:
+          $ref: '#/components/schemas/editorAutomationService'
+        action:
+          $ref: '#/components/schemas/editorAutmationActionItem'
+        account:
+          $ref: '#/components/schemas/editorAutomationAccount'
+        options:
+          type:
+          - object
+          - 'null'
+          example:
+            assignee: 3b12757c-97e5-4193-a7c8-14029a4aae4f
+            campaign: 5
+            reason: Dd
+      type: object
     editorAutomationAccount:
       properties:
         uuid:
@@ -344,21 +400,6 @@ components:
           type: string
           format: datetime
           example: hubspot_crm
-      type: object
-    editorAutomationTrigger:
-      properties:
-        service:
-          $ref: '#/components/schemas/editorAutomationService'
-        item:
-          $ref: '#/components/schemas/editorAutomationTriggerItem'
-        account:
-          $ref: '#/components/schemas/editorAutomationAccount'
-        options:
-          type:
-          - object
-          - 'null'
-          example:
-            tag_id: 618194a6-9c58-3703-90b8-e0243265eaea
       type: object
     editorAutomations:
       allOf:
@@ -394,45 +435,4 @@ components:
           example: 15
         prev_page_url:
           type: integer
-      type: object
-    editorAutomationUpdatePayload:
-      properties:
-        trigger_id:
-          type: string
-          format: uuid
-        action_id:
-          type: string
-          format: uuid
-        enabled:
-          type: boolean
-          enum:
-          - true
-          - false
-        state:
-          type: object
-          example:
-            activeStep: finish
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    editorAutomationAction:
-      properties:
-        service:
-          $ref: '#/components/schemas/editorAutomationService'
-        action:
-          $ref: '#/components/schemas/editorAutmationActionItem'
-        account:
-          $ref: '#/components/schemas/editorAutomationAccount'
-        options:
-          type:
-          - object
-          - 'null'
-          example:
-            assignee: 3b12757c-97e5-4193-a7c8-14029a4aae4f
-            campaign: 5
-            reason: Dd
       type: object

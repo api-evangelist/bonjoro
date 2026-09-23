@@ -31,6 +31,37 @@ paths:
       - OAuth: []
 components:
   schemas:
+    checklists:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/checklist'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    checklist:
+      properties:
+        title:
+          type: string
+          example: Create a message template
+        hoverText:
+          type: string
+          example: Customise your video emails and landing pages with your own subject line, messaging, branding, and call-to-actions.
+        isChecked:
+          type: string
+          example: false
+        url:
+          type: string
+          example: http://domain.com/path-to-url
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
     pagination:
       properties:
         current_page:
@@ -56,34 +87,3 @@ components:
         prev_page_url:
           type: integer
       type: object
-    checklist:
-      properties:
-        title:
-          type: string
-          example: Create a message template
-        hoverText:
-          type: string
-          example: Customise your video emails and landing pages with your own subject line, messaging, branding, and call-to-actions.
-        isChecked:
-          type: string
-          example: false
-        url:
-          type: string
-          example: http://domain.com/path-to-url
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    checklists:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/checklist'
-        type: object
-      - $ref: '#/components/schemas/pagination'

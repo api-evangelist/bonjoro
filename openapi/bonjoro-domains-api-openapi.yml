@@ -178,15 +178,22 @@ paths:
       - OAuth: []
 components:
   schemas:
-    domainWithCanonical:
+    domains:
       allOf:
       - properties:
-          canonical:
+          data:
             type: array
             items:
-              $ref: '#/components/schemas/domain'
+              allOf:
+              - $ref: '#/components/schemas/domainWithCanonical'
         type: object
-      - $ref: '#/components/schemas/domain'
+      - $ref: '#/components/schemas/pagination'
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
     domain_record_set:
       properties:
         cname:
@@ -208,31 +215,6 @@ components:
           type: boolean
           example: true
       type: object
-    pagination:
-      properties:
-        current_page:
-          type: integer
-          example: 1
-        first_page_url:
-          type: string
-        last_page_url:
-          type: string
-        path:
-          type: string
-        from:
-          type: integer
-          example: 1
-        last_page:
-          type: integer
-          example: 2
-        next_page_url:
-          type: string
-        per_page:
-          type: integer
-          example: 15
-        prev_page_url:
-          type: integer
-      type: object
     notFound:
       properties:
         error:
@@ -245,6 +227,15 @@ components:
               example: 404
           type: object
       type: object
+    domainWithCanonical:
+      allOf:
+      - properties:
+          canonical:
+            type: array
+            items:
+              $ref: '#/components/schemas/domain'
+        type: object
+      - $ref: '#/components/schemas/domain'
     domain:
       properties:
         is_verified_as_sender:
@@ -285,19 +276,28 @@ components:
           items:
             $ref: '#/components/schemas/domain_record_set'
       type: object
-    unauthorized:
+    pagination:
       properties:
-        message:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
           type: string
-          example: Unauthorized.
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
       type: object
-    domains:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/domainWithCanonical'
-        type: object
-      - $ref: '#/components/schemas/pagination'

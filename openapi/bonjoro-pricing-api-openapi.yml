@@ -29,6 +29,41 @@ paths:
                 $ref: '#/components/schemas/unauthorized'
 components:
   schemas:
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    pricing:
+      properties:
+        plans:
+          type: object
+          allOf:
+          - properties:
+              free:
+                $ref: '#/components/schemas/pricingPlanWithImageSet'
+            type: object
+          - properties:
+              basic:
+                $ref: '#/components/schemas/pricingPlan'
+            type: object
+        features:
+          properties:
+            standard:
+              type: array
+              items:
+                $ref: '#/components/schemas/pricingPlanFeature'
+            pro:
+              type: array
+              items:
+                $ref: '#/components/schemas/pricingPlanFeature'
+            growth:
+              type: array
+              items:
+                $ref: '#/components/schemas/pricingPlanFeature'
+          type: object
+      type: object
     pricingPlan:
       properties:
         title:
@@ -60,69 +95,6 @@ components:
                   example: '#standard-features'
               type: object
       type: object
-    pricingPlanFeature:
-      properties:
-        icon:
-          type: string
-          example: message-templates
-        heading:
-          type: string
-          example: Screen recorder
-        body:
-          type: string
-          example: Record and share helpful screen recordings for your customers with Bonjoro’s Chrome extension.
-      type: object
-    pricing:
-      properties:
-        plans:
-          type: object
-          allOf:
-          - properties:
-              free:
-                $ref: '#/components/schemas/pricingPlanWithImageSet'
-            type: object
-          - properties:
-              basic:
-                $ref: '#/components/schemas/pricingPlan'
-            type: object
-        features:
-          properties:
-            standard:
-              type: array
-              items:
-                $ref: '#/components/schemas/pricingPlanFeature'
-            pro:
-              type: array
-              items:
-                $ref: '#/components/schemas/pricingPlanFeature'
-            growth:
-              type: array
-              items:
-                $ref: '#/components/schemas/pricingPlanFeature'
-          type: object
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    pricingPlanWithImageSet:
-      allOf:
-      - properties:
-          imageset:
-            properties:
-              1x:
-                type: string
-                format: uri
-                example: /example-path-to-image
-              2x:
-                type: string
-                format: uri
-                example: /example-path-to-image
-            type: object
-        type: object
-      - $ref: '#/components/schemas/pricingPlan'
     pricingPrice:
       anyOf:
       - properties:
@@ -158,3 +130,31 @@ components:
                   example: <span class='plan-item-sub-note'>Billed annually</span>
               type: object
         type: object
+    pricingPlanWithImageSet:
+      allOf:
+      - properties:
+          imageset:
+            properties:
+              1x:
+                type: string
+                format: uri
+                example: /example-path-to-image
+              2x:
+                type: string
+                format: uri
+                example: /example-path-to-image
+            type: object
+        type: object
+      - $ref: '#/components/schemas/pricingPlan'
+    pricingPlanFeature:
+      properties:
+        icon:
+          type: string
+          example: message-templates
+        heading:
+          type: string
+          example: Screen recorder
+        body:
+          type: string
+          example: Record and share helpful screen recordings for your customers with Bonjoro’s Chrome extension.
+      type: object

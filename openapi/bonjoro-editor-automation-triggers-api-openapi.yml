@@ -56,6 +56,12 @@ paths:
       - OAuth: []
 components:
   schemas:
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
     editorAutomationTriggerItem:
       properties:
         id:
@@ -79,10 +85,4 @@ components:
                   example: example name
               type: object
           type: object
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
       type: object

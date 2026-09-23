@@ -174,6 +174,72 @@ paths:
       - OAuth: []
 components:
   schemas:
+    mtEmailTemplate:
+      properties:
+        layout:
+          type: string
+          enum:
+          - html
+          - plain
+          example: html
+        subject_line:
+          type: string
+          example: Here's a personal video I recorded for you.
+        message_template:
+          type: string
+          example: Hi {first_name|there}, I recorded a message for you, check it out!
+      type: object
+    recordings:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/recording'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    mtMedia:
+      allOf:
+      - properties:
+          type:
+            type: string
+            enum:
+            - Media
+            - StockMedia
+            example: Media
+          name:
+            type: string
+            example: like.png
+          tags:
+            type: string
+            example: background image
+          url:
+            type: string
+            format: uri
+            example: http://example-path-to-url
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    timestamps:
+      properties:
+        created_at:
+          type: string
+          format: datetime
+          example: '2021-01-11 01:51:26'
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+          example: '2021-01-11 01:51:26'
+      type: object
     recording:
       allOf:
       - properties:
@@ -215,6 +281,21 @@ components:
         type: object
       - $ref: '#/components/schemas/idUUID'
       - $ref: '#/components/schemas/timestamps'
+    mtLandingPage:
+      properties:
+        background:
+          $ref: '#/components/schemas/mtMedia'
+        background_type:
+          type: string
+          enum:
+          - Media
+          - StockMedia
+          example: Media
+        logo:
+          $ref: '#/components/schemas/mtMedia'
+        cta:
+          $ref: '#/components/schemas/mtCallToAction'
+      type: object
     user:
       properties:
         id:
@@ -246,48 +327,15 @@ components:
           format: uri
           example: https://example-path-to-team-url
       type: object
-    recordings:
+    mtTheme:
       allOf:
       - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/recording'
-        type: object
-      - $ref: '#/components/schemas/pagination'
-    timestamps:
-      properties:
-        created_at:
-          type: string
-          format: datetime
-          example: '2021-01-11 01:51:26'
-        updated_at:
-          type:
-          - string
-          - 'null'
-          format: datetime
-          example: '2021-01-11 01:51:26'
-      type: object
-    mtMedia:
-      allOf:
-      - properties:
-          type:
+          primary_color:
             type: string
-            enum:
-            - Media
-            - StockMedia
-            example: Media
-          name:
+            example: '#fc5a00'
+          secondary_color:
             type: string
-            example: like.png
-          tags:
-            type: string
-            example: background image
-          url:
-            type: string
-            format: uri
-            example: http://example-path-to-url
+            example: '#ffffff'
         type: object
       - $ref: '#/components/schemas/idUUID'
       - $ref: '#/components/schemas/timestamps'
@@ -307,68 +355,6 @@ components:
         type: object
       - $ref: '#/components/schemas/idUUID'
       - $ref: '#/components/schemas/timestamps'
-    pagination:
-      properties:
-        current_page:
-          type: integer
-          example: 1
-        first_page_url:
-          type: string
-        last_page_url:
-          type: string
-        path:
-          type: string
-        from:
-          type: integer
-          example: 1
-        last_page:
-          type: integer
-          example: 2
-        next_page_url:
-          type: string
-        per_page:
-          type: integer
-          example: 15
-        prev_page_url:
-          type: integer
-      type: object
-    mtLandingPage:
-      properties:
-        background:
-          $ref: '#/components/schemas/mtMedia'
-        background_type:
-          type: string
-          enum:
-          - Media
-          - StockMedia
-          example: Media
-        logo:
-          $ref: '#/components/schemas/mtMedia'
-        cta:
-          $ref: '#/components/schemas/mtCallToAction'
-      type: object
-    mtEmailTemplate:
-      properties:
-        layout:
-          type: string
-          enum:
-          - html
-          - plain
-          example: html
-        subject_line:
-          type: string
-          example: Here's a personal video I recorded for you.
-        message_template:
-          type: string
-          example: Hi {first_name|there}, I recorded a message for you, check it out!
-      type: object
-    idUUID:
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
-      type: object
     messageTemplate:
       allOf:
       - properties:
@@ -398,23 +384,37 @@ components:
         type: object
       - $ref: '#/components/schemas/idUUID'
       - $ref: '#/components/schemas/timestamps'
-    mtTheme:
-      allOf:
-      - properties:
-          primary_color:
-            type: string
-            example: '#fc5a00'
-          secondary_color:
-            type: string
-            example: '#ffffff'
-        type: object
-      - $ref: '#/components/schemas/idUUID'
-      - $ref: '#/components/schemas/timestamps'
-    unauthorized:
+    idUUID:
       properties:
-        message:
+        id:
           type: string
-          example: Unauthorized.
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
       type: object
     mtStats:
       properties:

@@ -34,27 +34,6 @@ paths:
                 $ref: '#/components/schemas/unauthorized'
 components:
   schemas:
-    accessToken:
-      properties:
-        token_type:
-          type: string
-          example: Bearer
-        expires_in:
-          type: integer
-          example: 31536000
-        access_token:
-          type: string
-          example: eyJ0eXAiOiJKV1QiLCJh...
-        refresh_token:
-          type: string
-          example: eyJ0eXAiOiJKV1QiLCJh...
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
     authenticationPayload:
       properties:
         grant_type:
@@ -72,4 +51,25 @@ components:
           type: string
         client_secret:
           type: string
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    accessToken:
+      properties:
+        token_type:
+          type: string
+          example: Bearer
+        expires_in:
+          type: integer
+          example: 31536000
+        access_token:
+          type: string
+          example: eyJ0eXAiOiJKV1QiLCJh...
+        refresh_token:
+          type: string
+          example: eyJ0eXAiOiJKV1QiLCJh...
       type: object

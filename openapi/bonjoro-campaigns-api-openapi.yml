@@ -184,124 +184,11 @@ paths:
       - OAuth: []
 components:
   schemas:
-    campaignWithUsers:
-      type: object
-      allOf:
-      - properties:
-          users:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/user'
-      - $ref: '#/components/schemas/campaign'
-    user:
+    unauthorized:
       properties:
-        id:
+        message:
           type: string
-          format: uuid
-          example: bbf3195e-21a3-4e6a-9698-9b8c09ec0b5b
-        bio:
-          type: string
-          example: Example bio
-        first_name:
-          type: string
-          example: John
-        image:
-          type: string
-          format: uri
-          example: https://example-path-to-image.jpg
-        last_name:
-          type: string
-          example: Jones
-        name:
-          type: string
-          example: John Jones
-        self_url:
-          type: string
-          format: uri
-          example: https://example-path-to-self-url
-        team_url:
-          type: string
-          format: uri
-          example: https://example-path-to-team-url
-      type: object
-    campaignsSegmented:
-      properties:
-        data:
-          properties:
-            accessible:
-              type: array
-              items:
-                allOf:
-                - $ref: '#/components/schemas/campaignWithUsers'
-            inaccessible:
-              type: array
-              items:
-                allOf:
-                - $ref: '#/components/schemas/campaignWithUsers'
-            templates:
-              type: array
-              items: {}
-          type: object
-      type: object
-    badRequest:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Error message
-            status_code:
-              type: integer
-              example: 400
-          type: object
-      type: object
-    pagination:
-      properties:
-        current_page:
-          type: integer
-          example: 1
-        first_page_url:
-          type: string
-        last_page_url:
-          type: string
-        path:
-          type: string
-        from:
-          type: integer
-          example: 1
-        last_page:
-          type: integer
-          example: 2
-        next_page_url:
-          type: string
-        per_page:
-          type: integer
-          example: 15
-        prev_page_url:
-          type: integer
-      type: object
-    campaigns:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/campaignWithUsers'
-        type: object
-      - $ref: '#/components/schemas/pagination'
-    notFound:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
+          example: Unauthorized.
       type: object
     campaign:
       properties:
@@ -337,12 +224,47 @@ components:
         creator:
           $ref: '#/components/schemas/user'
       type: object
-    unauthorized:
+    badRequest:
       properties:
-        message:
-          type: string
-          example: Unauthorized.
+        error:
+          properties:
+            message:
+              type: string
+              example: Error message
+            status_code:
+              type: integer
+              example: 400
+          type: object
       type: object
+    campaignsSegmented:
+      properties:
+        data:
+          properties:
+            accessible:
+              type: array
+              items:
+                allOf:
+                - $ref: '#/components/schemas/campaignWithUsers'
+            inaccessible:
+              type: array
+              items:
+                allOf:
+                - $ref: '#/components/schemas/campaignWithUsers'
+            templates:
+              type: array
+              items: {}
+          type: object
+      type: object
+    campaigns:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/campaignWithUsers'
+        type: object
+      - $ref: '#/components/schemas/pagination'
     campaignUpdatePayload:
       required:
       - name
@@ -381,4 +303,82 @@ components:
           items:
             type: string
             format: uuid
+      type: object
+    user:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: bbf3195e-21a3-4e6a-9698-9b8c09ec0b5b
+        bio:
+          type: string
+          example: Example bio
+        first_name:
+          type: string
+          example: John
+        image:
+          type: string
+          format: uri
+          example: https://example-path-to-image.jpg
+        last_name:
+          type: string
+          example: Jones
+        name:
+          type: string
+          example: John Jones
+        self_url:
+          type: string
+          format: uri
+          example: https://example-path-to-self-url
+        team_url:
+          type: string
+          format: uri
+          example: https://example-path-to-team-url
+      type: object
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
+    campaignWithUsers:
+      type: object
+      allOf:
+      - properties:
+          users:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/user'
+      - $ref: '#/components/schemas/campaign'
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
       type: object

@@ -149,23 +149,6 @@ paths:
       - OAuth: []
 components:
   schemas:
-    automationNoAction:
-      properties:
-        id:
-          type: string
-          example: fa51a57c-fc9a-4732-b08e-9a6839efa045
-        name:
-          type: string
-          example: My Funnel
-        enabled:
-          type: boolean
-          example: false
-        is_setup:
-          type: boolean
-          example: false
-        trigger:
-          $ref: '#/components/schemas/trigger'
-      type: object
     automation:
       properties:
         id:
@@ -185,6 +168,44 @@ components:
         action:
           $ref: '#/components/schemas/action'
       type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    action:
+      properties:
+        id:
+          type: string
+          example: 44a68dc7-ca53-431b-a559-3332655d273a
+        name:
+          type: string
+          example: Subscribe
+        short_name:
+          type: boolean
+          example: subscribe
+        service_id:
+          type: boolean
+          example: mailchimp
+        logo_url:
+          type: boolean
+          example: /assets/images/integrations/logo_mailchimp.svg
+      type:
+      - object
+      - 'null'
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
     automations:
       allOf:
       - properties:
@@ -195,6 +216,26 @@ components:
               - $ref: '#/components/schemas/automation'
         type: object
       - $ref: '#/components/schemas/pagination'
+    trigger:
+      properties:
+        id:
+          type: string
+          example: 44a68dc7-ca53-431b-a559-3332655d273a
+        name:
+          type: string
+          example: Subscribe
+        short_name:
+          type: boolean
+          example: subscribe
+        service_id:
+          type: boolean
+          example: mailchimp
+        logo_url:
+          type: boolean
+          example: /assets/images/integrations/logo_mailchimp.svg
+      type:
+      - object
+      - 'null'
     pagination:
       properties:
         current_page:
@@ -220,61 +261,20 @@ components:
         prev_page_url:
           type: integer
       type: object
-    notFound:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
-      type: object
-    action:
+    automationNoAction:
       properties:
         id:
           type: string
-          example: 44a68dc7-ca53-431b-a559-3332655d273a
+          example: fa51a57c-fc9a-4732-b08e-9a6839efa045
         name:
           type: string
-          example: Subscribe
-        short_name:
+          example: My Funnel
+        enabled:
           type: boolean
-          example: subscribe
-        service_id:
+          example: false
+        is_setup:
           type: boolean
-          example: mailchimp
-        logo_url:
-          type: boolean
-          example: /assets/images/integrations/logo_mailchimp.svg
-      type:
-      - object
-      - 'null'
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
+          example: false
+        trigger:
+          $ref: '#/components/schemas/trigger'
       type: object
-    trigger:
-      properties:
-        id:
-          type: string
-          example: 44a68dc7-ca53-431b-a559-3332655d273a
-        name:
-          type: string
-          example: Subscribe
-        short_name:
-          type: boolean
-          example: subscribe
-        service_id:
-          type: boolean
-          example: mailchimp
-        logo_url:
-          type: boolean
-          example: /assets/images/integrations/logo_mailchimp.svg
-      type:
-      - object
-      - 'null'
