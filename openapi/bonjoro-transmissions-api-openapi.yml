@@ -58,6 +58,62 @@ components:
           type: string
           example: Unauthorized.
       type: object
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object
+    transmission:
+      allOf:
+      - properties:
+          title:
+            type: string
+            example: Example title
+          status:
+            type: string
+            enum:
+            - bounce
+            - click
+            - complaint
+            - delay
+            - delivery
+            - open
+            - sent
+            - unsubscribe
+            - failed
+            - resolved
+          endpoint:
+            type: string
+            format: email
+          created_at:
+            type: string
+            format: datetime
+            example: '2021-01-19 23:32:04'
+          events:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/transmissionEvent'
+          user:
+            $ref: '#/components/schemas/user'
+          signature:
+            $ref: '#/components/schemas/signature'
+        type: object
+      - $ref: '#/components/schemas/idUUID'
     signature:
       properties:
         id:
@@ -112,17 +168,18 @@ components:
           - true
           - false
       type: object
-    notFound:
+    transmissionEvent:
       properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
+        event_type:
+          type: string
+          example: sent
+        message:
+          type: string
+          example: We received the message and are sending it to the recipient’s mail server.
+        created_at:
+          type: string
+          format: datetime
+          example: '2021-01-19 23:45:45'
       type: object
     user:
       properties:
@@ -154,61 +211,4 @@ components:
           type: string
           format: uri
           example: https://example-path-to-team-url
-      type: object
-    transmission:
-      allOf:
-      - properties:
-          title:
-            type: string
-            example: Example title
-          status:
-            type: string
-            enum:
-            - bounce
-            - click
-            - complaint
-            - delay
-            - delivery
-            - open
-            - sent
-            - unsubscribe
-            - failed
-            - resolved
-          endpoint:
-            type: string
-            format: email
-          created_at:
-            type: string
-            format: datetime
-            example: '2021-01-19 23:32:04'
-          events:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/transmissionEvent'
-          user:
-            $ref: '#/components/schemas/user'
-          signature:
-            $ref: '#/components/schemas/signature'
-        type: object
-      - $ref: '#/components/schemas/idUUID'
-    transmissionEvent:
-      properties:
-        event_type:
-          type: string
-          example: sent
-        message:
-          type: string
-          example: We received the message and are sending it to the recipient’s mail server.
-        created_at:
-          type: string
-          format: datetime
-          example: '2021-01-19 23:45:45'
-      type: object
-    idUUID:
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
       type: object

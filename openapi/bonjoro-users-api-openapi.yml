@@ -324,88 +324,64 @@ paths:
       - OAuth: []
 components:
   schemas:
-    utmExamplePayload:
-      description: Properties may vary
-      properties:
-        referrer:
-          type: string
-          example: example-referrer
-        landing_page:
-          type: string
-          example: example-landing-page
-        utm_source:
-          type: string
-          example: active urser
-        utm_medium:
-          type: string
-          example: email
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    campaign:
+    user:
       properties:
         id:
-          type: integer
-          example: 5
-        uuid:
           type: string
           format: uuid
-        slug:
+          example: bbf3195e-21a3-4e6a-9698-9b8c09ec0b5b
+        bio:
           type: string
-          example: task-list
+          example: Example bio
+        first_name:
+          type: string
+          example: John
+        image:
+          type: string
+          format: uri
+          example: https://example-path-to-image.jpg
+        last_name:
+          type: string
+          example: Jones
         name:
           type: string
-          example: Task List
-        goal:
-          type:
-          - string
-          - 'null'
-        type:
+          example: John Jones
+        self_url:
           type: string
-          example: Default
-        is_default:
-          type: boolean
-          example: true
-        is_private:
-          type: boolean
-          example: false
-        archived_at:
-          type:
-          - string
-          - 'null'
-        creator:
-          $ref: '#/components/schemas/user'
+          format: uri
+          example: https://example-path-to-self-url
+        team_url:
+          type: string
+          format: uri
+          example: https://example-path-to-team-url
       type: object
-    userCampaignsSegmented:
+    notFound:
       properties:
-        data:
+        error:
           properties:
-            public:
-              type: array
-              items:
-                allOf:
-                - $ref: '#/components/schemas/campaignWithUsers'
-            private:
-              type: array
-              items:
-                allOf:
-                - $ref: '#/components/schemas/campaignWithUsers'
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
           type: object
       type: object
-    campaigns:
+    userWithSignature:
       allOf:
       - properties:
-          data:
+          signatures:
+            description: Only visible when `inclues` parameter is provided or signature is being updated
             type: array
             items:
               allOf:
-              - $ref: '#/components/schemas/campaignWithUsers'
+              - $ref: '#/components/schemas/signature'
+          from_signature:
+            $ref: '#/components/schemas/signature'
+          replyto_signature:
+            $ref: '#/components/schemas/signature'
         type: object
-      - $ref: '#/components/schemas/pagination'
+      - $ref: '#/components/schemas/user'
     signature:
       properties:
         id:
@@ -460,49 +436,82 @@ components:
           - true
           - false
       type: object
-    user:
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    campaign:
       properties:
         id:
+          type: integer
+          example: 5
+        uuid:
           type: string
           format: uuid
-          example: bbf3195e-21a3-4e6a-9698-9b8c09ec0b5b
-        bio:
+        slug:
           type: string
-          example: Example bio
-        first_name:
-          type: string
-          example: John
-        image:
-          type: string
-          format: uri
-          example: https://example-path-to-image.jpg
-        last_name:
-          type: string
-          example: Jones
+          example: task-list
         name:
           type: string
-          example: John Jones
-        self_url:
+          example: Task List
+        goal:
+          type:
+          - string
+          - 'null'
+        type:
           type: string
-          format: uri
-          example: https://example-path-to-self-url
-        team_url:
-          type: string
-          format: uri
-          example: https://example-path-to-team-url
+          example: Default
+        is_default:
+          type: boolean
+          example: true
+        is_private:
+          type: boolean
+          example: false
+        archived_at:
+          type:
+          - string
+          - 'null'
+        creator:
+          $ref: '#/components/schemas/user'
       type: object
-    notFound:
+    users:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/userWithSignature'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    userCampaignsSegmented:
       properties:
-        error:
+        data:
           properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
+            public:
+              type: array
+              items:
+                allOf:
+                - $ref: '#/components/schemas/campaignWithUsers'
+            private:
+              type: array
+              items:
+                allOf:
+                - $ref: '#/components/schemas/campaignWithUsers'
           type: object
       type: object
+    campaigns:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/campaignWithUsers'
+        type: object
+      - $ref: '#/components/schemas/pagination'
     campaignWithUsers:
       type: object
       allOf:
@@ -513,21 +522,6 @@ components:
               allOf:
               - $ref: '#/components/schemas/user'
       - $ref: '#/components/schemas/campaign'
-    userWithSignature:
-      allOf:
-      - properties:
-          signatures:
-            description: Only visible when `inclues` parameter is provided or signature is being updated
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/signature'
-          from_signature:
-            $ref: '#/components/schemas/signature'
-          replyto_signature:
-            $ref: '#/components/schemas/signature'
-        type: object
-      - $ref: '#/components/schemas/user'
     userUpdateOnboardingPayload:
       properties:
         visitor:
@@ -558,16 +552,22 @@ components:
           type: integer
           example: 7
       type: object
-    users:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/userWithSignature'
-        type: object
-      - $ref: '#/components/schemas/pagination'
+    utmExamplePayload:
+      description: Properties may vary
+      properties:
+        referrer:
+          type: string
+          example: example-referrer
+        landing_page:
+          type: string
+          example: example-landing-page
+        utm_source:
+          type: string
+          example: active urser
+        utm_medium:
+          type: string
+          example: email
+      type: object
     pagination:
       properties:
         current_page:

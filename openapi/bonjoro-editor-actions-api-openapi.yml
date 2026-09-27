@@ -45,12 +45,6 @@ paths:
       - OAuth: []
 components:
   schemas:
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
     automationEditorAction:
       properties:
         id:
@@ -82,4 +76,10 @@ components:
               description: Select the channel where you want to send the message
               required: true
               type: dropdown
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
       type: object

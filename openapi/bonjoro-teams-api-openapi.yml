@@ -166,6 +166,12 @@ paths:
       - OAuth: []
 components:
   schemas:
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
     idUUID:
       properties:
         id:
@@ -173,11 +179,17 @@ components:
           format: uuid
           example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
       type: object
-    unauthorized:
+    notFound:
       properties:
-        message:
-          type: string
-          example: Unauthorized.
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
       type: object
     timestamps:
       properties:
@@ -239,6 +251,16 @@ components:
         type: object
       - $ref: '#/components/schemas/idUUID'
       - $ref: '#/components/schemas/timestamps'
+    teams:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/teamWithSignatures'
+        type: object
+      - $ref: '#/components/schemas/pagination'
     signature:
       properties:
         id:
@@ -293,28 +315,6 @@ components:
           - true
           - false
       type: object
-    notFound:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
-      type: object
-    teamWithSignatures:
-      allOf:
-      - properties:
-          signatures:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/signature'
-        type: object
-      - $ref: '#/components/schemas/team'
     team:
       allOf:
       - properties:
@@ -352,6 +352,16 @@ components:
             example: http://path-to-links-url
         type: object
       - $ref: '#/components/schemas/idUUID'
+    teamWithSignatures:
+      allOf:
+      - properties:
+          signatures:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/signature'
+        type: object
+      - $ref: '#/components/schemas/team'
     pagination:
       properties:
         current_page:
@@ -377,13 +387,3 @@ components:
         prev_page_url:
           type: integer
       type: object
-    teams:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/teamWithSignatures'
-        type: object
-      - $ref: '#/components/schemas/pagination'

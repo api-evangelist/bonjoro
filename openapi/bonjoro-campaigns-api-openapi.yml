@@ -190,81 +190,18 @@ components:
           type: string
           example: Unauthorized.
       type: object
-    campaign:
-      properties:
-        id:
-          type: integer
-          example: 5
-        uuid:
-          type: string
-          format: uuid
-        slug:
-          type: string
-          example: task-list
-        name:
-          type: string
-          example: Task List
-        goal:
-          type:
-          - string
-          - 'null'
-        type:
-          type: string
-          example: Default
-        is_default:
-          type: boolean
-          example: true
-        is_private:
-          type: boolean
-          example: false
-        archived_at:
-          type:
-          - string
-          - 'null'
-        creator:
-          $ref: '#/components/schemas/user'
-      type: object
-    badRequest:
+    notFound:
       properties:
         error:
           properties:
             message:
               type: string
-              example: Error message
+              example: Not Found
             status_code:
               type: integer
-              example: 400
+              example: 404
           type: object
       type: object
-    campaignsSegmented:
-      properties:
-        data:
-          properties:
-            accessible:
-              type: array
-              items:
-                allOf:
-                - $ref: '#/components/schemas/campaignWithUsers'
-            inaccessible:
-              type: array
-              items:
-                allOf:
-                - $ref: '#/components/schemas/campaignWithUsers'
-            templates:
-              type: array
-              items: {}
-          type: object
-      type: object
-    campaigns:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/campaignWithUsers'
-        type: object
-      - $ref: '#/components/schemas/pagination'
     campaignUpdatePayload:
       required:
       - name
@@ -304,6 +241,104 @@ components:
             type: string
             format: uuid
       type: object
+    campaign:
+      properties:
+        id:
+          type: integer
+          example: 5
+        uuid:
+          type: string
+          format: uuid
+        slug:
+          type: string
+          example: task-list
+        name:
+          type: string
+          example: Task List
+        goal:
+          type:
+          - string
+          - 'null'
+        type:
+          type: string
+          example: Default
+        is_default:
+          type: boolean
+          example: true
+        is_private:
+          type: boolean
+          example: false
+        archived_at:
+          type:
+          - string
+          - 'null'
+        creator:
+          $ref: '#/components/schemas/user'
+      type: object
+    campaignsSegmented:
+      properties:
+        data:
+          properties:
+            accessible:
+              type: array
+              items:
+                allOf:
+                - $ref: '#/components/schemas/campaignWithUsers'
+            inaccessible:
+              type: array
+              items:
+                allOf:
+                - $ref: '#/components/schemas/campaignWithUsers'
+            templates:
+              type: array
+              items: {}
+          type: object
+      type: object
+    campaigns:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/campaignWithUsers'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
+    campaignWithUsers:
+      type: object
+      allOf:
+      - properties:
+          users:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/user'
+      - $ref: '#/components/schemas/campaign'
     user:
       properties:
         id:
@@ -335,50 +370,15 @@ components:
           format: uri
           example: https://example-path-to-team-url
       type: object
-    notFound:
+    badRequest:
       properties:
         error:
           properties:
             message:
               type: string
-              example: Not Found
+              example: Error message
             status_code:
               type: integer
-              example: 404
+              example: 400
           type: object
-      type: object
-    campaignWithUsers:
-      type: object
-      allOf:
-      - properties:
-          users:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/user'
-      - $ref: '#/components/schemas/campaign'
-    pagination:
-      properties:
-        current_page:
-          type: integer
-          example: 1
-        first_page_url:
-          type: string
-        last_page_url:
-          type: string
-        path:
-          type: string
-        from:
-          type: integer
-          example: 1
-        last_page:
-          type: integer
-          example: 2
-        next_page_url:
-          type: string
-        per_page:
-          type: integer
-          example: 15
-        prev_page_url:
-          type: integer
       type: object

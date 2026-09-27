@@ -135,6 +135,63 @@ paths:
       - OAuth: []
 components:
   schemas:
+    editorAutomationAction:
+      properties:
+        service:
+          $ref: '#/components/schemas/editorAutomationService'
+        action:
+          $ref: '#/components/schemas/editorAutmationActionItem'
+        account:
+          $ref: '#/components/schemas/editorAutomationAccount'
+        options:
+          type:
+          - object
+          - 'null'
+          example:
+            assignee: 3b12757c-97e5-4193-a7c8-14029a4aae4f
+            campaign: 5
+            reason: Dd
+      type: object
+    editorAutomations:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/editorAutomation'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    editorAutomationTriggerItem:
+      properties:
+        id:
+          type: string
+          example: bonjoro_created
+        name:
+          type: string
+          example: Bonjoro Created
+        description:
+          type: string
+          example: Example description
+        variables:
+          properties:
+            example_property:
+              properties:
+                name:
+                  type: string
+                  example: example name
+                description:
+                  type: string
+                  example: example name
+              type: object
+          type: object
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
     editorAutomationUpdatePayload:
       properties:
         trigger_id:
@@ -152,86 +209,6 @@ components:
           type: object
           example:
             activeStep: finish
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    editorAutmationActionItem:
-      properties:
-        id:
-          type: string
-          example: create_bonjoro
-        service:
-          type: string
-          example: bonjoro
-        name:
-          type: string
-          example: Create Bonjoro
-        description:
-          type: string
-          example: Example description
-        self_url:
-          type: string
-          format: uri
-          example: http://example-path-to-self-url
-        service_url:
-          type: string
-          format: uri
-          example: http://example-path-to-service-url
-        parameters:
-          properties:
-            example_property_name:
-              type: object
-              example:
-                name: Add fields
-          type: object
-      type: object
-    editorAutomationUpdateResponseItem:
-      properties:
-        name:
-          type: string
-          example: Example name
-        enabled:
-          type: boolean
-          enum:
-          - true
-          - false
-        trigger:
-          $ref: '#/components/schemas/editorAutomationTrigger'
-        action:
-          $ref: '#/components/schemas/editorAutomationAction'
-        id:
-          type: string
-          format: uuid
-        trigger_id:
-          type: string
-          format: uuid
-        action_id:
-          type: string
-          format: uuid
-        activeStep:
-          type:
-          - string
-          - 'null'
-          example: finish
-      type: object
-    editorAutomationTrigger:
-      properties:
-        service:
-          $ref: '#/components/schemas/editorAutomationService'
-        item:
-          $ref: '#/components/schemas/editorAutomationTriggerItem'
-        account:
-          $ref: '#/components/schemas/editorAutomationAccount'
-        options:
-          type:
-          - object
-          - 'null'
-          example:
-            tag_id: 618194a6-9c58-3703-90b8-e0243265eaea
       type: object
     editorAutomationService:
       properties:
@@ -314,28 +291,49 @@ components:
           format: uri
           example: http://example-path-to-action-url
       type: object
-    editorAutomationTriggerItem:
+    editorAutomationTrigger:
+      properties:
+        service:
+          $ref: '#/components/schemas/editorAutomationService'
+        item:
+          $ref: '#/components/schemas/editorAutomationTriggerItem'
+        account:
+          $ref: '#/components/schemas/editorAutomationAccount'
+        options:
+          type:
+          - object
+          - 'null'
+          example:
+            tag_id: 618194a6-9c58-3703-90b8-e0243265eaea
+      type: object
+    editorAutmationActionItem:
       properties:
         id:
           type: string
-          example: bonjoro_created
+          example: create_bonjoro
+        service:
+          type: string
+          example: bonjoro
         name:
           type: string
-          example: Bonjoro Created
+          example: Create Bonjoro
         description:
           type: string
           example: Example description
-        variables:
+        self_url:
+          type: string
+          format: uri
+          example: http://example-path-to-self-url
+        service_url:
+          type: string
+          format: uri
+          example: http://example-path-to-service-url
+        parameters:
           properties:
-            example_property:
-              properties:
-                name:
-                  type: string
-                  example: example name
-                description:
-                  type: string
-                  example: example name
+            example_property_name:
               type: object
+              example:
+                name: Add fields
           type: object
       type: object
     editorAutomation:
@@ -368,22 +366,34 @@ components:
           format: uri
           example: /path-to-logo.png
       type: object
-    editorAutomationAction:
+    editorAutomationUpdateResponseItem:
       properties:
-        service:
-          $ref: '#/components/schemas/editorAutomationService'
+        name:
+          type: string
+          example: Example name
+        enabled:
+          type: boolean
+          enum:
+          - true
+          - false
+        trigger:
+          $ref: '#/components/schemas/editorAutomationTrigger'
         action:
-          $ref: '#/components/schemas/editorAutmationActionItem'
-        account:
-          $ref: '#/components/schemas/editorAutomationAccount'
-        options:
+          $ref: '#/components/schemas/editorAutomationAction'
+        id:
+          type: string
+          format: uuid
+        trigger_id:
+          type: string
+          format: uuid
+        action_id:
+          type: string
+          format: uuid
+        activeStep:
           type:
-          - object
+          - string
           - 'null'
-          example:
-            assignee: 3b12757c-97e5-4193-a7c8-14029a4aae4f
-            campaign: 5
-            reason: Dd
+          example: finish
       type: object
     editorAutomationAccount:
       properties:
@@ -401,16 +411,6 @@ components:
           format: datetime
           example: hubspot_crm
       type: object
-    editorAutomations:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/editorAutomation'
-        type: object
-      - $ref: '#/components/schemas/pagination'
     pagination:
       properties:
         current_page:

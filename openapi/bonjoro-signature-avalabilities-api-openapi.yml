@@ -67,6 +67,12 @@ paths:
       - OAuth: []
 components:
   schemas:
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
     notFound:
       properties:
         error:
@@ -78,12 +84,6 @@ components:
               type: integer
               example: 404
           type: object
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
       type: object
     badRequest:
       properties:

@@ -73,13 +73,6 @@ paths:
       - OAuth: []
 components:
   schemas:
-    idUUID:
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
-      type: object
     integration:
       allOf:
       - properties:
@@ -126,6 +119,13 @@ components:
         message:
           type: string
           example: Unauthorized.
+      type: object
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
       type: object
     pagination:
       properties:

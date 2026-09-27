@@ -64,36 +64,17 @@ components:
                 $ref: '#/components/schemas/pricingPlanFeature'
           type: object
       type: object
-    pricingPlan:
+    pricingPlanFeature:
       properties:
-        title:
+        icon:
           type: string
-          example: Example plan title
-        image:
+          example: message-templates
+        heading:
           type: string
-          example: example.jpg
-        price:
-          $ref: '#/components/schemas/pricingPrice'
-        copy:
+          example: Screen recorder
+        body:
           type: string
-          example: For individuals & teams running multiple campaigns
-        features:
-          type: array
-          items:
-            anyOf:
-            - properties:
-                text:
-                  type: string
-                  example: Unlimited videos
-              type: object
-            - properties:
-                text:
-                  type: string
-                  example: Unlimited videos
-                text-anchor:
-                  type: string
-                  example: '#standard-features'
-              type: object
+          example: Record and share helpful screen recordings for your customers with Bonjoro’s Chrome extension.
       type: object
     pricingPrice:
       anyOf:
@@ -130,6 +111,37 @@ components:
                   example: <span class='plan-item-sub-note'>Billed annually</span>
               type: object
         type: object
+    pricingPlan:
+      properties:
+        title:
+          type: string
+          example: Example plan title
+        image:
+          type: string
+          example: example.jpg
+        price:
+          $ref: '#/components/schemas/pricingPrice'
+        copy:
+          type: string
+          example: For individuals & teams running multiple campaigns
+        features:
+          type: array
+          items:
+            anyOf:
+            - properties:
+                text:
+                  type: string
+                  example: Unlimited videos
+              type: object
+            - properties:
+                text:
+                  type: string
+                  example: Unlimited videos
+                text-anchor:
+                  type: string
+                  example: '#standard-features'
+              type: object
+      type: object
     pricingPlanWithImageSet:
       allOf:
       - properties:
@@ -146,15 +158,3 @@ components:
             type: object
         type: object
       - $ref: '#/components/schemas/pricingPlan'
-    pricingPlanFeature:
-      properties:
-        icon:
-          type: string
-          example: message-templates
-        heading:
-          type: string
-          example: Screen recorder
-        body:
-          type: string
-          example: Record and share helpful screen recordings for your customers with Bonjoro’s Chrome extension.
-      type: object

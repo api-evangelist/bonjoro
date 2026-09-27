@@ -41,6 +41,12 @@ components:
               - $ref: '#/components/schemas/event'
         type: object
       - $ref: '#/components/schemas/pagination'
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
     event:
       properties:
         message:
@@ -58,12 +64,6 @@ components:
         source:
           type: string
           example: User
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
       type: object
     pagination:
       properties:

@@ -126,43 +126,28 @@ paths:
       - OAuth: []
 components:
   schemas:
-    idUUID:
+    automationServiceDefaultTrigger:
       properties:
         id:
           type: string
-          format: uuid
-          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
-      type: object
-    automationServicesContacts:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/profile'
-              - $ref: '#/components/schemas/profileDemographic'
-              - $ref: '#/components/schemas/timestamps'
-        type: object
-      - $ref: '#/components/schemas/pagination'
-    unauthorized:
-      properties:
-        message:
+          example: subscriber_created
+        name:
           type: string
-          example: Unauthorized.
-      type: object
-    timestamps:
-      properties:
-        created_at:
+          example: Person created
+        description:
           type: string
-          format: datetime
-          example: '2021-01-11 01:51:26'
-        updated_at:
-          type:
-          - string
-          - 'null'
-          format: datetime
-          example: '2021-01-11 01:51:26'
+          example: Example description
+        greetable_reason:
+          type: string
+          example: Example greetable reason
+        parameters:
+          type: object
+          example:
+            form_id:
+              required: true
+              type: dropdown
+              name: Form
+              description: Your chosen form
       type: object
     profileDemographic:
       properties:
@@ -185,6 +170,19 @@ components:
               - string
               - 'null'
           type: object
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
       type: object
     profile:
       allOf:
@@ -237,6 +235,18 @@ components:
             type: boolean
         type: object
       - $ref: '#/components/schemas/idUUID'
+    automationServicesContacts:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/profile'
+              - $ref: '#/components/schemas/profileDemographic'
+              - $ref: '#/components/schemas/timestamps'
+        type: object
+      - $ref: '#/components/schemas/pagination'
     editorAutomationService:
       properties:
         id:
@@ -318,29 +328,6 @@ components:
           format: uri
           example: http://example-path-to-action-url
       type: object
-    automationServiceDefaultTrigger:
-      properties:
-        id:
-          type: string
-          example: subscriber_created
-        name:
-          type: string
-          example: Person created
-        description:
-          type: string
-          example: Example description
-        greetable_reason:
-          type: string
-          example: Example greetable reason
-        parameters:
-          type: object
-          example:
-            form_id:
-              required: true
-              type: dropdown
-              name: Form
-              description: Your chosen form
-      type: object
     editorAutomationServices:
       type: array
       items:
@@ -411,6 +398,19 @@ components:
           enum:
           - true
           - false
+      type: object
+    timestamps:
+      properties:
+        created_at:
+          type: string
+          format: datetime
+          example: '2021-01-11 01:51:26'
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+          example: '2021-01-11 01:51:26'
       type: object
     pagination:
       properties:
