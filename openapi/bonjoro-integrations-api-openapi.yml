@@ -73,6 +73,12 @@ paths:
       - OAuth: []
 components:
   schemas:
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
     integration:
       allOf:
       - properties:
@@ -114,12 +120,6 @@ components:
             example: webhook
         type: object
       - $ref: '#/components/schemas/idUUID'
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
     idUUID:
       properties:
         id:

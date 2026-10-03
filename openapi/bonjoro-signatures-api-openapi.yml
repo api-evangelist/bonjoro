@@ -212,6 +212,18 @@ components:
           type: string
           example: Unauthorized.
       type: object
+    badRequest:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Error message
+            status_code:
+              type: integer
+              example: 400
+          type: object
+      type: object
     notFound:
       properties:
         error:
@@ -223,6 +235,37 @@ components:
               type: integer
               example: 404
           type: object
+      type: object
+    user:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: bbf3195e-21a3-4e6a-9698-9b8c09ec0b5b
+        bio:
+          type: string
+          example: Example bio
+        first_name:
+          type: string
+          example: John
+        image:
+          type: string
+          format: uri
+          example: https://example-path-to-image.jpg
+        last_name:
+          type: string
+          example: Jones
+        name:
+          type: string
+          example: John Jones
+        self_url:
+          type: string
+          format: uri
+          example: https://example-path-to-self-url
+        team_url:
+          type: string
+          format: uri
+          example: https://example-path-to-team-url
       type: object
     userWithSignature:
       allOf:
@@ -239,6 +282,31 @@ components:
             $ref: '#/components/schemas/signature'
         type: object
       - $ref: '#/components/schemas/user'
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
     signatures:
       allOf:
       - properties:
@@ -311,72 +379,4 @@ components:
           enum:
           - true
           - false
-      type: object
-    badRequest:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Error message
-            status_code:
-              type: integer
-              example: 400
-          type: object
-      type: object
-    user:
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: bbf3195e-21a3-4e6a-9698-9b8c09ec0b5b
-        bio:
-          type: string
-          example: Example bio
-        first_name:
-          type: string
-          example: John
-        image:
-          type: string
-          format: uri
-          example: https://example-path-to-image.jpg
-        last_name:
-          type: string
-          example: Jones
-        name:
-          type: string
-          example: John Jones
-        self_url:
-          type: string
-          format: uri
-          example: https://example-path-to-self-url
-        team_url:
-          type: string
-          format: uri
-          example: https://example-path-to-team-url
-      type: object
-    pagination:
-      properties:
-        current_page:
-          type: integer
-          example: 1
-        first_page_url:
-          type: string
-        last_page_url:
-          type: string
-        path:
-          type: string
-        from:
-          type: integer
-          example: 1
-        last_page:
-          type: integer
-          example: 2
-        next_page_url:
-          type: string
-        per_page:
-          type: integer
-          example: 15
-        prev_page_url:
-          type: integer
       type: object

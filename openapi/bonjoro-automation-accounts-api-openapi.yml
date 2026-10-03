@@ -165,18 +165,16 @@ components:
           format: uuid
           example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
       type: object
-    notFound:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
-      type: object
+    automationAccounts:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/automationAccount'
+        type: object
+      - $ref: '#/components/schemas/pagination'
     automationAccount:
       allOf:
       - properties:
@@ -192,16 +190,18 @@ components:
             example: '2021-01-20 02:38:50'
         type: object
       - $ref: '#/components/schemas/idUUID'
-    automationAccounts:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/automationAccount'
-        type: object
-      - $ref: '#/components/schemas/pagination'
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
     pagination:
       properties:
         current_page:

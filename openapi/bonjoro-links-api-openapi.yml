@@ -59,16 +59,6 @@ paths:
       - OAuth: []
 components:
   schemas:
-    links:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/link'
-        type: object
-      - $ref: '#/components/schemas/pagination'
     unauthorized:
       properties:
         message:
@@ -129,6 +119,16 @@ components:
         type: object
       - $ref: '#/components/schemas/idUUID'
       - $ref: '#/components/schemas/timestamps'
+    links:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/link'
+        type: object
+      - $ref: '#/components/schemas/pagination'
     timestamps:
       properties:
         created_at:

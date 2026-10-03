@@ -184,23 +184,33 @@ paths:
       - OAuth: []
 components:
   schemas:
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    notFound:
+    campaigns:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/campaignWithUsers'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    badRequest:
       properties:
         error:
           properties:
             message:
               type: string
-              example: Not Found
+              example: Error message
             status_code:
               type: integer
-              example: 404
+              example: 400
           type: object
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
       type: object
     campaignUpdatePayload:
       required:
@@ -241,6 +251,25 @@ components:
             type: string
             format: uuid
       type: object
+    campaignsSegmented:
+      properties:
+        data:
+          properties:
+            accessible:
+              type: array
+              items:
+                allOf:
+                - $ref: '#/components/schemas/campaignWithUsers'
+            inaccessible:
+              type: array
+              items:
+                allOf:
+                - $ref: '#/components/schemas/campaignWithUsers'
+            templates:
+              type: array
+              items: {}
+          type: object
+      type: object
     campaign:
       properties:
         id:
@@ -275,70 +304,18 @@ components:
         creator:
           $ref: '#/components/schemas/user'
       type: object
-    campaignsSegmented:
+    notFound:
       properties:
-        data:
+        error:
           properties:
-            accessible:
-              type: array
-              items:
-                allOf:
-                - $ref: '#/components/schemas/campaignWithUsers'
-            inaccessible:
-              type: array
-              items:
-                allOf:
-                - $ref: '#/components/schemas/campaignWithUsers'
-            templates:
-              type: array
-              items: {}
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
           type: object
       type: object
-    campaigns:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/campaignWithUsers'
-        type: object
-      - $ref: '#/components/schemas/pagination'
-    pagination:
-      properties:
-        current_page:
-          type: integer
-          example: 1
-        first_page_url:
-          type: string
-        last_page_url:
-          type: string
-        path:
-          type: string
-        from:
-          type: integer
-          example: 1
-        last_page:
-          type: integer
-          example: 2
-        next_page_url:
-          type: string
-        per_page:
-          type: integer
-          example: 15
-        prev_page_url:
-          type: integer
-      type: object
-    campaignWithUsers:
-      type: object
-      allOf:
-      - properties:
-          users:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/user'
-      - $ref: '#/components/schemas/campaign'
     user:
       properties:
         id:
@@ -370,15 +347,38 @@ components:
           format: uri
           example: https://example-path-to-team-url
       type: object
-    badRequest:
+    campaignWithUsers:
+      type: object
+      allOf:
+      - properties:
+          users:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/user'
+      - $ref: '#/components/schemas/campaign'
+    pagination:
       properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Error message
-            status_code:
-              type: integer
-              example: 400
-          type: object
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
       type: object

@@ -196,6 +196,25 @@ components:
               example: 404
           type: object
       type: object
+    domains:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/domainWithCanonical'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    domainWithCanonical:
+      allOf:
+      - properties:
+          canonical:
+            type: array
+            items:
+              $ref: '#/components/schemas/domain'
+        type: object
+      - $ref: '#/components/schemas/domain'
     domain_record_set:
       properties:
         cname:
@@ -216,6 +235,31 @@ components:
         is_verified:
           type: boolean
           example: true
+      type: object
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
       type: object
     domain:
       properties:
@@ -256,48 +300,4 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/domain_record_set'
-      type: object
-    domainWithCanonical:
-      allOf:
-      - properties:
-          canonical:
-            type: array
-            items:
-              $ref: '#/components/schemas/domain'
-        type: object
-      - $ref: '#/components/schemas/domain'
-    domains:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/domainWithCanonical'
-        type: object
-      - $ref: '#/components/schemas/pagination'
-    pagination:
-      properties:
-        current_page:
-          type: integer
-          example: 1
-        first_page_url:
-          type: string
-        last_page_url:
-          type: string
-        path:
-          type: string
-        from:
-          type: integer
-          example: 1
-        last_page:
-          type: integer
-          example: 2
-        next_page_url:
-          type: string
-        per_page:
-          type: integer
-          example: 15
-        prev_page_url:
-          type: integer
       type: object

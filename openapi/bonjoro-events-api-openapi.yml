@@ -31,22 +31,6 @@ paths:
       - OAuth: []
 components:
   schemas:
-    events:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/event'
-        type: object
-      - $ref: '#/components/schemas/pagination'
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
     event:
       properties:
         message:
@@ -89,4 +73,20 @@ components:
           example: 15
         prev_page_url:
           type: integer
+      type: object
+    events:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/event'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
       type: object

@@ -58,6 +58,26 @@ components:
           type: string
           example: Unauthorized.
       type: object
+    transmissionEvent:
+      properties:
+        event_type:
+          type: string
+          example: sent
+        message:
+          type: string
+          example: We received the message and are sending it to the recipient’s mail server.
+        created_at:
+          type: string
+          format: datetime
+          example: '2021-01-19 23:45:45'
+      type: object
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object
     notFound:
       properties:
         error:
@@ -70,12 +90,36 @@ components:
               example: 404
           type: object
       type: object
-    idUUID:
+    user:
       properties:
         id:
           type: string
           format: uuid
-          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+          example: bbf3195e-21a3-4e6a-9698-9b8c09ec0b5b
+        bio:
+          type: string
+          example: Example bio
+        first_name:
+          type: string
+          example: John
+        image:
+          type: string
+          format: uri
+          example: https://example-path-to-image.jpg
+        last_name:
+          type: string
+          example: Jones
+        name:
+          type: string
+          example: John Jones
+        self_url:
+          type: string
+          format: uri
+          example: https://example-path-to-self-url
+        team_url:
+          type: string
+          format: uri
+          example: https://example-path-to-team-url
       type: object
     transmission:
       allOf:
@@ -167,48 +211,4 @@ components:
           enum:
           - true
           - false
-      type: object
-    transmissionEvent:
-      properties:
-        event_type:
-          type: string
-          example: sent
-        message:
-          type: string
-          example: We received the message and are sending it to the recipient’s mail server.
-        created_at:
-          type: string
-          format: datetime
-          example: '2021-01-19 23:45:45'
-      type: object
-    user:
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: bbf3195e-21a3-4e6a-9698-9b8c09ec0b5b
-        bio:
-          type: string
-          example: Example bio
-        first_name:
-          type: string
-          example: John
-        image:
-          type: string
-          format: uri
-          example: https://example-path-to-image.jpg
-        last_name:
-          type: string
-          example: Jones
-        name:
-          type: string
-          example: John Jones
-        self_url:
-          type: string
-          format: uri
-          example: https://example-path-to-self-url
-        team_url:
-          type: string
-          format: uri
-          example: https://example-path-to-team-url
       type: object

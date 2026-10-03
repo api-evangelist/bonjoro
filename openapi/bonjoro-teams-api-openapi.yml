@@ -166,6 +166,16 @@ paths:
       - OAuth: []
 components:
   schemas:
+    teams:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/teamWithSignatures'
+        type: object
+      - $ref: '#/components/schemas/pagination'
     unauthorized:
       properties:
         message:
@@ -178,31 +188,6 @@ components:
           type: string
           format: uuid
           example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
-      type: object
-    notFound:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
-      type: object
-    timestamps:
-      properties:
-        created_at:
-          type: string
-          format: datetime
-          example: '2021-01-11 01:51:26'
-        updated_at:
-          type:
-          - string
-          - 'null'
-          format: datetime
-          example: '2021-01-11 01:51:26'
       type: object
     link:
       allOf:
@@ -251,69 +236,30 @@ components:
         type: object
       - $ref: '#/components/schemas/idUUID'
       - $ref: '#/components/schemas/timestamps'
-    teams:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/teamWithSignatures'
-        type: object
-      - $ref: '#/components/schemas/pagination'
-    signature:
+    notFound:
       properties:
-        id:
-          type: number
-          example: 7
-        name:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
+    timestamps:
+      properties:
+        created_at:
           type: string
-          example: John Jones
-        address:
-          type: string
-          example: example@domain-email.com
-        via:
-          type: string
-          enum:
-          - Default
-          - Gmail
-          - Microsoft
-          - CNAME
-          - CNAME - Enhanced
-        is_private:
-          type: boolean
-          enum:
-          - true
-          - false
-        is_verified:
-          type: boolean
-          enum:
-          - true
-          - false
-        is_confirmed:
-          type: boolean
-          enum:
-          - true
-          - false
-        transport_type:
-          type: string
-          enum:
-          - transport_google
-          - transport_microsoft
-          - transport_postmark
-          - transport_sparkpost
-          - postmark_domain
-        descriptive_address:
-          type: string
-          example: example@domain.com (Default)
-        forwarding_address:
-          type: string
-          example: 'Off'
-        is_default:
-          type: boolean
-          enum:
-          - true
-          - false
+          format: datetime
+          example: '2021-01-11 01:51:26'
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+          example: '2021-01-11 01:51:26'
       type: object
     team:
       allOf:
@@ -386,4 +332,58 @@ components:
           example: 15
         prev_page_url:
           type: integer
+      type: object
+    signature:
+      properties:
+        id:
+          type: number
+          example: 7
+        name:
+          type: string
+          example: John Jones
+        address:
+          type: string
+          example: example@domain-email.com
+        via:
+          type: string
+          enum:
+          - Default
+          - Gmail
+          - Microsoft
+          - CNAME
+          - CNAME - Enhanced
+        is_private:
+          type: boolean
+          enum:
+          - true
+          - false
+        is_verified:
+          type: boolean
+          enum:
+          - true
+          - false
+        is_confirmed:
+          type: boolean
+          enum:
+          - true
+          - false
+        transport_type:
+          type: string
+          enum:
+          - transport_google
+          - transport_microsoft
+          - transport_postmark
+          - transport_sparkpost
+          - postmark_domain
+        descriptive_address:
+          type: string
+          example: example@domain.com (Default)
+        forwarding_address:
+          type: string
+          example: 'Off'
+        is_default:
+          type: boolean
+          enum:
+          - true
+          - false
       type: object

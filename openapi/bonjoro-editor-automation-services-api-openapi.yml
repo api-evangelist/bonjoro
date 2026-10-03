@@ -63,29 +63,6 @@ paths:
       - OAuth: []
 components:
   schemas:
-    automationServiceDefaultTrigger:
-      properties:
-        id:
-          type: string
-          example: subscriber_created
-        name:
-          type: string
-          example: Person created
-        description:
-          type: string
-          example: Example description
-        greetable_reason:
-          type: string
-          example: Example greetable reason
-        parameters:
-          type: object
-          example:
-            form_id:
-              required: true
-              type: dropdown
-              name: Form
-              description: Your chosen form
-      type: object
     unauthorized:
       properties:
         message:
@@ -158,4 +135,27 @@ components:
           enum:
           - true
           - false
+      type: object
+    automationServiceDefaultTrigger:
+      properties:
+        id:
+          type: string
+          example: subscriber_created
+        name:
+          type: string
+          example: Person created
+        description:
+          type: string
+          example: Example description
+        greetable_reason:
+          type: string
+          example: Example greetable reason
+        parameters:
+          type: object
+          example:
+            form_id:
+              required: true
+              type: dropdown
+              name: Form
+              description: Your chosen form
       type: object

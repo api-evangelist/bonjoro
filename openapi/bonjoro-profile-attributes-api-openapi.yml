@@ -101,6 +101,15 @@ components:
           type: string
           example: Unauthorized.
       type: object
+    profileAttributeType1:
+      properties:
+        key:
+          type: string
+          example: number
+        name:
+          type: string
+          example: Number
+      type: object
     profileAttributeType2:
       properties:
         key:
@@ -112,13 +121,4 @@ components:
         subtype:
           type: string
           example: social
-      type: object
-    profileAttributeType1:
-      properties:
-        key:
-          type: string
-          example: number
-        name:
-          type: string
-          example: Number
       type: object

@@ -149,6 +149,26 @@ paths:
       - OAuth: []
 components:
   schemas:
+    action:
+      properties:
+        id:
+          type: string
+          example: 44a68dc7-ca53-431b-a559-3332655d273a
+        name:
+          type: string
+          example: Subscribe
+        short_name:
+          type: boolean
+          example: subscribe
+        service_id:
+          type: boolean
+          example: mailchimp
+        logo_url:
+          type: boolean
+          example: /assets/images/integrations/logo_mailchimp.svg
+      type:
+      - object
+      - 'null'
     unauthorized:
       properties:
         message:
@@ -197,43 +217,6 @@ components:
               - $ref: '#/components/schemas/automation'
         type: object
       - $ref: '#/components/schemas/pagination'
-    automationNoAction:
-      properties:
-        id:
-          type: string
-          example: fa51a57c-fc9a-4732-b08e-9a6839efa045
-        name:
-          type: string
-          example: My Funnel
-        enabled:
-          type: boolean
-          example: false
-        is_setup:
-          type: boolean
-          example: false
-        trigger:
-          $ref: '#/components/schemas/trigger'
-      type: object
-    action:
-      properties:
-        id:
-          type: string
-          example: 44a68dc7-ca53-431b-a559-3332655d273a
-        name:
-          type: string
-          example: Subscribe
-        short_name:
-          type: boolean
-          example: subscribe
-        service_id:
-          type: boolean
-          example: mailchimp
-        logo_url:
-          type: boolean
-          example: /assets/images/integrations/logo_mailchimp.svg
-      type:
-      - object
-      - 'null'
     automation:
       properties:
         id:
@@ -277,4 +260,21 @@ components:
           example: 15
         prev_page_url:
           type: integer
+      type: object
+    automationNoAction:
+      properties:
+        id:
+          type: string
+          example: fa51a57c-fc9a-4732-b08e-9a6839efa045
+        name:
+          type: string
+          example: My Funnel
+        enabled:
+          type: boolean
+          example: false
+        is_setup:
+          type: boolean
+          example: false
+        trigger:
+          $ref: '#/components/schemas/trigger'
       type: object

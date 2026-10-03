@@ -73,18 +73,6 @@ components:
           type: string
           example: Unauthorized.
       type: object
-    notFound:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
-      type: object
     badRequest:
       properties:
         error:
@@ -95,5 +83,17 @@ components:
             status_code:
               type: integer
               example: 400
+          type: object
+      type: object
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
           type: object
       type: object
