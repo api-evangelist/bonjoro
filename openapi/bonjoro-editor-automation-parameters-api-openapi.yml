@@ -44,6 +44,12 @@ paths:
       - OAuth: []
 components:
   schemas:
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
     automationEditorParameters:
       properties:
         required:
@@ -63,10 +69,4 @@ components:
         options:
           type: array
           items: {}
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
       type: object

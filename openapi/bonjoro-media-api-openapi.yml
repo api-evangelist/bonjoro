@@ -115,6 +115,47 @@ paths:
       - OAuth: []
 components:
   schemas:
+    allMedia:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/media'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
     badRequest:
       properties:
         error:
@@ -126,12 +167,6 @@ components:
               type: integer
               example: 400
           type: object
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
       type: object
     media:
       allOf:
@@ -171,39 +206,4 @@ components:
           - 'null'
           format: datetime
           example: '2021-01-11 01:51:26'
-      type: object
-    allMedia:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/media'
-        type: object
-      - $ref: '#/components/schemas/pagination'
-    pagination:
-      properties:
-        current_page:
-          type: integer
-          example: 1
-        first_page_url:
-          type: string
-        last_page_url:
-          type: string
-        path:
-          type: string
-        from:
-          type: integer
-          example: 1
-        last_page:
-          type: integer
-          example: 2
-        next_page_url:
-          type: string
-        per_page:
-          type: integer
-          example: 15
-        prev_page_url:
-          type: integer
       type: object

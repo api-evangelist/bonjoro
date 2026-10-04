@@ -152,18 +152,48 @@ paths:
       - OAuth: []
 components:
   schemas:
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
     unauthorized:
       properties:
         message:
           type: string
           example: Unauthorized.
       type: object
-    idUUID:
+    notFound:
       properties:
-        id:
-          type: string
-          format: uuid
-          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
       type: object
     automationAccounts:
       allOf:
@@ -190,40 +220,10 @@ components:
             example: '2021-01-20 02:38:50'
         type: object
       - $ref: '#/components/schemas/idUUID'
-    notFound:
+    idUUID:
       properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
-      type: object
-    pagination:
-      properties:
-        current_page:
-          type: integer
-          example: 1
-        first_page_url:
+        id:
           type: string
-        last_page_url:
-          type: string
-        path:
-          type: string
-        from:
-          type: integer
-          example: 1
-        last_page:
-          type: integer
-          example: 2
-        next_page_url:
-          type: string
-        per_page:
-          type: integer
-          example: 15
-        prev_page_url:
-          type: integer
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
       type: object

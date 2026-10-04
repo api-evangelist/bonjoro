@@ -59,19 +59,6 @@ paths:
       - OAuth: []
 components:
   schemas:
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    idUUID:
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
-      type: object
     link:
       allOf:
       - properties:
@@ -119,29 +106,6 @@ components:
         type: object
       - $ref: '#/components/schemas/idUUID'
       - $ref: '#/components/schemas/timestamps'
-    links:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/link'
-        type: object
-      - $ref: '#/components/schemas/pagination'
-    timestamps:
-      properties:
-        created_at:
-          type: string
-          format: datetime
-          example: '2021-01-11 01:51:26'
-        updated_at:
-          type:
-          - string
-          - 'null'
-          format: datetime
-          example: '2021-01-11 01:51:26'
-      type: object
     pagination:
       properties:
         current_page:
@@ -166,4 +130,40 @@ components:
           example: 15
         prev_page_url:
           type: integer
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    links:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/link'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object
+    timestamps:
+      properties:
+        created_at:
+          type: string
+          format: datetime
+          example: '2021-01-11 01:51:26'
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+          example: '2021-01-11 01:51:26'
       type: object

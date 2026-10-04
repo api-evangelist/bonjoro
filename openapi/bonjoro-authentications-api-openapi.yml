@@ -34,24 +34,6 @@ paths:
                 $ref: '#/components/schemas/unauthorized'
 components:
   schemas:
-    authenticationPayload:
-      properties:
-        grant_type:
-          type: string
-          enum:
-          - password
-          - client_credentials
-          - authorization_code
-        username:
-          type: string
-          format: email
-        password:
-          type: string
-        client_id:
-          type: string
-        client_secret:
-          type: string
-      type: object
     unauthorized:
       properties:
         message:
@@ -72,4 +54,22 @@ components:
         refresh_token:
           type: string
           example: eyJ0eXAiOiJKV1QiLCJh...
+      type: object
+    authenticationPayload:
+      properties:
+        grant_type:
+          type: string
+          enum:
+          - password
+          - client_credentials
+          - authorization_code
+        username:
+          type: string
+          format: email
+        password:
+          type: string
+        client_id:
+          type: string
+        client_secret:
+          type: string
       type: object

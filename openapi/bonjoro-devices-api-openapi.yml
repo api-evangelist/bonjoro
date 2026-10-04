@@ -54,18 +54,6 @@ components:
           type: string
           example: Unauthorized.
       type: object
-    badRequest:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Error message
-            status_code:
-              type: integer
-              example: 400
-          type: object
-      type: object
     devices:
       required:
       - token
@@ -87,4 +75,16 @@ components:
           type:
           - string
           - 'null'
+      type: object
+    badRequest:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Error message
+            status_code:
+              type: integer
+              example: 400
+          type: object
       type: object

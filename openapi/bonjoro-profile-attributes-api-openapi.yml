@@ -69,6 +69,24 @@ paths:
       - OAuth: []
 components:
   schemas:
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    profileAttributeType2:
+      properties:
+        key:
+          type: string
+          example: facebook
+        name:
+          type: string
+          example: Facebook
+        subtype:
+          type: string
+          example: social
+      type: object
     profileAttributes:
       properties:
         message:
@@ -95,12 +113,6 @@ components:
           type: boolean
           example: false
       type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
     profileAttributeType1:
       properties:
         key:
@@ -109,16 +121,4 @@ components:
         name:
           type: string
           example: Number
-      type: object
-    profileAttributeType2:
-      properties:
-        key:
-          type: string
-          example: facebook
-        name:
-          type: string
-          example: Facebook
-        subtype:
-          type: string
-          example: social
       type: object

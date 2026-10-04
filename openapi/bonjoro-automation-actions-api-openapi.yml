@@ -114,13 +114,6 @@ components:
           type: string
           example: Unauthorized.
       type: object
-    idUUID:
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
-      type: object
     automationAction:
       allOf:
       - properties:
@@ -149,3 +142,10 @@ components:
             - slack
         type: object
       - $ref: '#/components/schemas/idUUID'
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object

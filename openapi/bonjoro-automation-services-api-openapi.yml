@@ -126,175 +126,6 @@ paths:
       - OAuth: []
 components:
   schemas:
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    profileDemographic:
-      properties:
-        demographic:
-          properties:
-            location:
-              type:
-              - string
-              - 'null'
-            country:
-              type:
-              - string
-              - 'null'
-            age:
-              type:
-              - string
-              - 'null'
-            sex:
-              type:
-              - string
-              - 'null'
-          type: object
-      type: object
-    profile:
-      allOf:
-      - properties:
-          email:
-            type: string
-            format: email
-            example: mail@mail.com
-          name:
-            type: string
-            example: Michael Burnham
-          first_name:
-            type:
-            - string
-            - 'null'
-            example: Michael
-          last_name:
-            type:
-            - string
-            - 'null'
-            example: Burnham
-          image:
-            type: string
-            format: uri
-            example: http://example-path-to-image.jpg
-          work:
-            properties:
-              current:
-                type:
-                - string
-                - 'null'
-              title:
-                type:
-                - string
-                - 'null'
-            type: object
-          self_url:
-            type: string
-            format: uri
-            example: http://example-path-to-self-url
-          attributes_url:
-            type: string
-            format: uri
-            example: http://example-path-to-attributes-url
-          events_url:
-            type: string
-            format: uri
-            example: http://example-path-to-events-url
-          unsubscribed:
-            type: boolean
-        type: object
-      - $ref: '#/components/schemas/idUUID'
-    automationService:
-      properties:
-        id:
-          type: string
-          example: active_campaign
-        name:
-          type: string
-          example: ActiveCampaign
-        description:
-          type: string
-          example: Example description
-        logo_url:
-          type: string
-          format: uri
-          example: /example-path-to-logo.png
-        actions:
-          type: boolean
-          enum:
-          - true
-          - false
-        triggers:
-          type: boolean
-          enum:
-          - true
-          - false
-        self_url:
-          type: string
-          format: uri
-          example: http://example-path-to-self-url
-        auth_url:
-          type: string
-          format: uri
-          example: http://example-path-to-auth-url
-        disabled:
-          type: boolean
-          enum:
-          - true
-          - false
-        default_trigger:
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/automationServiceDefaultTrigger'
-        capability:
-          properties:
-            primary_collection:
-              type: boolean
-              enum:
-              - true
-              - false
-            external_profiles:
-              type: boolean
-              enum:
-              - true
-              - false
-            creates_greets:
-              type: boolean
-              enum:
-              - true
-              - false
-          type: object
-        hidden:
-          type: boolean
-          enum:
-          - true
-          - false
-      type: object
-    idUUID:
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
-      type: object
-    automationServicesContacts:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/profile'
-              - $ref: '#/components/schemas/profileDemographic'
-              - $ref: '#/components/schemas/timestamps'
-        type: object
-      - $ref: '#/components/schemas/pagination'
-    editorAutomationServices:
-      type: array
-      items:
-        $ref: '#/components/schemas/automationService'
     editorAutomationService:
       properties:
         id:
@@ -376,19 +207,10 @@ components:
           format: uri
           example: http://example-path-to-action-url
       type: object
-    timestamps:
-      properties:
-        created_at:
-          type: string
-          format: datetime
-          example: '2021-01-11 01:51:26'
-        updated_at:
-          type:
-          - string
-          - 'null'
-          format: datetime
-          example: '2021-01-11 01:51:26'
-      type: object
+    editorAutomationServices:
+      type: array
+      items:
+        $ref: '#/components/schemas/automationService'
     pagination:
       properties:
         current_page:
@@ -436,4 +258,182 @@ components:
               type: dropdown
               name: Form
               description: Your chosen form
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    profileDemographic:
+      properties:
+        demographic:
+          properties:
+            location:
+              type:
+              - string
+              - 'null'
+            country:
+              type:
+              - string
+              - 'null'
+            age:
+              type:
+              - string
+              - 'null'
+            sex:
+              type:
+              - string
+              - 'null'
+          type: object
+      type: object
+    timestamps:
+      properties:
+        created_at:
+          type: string
+          format: datetime
+          example: '2021-01-11 01:51:26'
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+          example: '2021-01-11 01:51:26'
+      type: object
+    automationServicesContacts:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/profile'
+              - $ref: '#/components/schemas/profileDemographic'
+              - $ref: '#/components/schemas/timestamps'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    profile:
+      allOf:
+      - properties:
+          email:
+            type: string
+            format: email
+            example: mail@mail.com
+          name:
+            type: string
+            example: Michael Burnham
+          first_name:
+            type:
+            - string
+            - 'null'
+            example: Michael
+          last_name:
+            type:
+            - string
+            - 'null'
+            example: Burnham
+          image:
+            type: string
+            format: uri
+            example: http://example-path-to-image.jpg
+          work:
+            properties:
+              current:
+                type:
+                - string
+                - 'null'
+              title:
+                type:
+                - string
+                - 'null'
+            type: object
+          self_url:
+            type: string
+            format: uri
+            example: http://example-path-to-self-url
+          attributes_url:
+            type: string
+            format: uri
+            example: http://example-path-to-attributes-url
+          events_url:
+            type: string
+            format: uri
+            example: http://example-path-to-events-url
+          unsubscribed:
+            type: boolean
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object
+    automationService:
+      properties:
+        id:
+          type: string
+          example: active_campaign
+        name:
+          type: string
+          example: ActiveCampaign
+        description:
+          type: string
+          example: Example description
+        logo_url:
+          type: string
+          format: uri
+          example: /example-path-to-logo.png
+        actions:
+          type: boolean
+          enum:
+          - true
+          - false
+        triggers:
+          type: boolean
+          enum:
+          - true
+          - false
+        self_url:
+          type: string
+          format: uri
+          example: http://example-path-to-self-url
+        auth_url:
+          type: string
+          format: uri
+          example: http://example-path-to-auth-url
+        disabled:
+          type: boolean
+          enum:
+          - true
+          - false
+        default_trigger:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/automationServiceDefaultTrigger'
+        capability:
+          properties:
+            primary_collection:
+              type: boolean
+              enum:
+              - true
+              - false
+            external_profiles:
+              type: boolean
+              enum:
+              - true
+              - false
+            creates_greets:
+              type: boolean
+              enum:
+              - true
+              - false
+          type: object
+        hidden:
+          type: boolean
+          enum:
+          - true
+          - false
       type: object

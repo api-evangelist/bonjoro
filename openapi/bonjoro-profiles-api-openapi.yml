@@ -223,6 +223,18 @@ components:
           type: string
           example: Unauthorized.
       type: object
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
     profileDemographic:
       properties:
         demographic:
@@ -243,6 +255,32 @@ components:
               type:
               - string
               - 'null'
+          type: object
+      type: object
+    profileBulkUpdatePayload:
+      allOf:
+      - properties:
+          email:
+            type: string
+            format: email
+          first_name:
+            type: string
+            example: Frank
+          last_name:
+            type: string
+            example: Castle
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+    badRequest:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Error message
+            status_code:
+              type: integer
+              example: 400
           type: object
       type: object
     profile:
@@ -296,25 +334,6 @@ components:
             type: boolean
         type: object
       - $ref: '#/components/schemas/idUUID'
-    idUUID:
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
-      type: object
-    badRequest:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Error message
-            status_code:
-              type: integer
-              example: 400
-          type: object
-      type: object
     greetProfileStats:
       properties:
         stats:
@@ -369,17 +388,12 @@ components:
               example: 0
           type: object
       type: object
-    notFound:
+    idUUID:
       properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
       type: object
     timestamps:
       properties:
@@ -394,17 +408,3 @@ components:
           format: datetime
           example: '2021-01-11 01:51:26'
       type: object
-    profileBulkUpdatePayload:
-      allOf:
-      - properties:
-          email:
-            type: string
-            format: email
-          first_name:
-            type: string
-            example: Frank
-          last_name:
-            type: string
-            example: Castle
-        type: object
-      - $ref: '#/components/schemas/idUUID'

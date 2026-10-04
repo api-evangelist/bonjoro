@@ -40,6 +40,12 @@ paths:
       - OAuth: []
 components:
   schemas:
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
     feedbackPayload:
       required:
       - topic
@@ -55,10 +61,4 @@ components:
         data:
           type: array
           items: {}
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
       type: object

@@ -75,6 +75,27 @@ paths:
                 $ref: '#/components/schemas/unauthorized'
 components:
   schemas:
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    googleLoginToken:
+      properties:
+        token:
+          properties:
+            accessToken:
+              type: string
+              example: exampleAccessToken.eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjM1YzEyYjU
+            expires:
+              type: integer
+              example: 1642215881
+            type:
+              type: string
+              example: Bearer
+          type: object
+      type: object
     badRequest:
       properties:
         error:
@@ -86,12 +107,6 @@ components:
               type: integer
               example: 400
           type: object
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
       type: object
     branchLoginToken:
       properties:
@@ -133,20 +148,5 @@ components:
                   format: datetime
                   example: '2022-01-15 03:16:40'
               type: object
-          type: object
-      type: object
-    googleLoginToken:
-      properties:
-        token:
-          properties:
-            accessToken:
-              type: string
-              example: exampleAccessToken.eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjM1YzEyYjU
-            expires:
-              type: integer
-              example: 1642215881
-            type:
-              type: string
-              example: Bearer
           type: object
       type: object

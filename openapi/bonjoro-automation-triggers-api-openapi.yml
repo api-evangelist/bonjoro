@@ -136,53 +136,6 @@ paths:
       - OAuth: []
 components:
   schemas:
-    badRequest:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Error message
-            status_code:
-              type: integer
-              example: 400
-          type: object
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    notFound:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
-      type: object
-    automationTrigger:
-      properties:
-        uuid:
-          type: string
-          format: uuid
-        type:
-          type: string
-          example: subscribe
-        service:
-          type: string
-          example: active_campaign
-        account_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-      type: object
     pagination:
       properties:
         current_page:
@@ -207,6 +160,53 @@ components:
           example: 15
         prev_page_url:
           type: integer
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
+    badRequest:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Error message
+            status_code:
+              type: integer
+              example: 400
+          type: object
+      type: object
+    automationTrigger:
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        type:
+          type: string
+          example: subscribe
+        service:
+          type: string
+          example: active_campaign
+        account_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
       type: object
     automationTriggers:
       allOf:

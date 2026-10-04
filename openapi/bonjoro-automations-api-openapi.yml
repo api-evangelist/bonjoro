@@ -149,7 +149,67 @@ paths:
       - OAuth: []
 components:
   schemas:
-    action:
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
+    automationNoAction:
+      properties:
+        id:
+          type: string
+          example: fa51a57c-fc9a-4732-b08e-9a6839efa045
+        name:
+          type: string
+          example: My Funnel
+        enabled:
+          type: boolean
+          example: false
+        is_setup:
+          type: boolean
+          example: false
+        trigger:
+          $ref: '#/components/schemas/trigger'
+      type: object
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
+    trigger:
       properties:
         id:
           type: string
@@ -169,25 +229,7 @@ components:
       type:
       - object
       - 'null'
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    notFound:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
-      type: object
-    trigger:
+    action:
       properties:
         id:
           type: string
@@ -235,46 +277,4 @@ components:
           $ref: '#/components/schemas/trigger'
         action:
           $ref: '#/components/schemas/action'
-      type: object
-    pagination:
-      properties:
-        current_page:
-          type: integer
-          example: 1
-        first_page_url:
-          type: string
-        last_page_url:
-          type: string
-        path:
-          type: string
-        from:
-          type: integer
-          example: 1
-        last_page:
-          type: integer
-          example: 2
-        next_page_url:
-          type: string
-        per_page:
-          type: integer
-          example: 15
-        prev_page_url:
-          type: integer
-      type: object
-    automationNoAction:
-      properties:
-        id:
-          type: string
-          example: fa51a57c-fc9a-4732-b08e-9a6839efa045
-        name:
-          type: string
-          example: My Funnel
-        enabled:
-          type: boolean
-          example: false
-        is_setup:
-          type: boolean
-          example: false
-        trigger:
-          $ref: '#/components/schemas/trigger'
       type: object

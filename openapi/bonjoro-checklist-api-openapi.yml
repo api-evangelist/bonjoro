@@ -31,6 +31,12 @@ paths:
       - OAuth: []
 components:
   schemas:
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
     checklist:
       properties:
         title:
@@ -46,6 +52,16 @@ components:
           type: string
           example: http://domain.com/path-to-url
       type: object
+    checklists:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/checklist'
+        type: object
+      - $ref: '#/components/schemas/pagination'
     pagination:
       properties:
         current_page:
@@ -71,19 +87,3 @@ components:
         prev_page_url:
           type: integer
       type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    checklists:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/checklist'
-        type: object
-      - $ref: '#/components/schemas/pagination'

@@ -84,62 +84,36 @@ paths:
       - OAuth: []
 components:
   schemas:
-    statisticGreetForUser:
+    pagination:
       properties:
-        opens:
-          type: string
-          example: '1'
-        views:
-          type: string
-          example: '1'
-        clicks:
-          type: string
-          example: '1'
-        replies:
-          type: string
-          example: '1'
-        reactions:
-          type: string
-          example: '1'
-        unique_opens:
-          type: string
-          example: '1'
-        unique_views:
-          type: string
-          example: '1'
-        unique_clicks:
-          type: string
-          example: '1'
-        unique_reactions:
-          type: string
-          example: '1'
-        unique_replies:
-          type: string
-          example: '1'
-        percentage_opens:
-          type: string
-          example: '1'
-        percentage_replies:
-          type: string
-          example: '1'
-        total:
+        current_page:
           type: integer
           example: 1
-        minimumComplete:
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
           type: integer
           example: 1
-        averageOpens:
+        last_page:
           type: integer
-          example: 1
-        averageViews:
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
           type: integer
-          example: 1
-        averageClicks:
+          example: 15
+        prev_page_url:
           type: integer
-          example: 1
-        averageReactions:
-          type: integer
-          example: 1
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
       type: object
     statistics:
       allOf:
@@ -151,19 +125,6 @@ components:
               - $ref: '#/components/schemas/statistic'
         type: object
       - $ref: '#/components/schemas/pagination'
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    idUUID:
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
-      type: object
     statisticTeam:
       properties:
         unique_opens:
@@ -256,28 +217,67 @@ components:
             - $ref: '#/components/schemas/idUUID'
         type: object
       - $ref: '#/components/schemas/idUUID'
-    pagination:
+    statisticGreetForUser:
       properties:
-        current_page:
+        opens:
+          type: string
+          example: '1'
+        views:
+          type: string
+          example: '1'
+        clicks:
+          type: string
+          example: '1'
+        replies:
+          type: string
+          example: '1'
+        reactions:
+          type: string
+          example: '1'
+        unique_opens:
+          type: string
+          example: '1'
+        unique_views:
+          type: string
+          example: '1'
+        unique_clicks:
+          type: string
+          example: '1'
+        unique_reactions:
+          type: string
+          example: '1'
+        unique_replies:
+          type: string
+          example: '1'
+        percentage_opens:
+          type: string
+          example: '1'
+        percentage_replies:
+          type: string
+          example: '1'
+        total:
           type: integer
           example: 1
-        first_page_url:
-          type: string
-        last_page_url:
-          type: string
-        path:
-          type: string
-        from:
+        minimumComplete:
           type: integer
           example: 1
-        last_page:
+        averageOpens:
           type: integer
-          example: 2
-        next_page_url:
+          example: 1
+        averageViews:
+          type: integer
+          example: 1
+        averageClicks:
+          type: integer
+          example: 1
+        averageReactions:
+          type: integer
+          example: 1
+      type: object
+    idUUID:
+      properties:
+        id:
           type: string
-        per_page:
-          type: integer
-          example: 15
-        prev_page_url:
-          type: integer
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
       type: object

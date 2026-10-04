@@ -146,75 +146,39 @@ paths:
       - OAuth: []
 components:
   schemas:
-    event:
-      properties:
-        message:
-          type: string
-          example: Send a practice message to yourself
-        occured_at:
-          type: string
-          example: '2021-01-11 01:21:28'
-        id:
-          type: string
-          example: 89ca52c2-a846-49e1-8019-6783802e363d
-        type:
-          type: string
-          example: DemoEvent
-        source:
-          type: string
-          example: User
-      type: object
-    mtLandingPage:
-      properties:
-        background:
-          $ref: '#/components/schemas/mtMedia'
-        background_type:
-          type: string
-          enum:
-          - Media
-          - StockMedia
-          example: Media
-        logo:
-          $ref: '#/components/schemas/mtMedia'
-        cta:
-          $ref: '#/components/schemas/mtCallToAction'
-      type: object
-    mtCallToAction:
+    mtMedia:
       allOf:
       - properties:
-          text:
+          type:
             type: string
-            example: Send your own videos
+            enum:
+            - Media
+            - StockMedia
+            example: Media
+          name:
+            type: string
+            example: like.png
+          tags:
+            type: string
+            example: background image
           url:
             type: string
             format: uri
             example: http://example-path-to-url
-          is_displayed:
-            type: boolean
-            example: false
         type: object
       - $ref: '#/components/schemas/idUUID'
       - $ref: '#/components/schemas/timestamps'
-    mtStats:
+    notFound:
       properties:
-        total:
-          type: integer
-          example: 0
-        percentage_replies:
-          type: integer
-          example: 0
-        percentage_views:
-          type: integer
-          example: 0
-        percentage_reactions:
-          type: integer
-          example: 0
-        percentage_clicks:
-          type: integer
-          example: 0
-        percentage_opens:
-          type: integer
-          example: 0
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
       type: object
     result:
       properties:
@@ -259,28 +223,6 @@ components:
           format: datetime
           example: '2021-01-18 05:21:04'
       type: object
-    profileDemographic:
-      properties:
-        demographic:
-          properties:
-            location:
-              type:
-              - string
-              - 'null'
-            country:
-              type:
-              - string
-              - 'null'
-            age:
-              type:
-              - string
-              - 'null'
-            sex:
-              type:
-              - string
-              - 'null'
-          type: object
-      type: object
     idUUID:
       properties:
         id:
@@ -303,45 +245,6 @@ components:
           type: string
           example: Hi {first_name|there}, I recorded a message for you, check it out!
       type: object
-    greetFull:
-      allOf:
-      - properties:
-          profiles:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/profile'
-              - $ref: '#/components/schemas/profileDemographic'
-        type: object
-      - properties:
-          message_template:
-            $ref: '#/components/schemas/messageTemplate'
-        type: object
-      - $ref: '#/components/schemas/greet'
-    notFound:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
-      type: object
-    mtTheme:
-      allOf:
-      - properties:
-          primary_color:
-            type: string
-            example: '#fc5a00'
-          secondary_color:
-            type: string
-            example: '#ffffff'
-        type: object
-      - $ref: '#/components/schemas/idUUID'
-      - $ref: '#/components/schemas/timestamps'
     timestamps:
       properties:
         created_at:
@@ -360,6 +263,87 @@ components:
         message:
           type: string
           example: Unauthorized.
+      type: object
+    mtCallToAction:
+      allOf:
+      - properties:
+          text:
+            type: string
+            example: Send your own videos
+          url:
+            type: string
+            format: uri
+            example: http://example-path-to-url
+          is_displayed:
+            type: boolean
+            example: false
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    greet:
+      allOf:
+      - properties:
+          assignee:
+            $ref: '#/components/schemas/user'
+          link_id:
+            type: string
+            format: uuid
+            example: 1b8c061b-058c-4636-a34d-95bc0ac6acbb
+          event:
+            $ref: '#/components/schemas/event'
+          status:
+            type: string
+            example: open
+          draft:
+            type: boolean
+            example: false
+          thumb_url:
+            type: string
+            format: uri
+            example: http://example-path-to-thumb-url.png
+          record_url:
+            type: string
+            format: uri
+            example: http://example-path-to-record-url
+          uploads_url:
+            type: string
+            format: uri
+            example: http://example-path-to-uploads-url
+          self_url:
+            type: string
+            format: uri
+            example: http://example-path-to-self-url
+          attributes_url:
+            type: string
+            format: uri
+            example: http://example-path-to-attributes-url
+          events_url:
+            type: string
+            format: uri
+            example: http://example-path-to-events-url
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+      - $ref: '#/components/schemas/timestamps'
+    mtStats:
+      properties:
+        total:
+          type: integer
+          example: 0
+        percentage_replies:
+          type: integer
+          example: 0
+        percentage_views:
+          type: integer
+          example: 0
+        percentage_reactions:
+          type: integer
+          example: 0
+        percentage_clicks:
+          type: integer
+          example: 0
+        percentage_opens:
+          type: integer
+          example: 0
       type: object
     messageTemplate:
       allOf:
@@ -390,6 +374,105 @@ components:
         type: object
       - $ref: '#/components/schemas/idUUID'
       - $ref: '#/components/schemas/timestamps'
+    profileDemographic:
+      properties:
+        demographic:
+          properties:
+            location:
+              type:
+              - string
+              - 'null'
+            country:
+              type:
+              - string
+              - 'null'
+            age:
+              type:
+              - string
+              - 'null'
+            sex:
+              type:
+              - string
+              - 'null'
+          type: object
+      type: object
+    greetFull:
+      allOf:
+      - properties:
+          profiles:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/profile'
+              - $ref: '#/components/schemas/profileDemographic'
+        type: object
+      - properties:
+          message_template:
+            $ref: '#/components/schemas/messageTemplate'
+        type: object
+      - $ref: '#/components/schemas/greet'
+    reply:
+      allOf:
+      - properties:
+          content:
+            type: string
+            example: This is en example response
+          author:
+            type: object
+            allOf:
+            - properties:
+                name:
+                  type: string
+                  example: Takeshi Kovaks
+                is_recepient:
+                  type: boolean
+                  enum:
+                  - true
+                  - false
+                is_current_user:
+                  type: boolean
+                  enum:
+                  - true
+                  - false
+                created_at:
+                  type: string
+                  format: datetime
+                  example: 2021-01-18T06:26:56+0000
+              type: object
+            - $ref: '#/components/schemas/idUUID'
+        type: object
+      - $ref: '#/components/schemas/idUUID'
+    user:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: bbf3195e-21a3-4e6a-9698-9b8c09ec0b5b
+        bio:
+          type: string
+          example: Example bio
+        first_name:
+          type: string
+          example: John
+        image:
+          type: string
+          format: uri
+          example: https://example-path-to-image.jpg
+        last_name:
+          type: string
+          example: Jones
+        name:
+          type: string
+          example: John Jones
+        self_url:
+          type: string
+          format: uri
+          example: https://example-path-to-self-url
+        team_url:
+          type: string
+          format: uri
+          example: https://example-path-to-team-url
+      type: object
     profile:
       allOf:
       - properties:
@@ -441,81 +524,137 @@ components:
             type: boolean
         type: object
       - $ref: '#/components/schemas/idUUID'
-    greet:
+    mtLandingPage:
+      properties:
+        background:
+          $ref: '#/components/schemas/mtMedia'
+        background_type:
+          type: string
+          enum:
+          - Media
+          - StockMedia
+          example: Media
+        logo:
+          $ref: '#/components/schemas/mtMedia'
+        cta:
+          $ref: '#/components/schemas/mtCallToAction'
+      type: object
+    event:
+      properties:
+        message:
+          type: string
+          example: Send a practice message to yourself
+        occured_at:
+          type: string
+          example: '2021-01-11 01:21:28'
+        id:
+          type: string
+          example: 89ca52c2-a846-49e1-8019-6783802e363d
+        type:
+          type: string
+          example: DemoEvent
+        source:
+          type: string
+          example: User
+      type: object
+    greetProfileStats:
+      properties:
+        stats:
+          properties:
+            opened:
+              type: boolean
+              example: true
+            watched:
+              type: boolean
+              example: true
+            clicked:
+              type: boolean
+              example: false
+            reacted:
+              type: boolean
+              example: false
+            viewed:
+              type: boolean
+              example: true
+            shared:
+              type: boolean
+              example: false
+            recipient_replied:
+              type: boolean
+              example: false
+            date_opened:
+              type:
+              - string
+              - 'null'
+              format: datetime
+              example: '2021-01-10T12:22:41.000000Z'
+            date_replied:
+              type:
+              - string
+              - 'null'
+              format: datetime
+              example: '2021-01-10T12:22:41.000000Z'
+            opens:
+              type: integer
+              example: 0
+            clicks:
+              type: integer
+              example: 0
+            views:
+              type: integer
+              example: 0
+            shares:
+              type: integer
+              example: 0
+            reactions:
+              type: integer
+              example: 0
+          type: object
+      type: object
+    mtTheme:
       allOf:
       - properties:
-          assignee:
-            $ref: '#/components/schemas/user'
-          link_id:
+          primary_color:
             type: string
-            format: uuid
-            example: 1b8c061b-058c-4636-a34d-95bc0ac6acbb
-          event:
-            $ref: '#/components/schemas/event'
-          status:
+            example: '#fc5a00'
+          secondary_color:
             type: string
-            example: open
-          draft:
-            type: boolean
-            example: false
-          thumb_url:
-            type: string
-            format: uri
-            example: http://example-path-to-thumb-url.png
-          record_url:
-            type: string
-            format: uri
-            example: http://example-path-to-record-url
-          uploads_url:
-            type: string
-            format: uri
-            example: http://example-path-to-uploads-url
-          self_url:
-            type: string
-            format: uri
-            example: http://example-path-to-self-url
-          attributes_url:
-            type: string
-            format: uri
-            example: http://example-path-to-attributes-url
-          events_url:
-            type: string
-            format: uri
-            example: http://example-path-to-events-url
+            example: '#ffffff'
         type: object
       - $ref: '#/components/schemas/idUUID'
       - $ref: '#/components/schemas/timestamps'
-    reply:
-      allOf:
-      - properties:
-          content:
-            type: string
-            example: This is en example response
-          author:
-            type: object
-            allOf:
-            - properties:
-                name:
-                  type: string
-                  example: Takeshi Kovaks
-                is_recepient:
-                  type: boolean
-                  enum:
-                  - true
-                  - false
-                is_current_user:
-                  type: boolean
-                  enum:
-                  - true
-                  - false
-                created_at:
-                  type: string
-                  format: datetime
-                  example: 2021-01-18T06:26:56+0000
-              type: object
-            - $ref: '#/components/schemas/idUUID'
-        type: object
-      - $ref: '#/components/schemas/idUUID'
+    resultStats:
+      properties:
+        greet:
+          $ref: '#/components/schemas/greetFull'
+        profile:
+          $ref: '#/components/schemas/user'
+        stats:
+          $ref: '#/components/schemas/greetProfileStats'
+        replies:
+          type: array
+          items:
+            $ref: '#/components/schemas/reply'
+        sent_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+        awaiting_reply:
+          type:
+          - string
+          - 'null'
+          format: boolean
+          enum:
+          - true
+          - false
+        last_replied_at:
+          type:
+          - string
+          - 'null'
+          format: datetime
+          example: '2021-01-18 05:21:04'
+      type: object
     resultGreet:
       allOf:
       - properties:
@@ -603,145 +742,6 @@ components:
       - properties:
           message_template:
             $ref: '#/components/schemas/messageTemplate'
-        type: object
-      - $ref: '#/components/schemas/idUUID'
-      - $ref: '#/components/schemas/timestamps'
-    resultStats:
-      properties:
-        greet:
-          $ref: '#/components/schemas/greetFull'
-        profile:
-          $ref: '#/components/schemas/user'
-        stats:
-          $ref: '#/components/schemas/greetProfileStats'
-        replies:
-          type: array
-          items:
-            $ref: '#/components/schemas/reply'
-        sent_at:
-          type:
-          - string
-          - 'null'
-          format: datetime
-        awaiting_reply:
-          type:
-          - string
-          - 'null'
-          format: boolean
-          enum:
-          - true
-          - false
-        last_replied_at:
-          type:
-          - string
-          - 'null'
-          format: datetime
-          example: '2021-01-18 05:21:04'
-      type: object
-    greetProfileStats:
-      properties:
-        stats:
-          properties:
-            opened:
-              type: boolean
-              example: true
-            watched:
-              type: boolean
-              example: true
-            clicked:
-              type: boolean
-              example: false
-            reacted:
-              type: boolean
-              example: false
-            viewed:
-              type: boolean
-              example: true
-            shared:
-              type: boolean
-              example: false
-            recipient_replied:
-              type: boolean
-              example: false
-            date_opened:
-              type:
-              - string
-              - 'null'
-              format: datetime
-              example: '2021-01-10T12:22:41.000000Z'
-            date_replied:
-              type:
-              - string
-              - 'null'
-              format: datetime
-              example: '2021-01-10T12:22:41.000000Z'
-            opens:
-              type: integer
-              example: 0
-            clicks:
-              type: integer
-              example: 0
-            views:
-              type: integer
-              example: 0
-            shares:
-              type: integer
-              example: 0
-            reactions:
-              type: integer
-              example: 0
-          type: object
-      type: object
-    user:
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: bbf3195e-21a3-4e6a-9698-9b8c09ec0b5b
-        bio:
-          type: string
-          example: Example bio
-        first_name:
-          type: string
-          example: John
-        image:
-          type: string
-          format: uri
-          example: https://example-path-to-image.jpg
-        last_name:
-          type: string
-          example: Jones
-        name:
-          type: string
-          example: John Jones
-        self_url:
-          type: string
-          format: uri
-          example: https://example-path-to-self-url
-        team_url:
-          type: string
-          format: uri
-          example: https://example-path-to-team-url
-      type: object
-    mtMedia:
-      allOf:
-      - properties:
-          type:
-            type: string
-            enum:
-            - Media
-            - StockMedia
-            example: Media
-          name:
-            type: string
-            example: like.png
-          tags:
-            type: string
-            example: background image
-          url:
-            type: string
-            format: uri
-            example: http://example-path-to-url
         type: object
       - $ref: '#/components/schemas/idUUID'
       - $ref: '#/components/schemas/timestamps'
