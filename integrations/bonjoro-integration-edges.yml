@@ -1,0 +1,441 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/bonjoro/integrations
+checked:
+- https://composio.dev/toolkits/bonjoro
+- https://monid.ai/tools/bonjoro
+- https://n8n.io/integrations/bonjoro/
+- https://zapier.com/apps/bonjoro/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: bonjoro
+  url: https://zapier.com/apps/bonjoro/integrations
+  external_url: https://www.bonjoro.com/
+  partner_tier: GOLD
+  triggers:
+  - key: bonjoro_assigned
+    label: Bonjoro Reassigned
+  - key: bonjoro_bounced
+    label: Bonjoro Bounced
+  - key: bonjoro_clicked
+    label: Bonjoro Call to Action Clicked
+  - key: bonjoro_completed
+    label: Bonjoro Sent
+  - key: bonjoro_created
+    label: Bonjoro Created
+  - key: bonjoro_dismissed
+    label: Bonjoro Dismissed
+  - key: bonjoro_opened
+    label: Bonjoro Email Opened
+  - key: bonjoro_reacted
+    label: Bonjoro Reaction
+  - key: bonjoro_reply
+    label: Bonjoro Reply
+  - key: bonjoro_shared
+    label: Bonjoro Shared
+  - key: bonjoro_watched
+    label: Bonjoro Watched
+  - key: campaignsList
+    label: Workspaces
+  - key: messagetemplatesList
+    label: Message Templates
+  actions:
+  - key: createBonjoro
+    label: Create Task
+  searches: []
+edges:
+- partner_name: Kajabi
+  partner: kajabi
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/kajabi
+  direction: third-party
+  category: eCommerce
+  partner_url: http://kajabi.com/
+- partner_name: ActiveCampaign
+  partner: activecampaign
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/activecampaign
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.activecampaign.com/?utm_source=unpaid_syndication_website&utm_medium=referral&utm_campaign=zapier_listing
+- partner_name: Kartra
+  partner: kartra
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/kartra
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://home.kartra.com/
+- partner_name: ClickFunnels Classic
+  partner: clickfunnels
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/clickfunnels-classic
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.clickfunnels.com/
+- partner_name: HubSpot
+  partner: hubspot
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/hubspot
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://www.hubspot.com/
+- partner_name: Typeform
+  partner: typeform
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/typeform
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.typeform.com/signup?utm_medium=referral&utm_source=zapier&utm_campaign=zapier_integration&utm_content=marketplace
+- partner_name: Acuity Scheduling
+  partner: acuity-scheduling
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/acuity-scheduling
+  direction: third-party
+  category: Scheduling & Booking
+  partner_url: https://acuityscheduling.com/?utm_source=zapier.com&utm_medium=referral&utm_campaign=integration-page
+- partner_name: Flodesk
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/flodesk
+  direction: third-party
+  category: Email Newsletters
+  partner_url: https://flodesk.com/
+- partner_name: Pipedrive
+  partner: pipedrive
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/pipedrive
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://pipedrive.com/
+- partner_name: Teachable
+  partner: teachable
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/teachable
+  direction: third-party
+  category: Online Courses
+  partner_url: https://teachable.com/
+- partner_name: Dubsado
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/dubsado
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://www.dubsado.com/
+- partner_name: systeme.io
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/systemeio
+  direction: third-party
+  category: Marketing
+  partner_url: https://systeme.io/
+- partner_name: Intercom
+  partner: intercom
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/intercom
+  direction: third-party
+  category: Customer Support
+  partner_url: https://www.intercom.com/welcome-to-intercom?utm_source=external-website&utm_medium=partner&utm_campaign=20220503_all_oc_all_global_gl_all_all_par_extmktplc&utm_term=zapier
+- partner_name: AWeber
+  partner: aweber
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/aweber
+  direction: third-party
+  category: Email Newsletters
+  partner_url: http://zpr.io/6S2qW
+- partner_name: Salestrekker
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/salestrekker
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://salestrekker.com/
+- partner_name: Twilio
+  partner: twilio
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/twilio
+  direction: third-party
+  category: Phone & SMS
+  partner_url: https://www.twilio.com/
+- partner_name: Squarespace Forms
+  partner: squarespace
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/squarespace-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.squarespace.com/
+- partner_name: Drip
+  partner: drip
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/drip
+  direction: third-party
+  category: Drip Emails
+  partner_url: https://www.getdrip.com/
+- partner_name: MailerLite Classic
+  partner: mailerlite
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/mailerlite-classic
+  direction: third-party
+  category: Email Newsletters
+  partner_url: https://www.mailerlite.com/
+- partner_name: Airtable
+  partner: airtable
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/airtable
+  direction: third-party
+  category: Databases
+  partner_url: https://airtable.com/
+- partner_name: GetResponse
+  partner: getresponse
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/getresponse
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.getresponse.com/
+- partner_name: Shopify
+  partner: shopify
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/shopify
+  direction: third-party
+  category: eCommerce
+  partner_url: https://www.shopify.com/
+- partner_name: SamCart
+  partner: samcart
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/samcart
+  direction: third-party
+  category: eCommerce
+  partner_url: https://samcart.com/
+- partner_name: Wix
+  partner: wix
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/wix
+  direction: third-party
+  category: Website Builders
+  partner_url: https://www.wix.com/
+- partner_name: Calendly
+  partner: calendly
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/calendly
+  direction: third-party
+  category: Scheduling & Booking
+  partner_url: https://calendly.com/?utm_medium=partner&utm_source=zapier&utm_campaign=main_partner_page&utm_content=main_inbound_link
+- partner_name: Gmail
+  partner: gmail
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/gmail
+  direction: third-party
+  category: Email
+  partner_url: https://mail.google.com/
+- partner_name: Zenler
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/zenler
+  direction: third-party
+  category: Website Builders
+  partner_url: https://newzenler.com/
+- partner_name: BrokerEngine
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/brokerengine
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://brokerengine.com.au/
+- partner_name: Wufoo
+  partner: wufoo
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/wufoo
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.wufoo.com/
+- partner_name: Bloomerang
+  partner: bloomerang
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/bonjoro/integrations/bloomerang
+  direction: third-party
+  category: Fundraising
+  partner_url: https://bloomerang.co/
+templates:
+- title: Create Bonjoro tasks for new purchases in Kajabi
+  url: https://zapier.com/apps/bonjoro/integrations/kajabi/199369/create-bonjoro-tasks-for-new-purchases-in-kajabi
+  apps:
+  - kajabi
+  - bonjoro
+- title: Create new Bonjoros for new Sprout Studio leads
+  url: https://zapier.com/apps/bonjoro/integrations/sprout-studio/74732/create-new-bonjoros-for-new-sprout-studio-leads
+  apps:
+  - sprout-studio
+  - bonjoro
+- title: Add new Honeybook inquiries to your Bonjoro to-do list
+  url: https://zapier.com/apps/bonjoro/integrations/honeybook/24861/add-new-honeybook-inquiries-to-your-bonjoro-to-do-list
+  apps:
+  - honeybook
+  - bonjoro
+- title: Send Bonjoro videos for new Book Like A Boss bookings
+  url: https://zapier.com/apps/bonjoro/integrations/book-like-a-boss/35810/send-bonjoro-videos-for-new-book-like-a-boss-bookings
+  apps:
+  - book-like-a-boss
+  - bonjoro
+- title: Add new confirmed Kit subscribers to Bonjoro to-do lists
+  url: https://zapier.com/apps/bonjoro/integrations/kit/17466/add-new-confirmed-kit-subscribers-to-bonjoro-to-do-lists
+  apps:
+  - kit
+  - bonjoro
+- title: Add new Stripe customers to Bonjoro To-Do lists (including non-paying trial accounts)
+  url: https://zapier.com/apps/bonjoro/integrations/stripe/17470/add-new-stripe-customers-to-bonjoro-to-do-lists-including-non-paying-trial-accounts
+  apps:
+  - stripe
+  - bonjoro
+- title: Add paying Stripe customers to Bonjoro to-do list
+  url: https://zapier.com/apps/bonjoro/integrations/stripe/17685/add-paying-stripe-customers-to-bonjoro-to-do-list
+  apps:
+  - stripe
+  - bonjoro
+- title: Create tasks in Bonjoro with new Shopify customers
+  url: https://zapier.com/apps/bonjoro/integrations/shopify/17566/create-tasks-in-bonjoro-with-new-shopify-customers
+  apps:
+  - shopify
+  - bonjoro
+- title: Create Bonjoro task for new subscribers in Mailchimp
+  url: https://zapier.com/apps/bonjoro/integrations/mailchimp/201134/create-bonjoro-task-for-new-subscribers-in-mailchimp
+  apps:
+  - mailchimp
+  - bonjoro
+- title: Create tasks in Bonjoro for new Dubsado projects as leads
+  url: https://zapier.com/apps/bonjoro/integrations/dubsado/1314088/create-tasks-in-bonjoro-for-new-dubsado-projects-as-leads
+  apps:
+  - dubsado
+  - bonjoro
+- title: Create tasks in Bonjoro for new subscribers on Flodesk
+  url: https://zapier.com/apps/bonjoro/integrations/flodesk/1823276/create-tasks-in-bonjoro-for-new-subscribers-on-flodesk
+  apps:
+  - flodesk
+  - bonjoro
+- title: Create Bonjoro tasks for new successful purchases in ClickFunnels
+  url: https://zapier.com/apps/bonjoro/integrations/clickfunnels-classic/225195/create-bonjoro-tasks-for-new-successful-purchases-in-clickfunnels
+  apps:
+  - clickfunnels-classic
+  - bonjoro
+template_total: 264
