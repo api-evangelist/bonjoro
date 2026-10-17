@@ -149,38 +149,19 @@ paths:
       - OAuth: []
 components:
   schemas:
-    pagination:
+    notFound:
       properties:
-        current_page:
-          type: integer
-          example: 1
-        first_page_url:
-          type: string
-        last_page_url:
-          type: string
-        path:
-          type: string
-        from:
-          type: integer
-          example: 1
-        last_page:
-          type: integer
-          example: 2
-        next_page_url:
-          type: string
-        per_page:
-          type: integer
-          example: 15
-        prev_page_url:
-          type: integer
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
       type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    automationNoAction:
+    automation:
       properties:
         id:
           type: string
@@ -196,18 +177,8 @@ components:
           example: false
         trigger:
           $ref: '#/components/schemas/trigger'
-      type: object
-    notFound:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
+        action:
+          $ref: '#/components/schemas/action'
       type: object
     trigger:
       properties:
@@ -249,6 +220,31 @@ components:
       type:
       - object
       - 'null'
+    pagination:
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 2
+        next_page_url:
+          type: string
+        per_page:
+          type: integer
+          example: 15
+        prev_page_url:
+          type: integer
+      type: object
     automations:
       allOf:
       - properties:
@@ -259,7 +255,7 @@ components:
               - $ref: '#/components/schemas/automation'
         type: object
       - $ref: '#/components/schemas/pagination'
-    automation:
+    automationNoAction:
       properties:
         id:
           type: string
@@ -275,6 +271,10 @@ components:
           example: false
         trigger:
           $ref: '#/components/schemas/trigger'
-        action:
-          $ref: '#/components/schemas/action'
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
       type: object

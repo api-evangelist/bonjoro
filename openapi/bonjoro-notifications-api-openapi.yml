@@ -69,6 +69,18 @@ paths:
       - OAuth: []
 components:
   schemas:
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
     pagination:
       properties:
         current_page:
@@ -94,24 +106,16 @@ components:
         prev_page_url:
           type: integer
       type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    notFound:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
-      type: object
+    notifications:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/notification'
+        type: object
+      - $ref: '#/components/schemas/pagination'
     notification:
       allOf:
       - properties:
@@ -135,16 +139,12 @@ components:
             example: http://example-path-to-self-url
         type: object
       - $ref: '#/components/schemas/idUUID'
-    notifications:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/notification'
-        type: object
-      - $ref: '#/components/schemas/pagination'
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
     idUUID:
       properties:
         id:

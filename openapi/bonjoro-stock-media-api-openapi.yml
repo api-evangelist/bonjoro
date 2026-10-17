@@ -45,12 +45,11 @@ paths:
       - OAuth: []
 components:
   schemas:
-    idUUID:
+    unauthorized:
       properties:
-        id:
+        message:
           type: string
-          format: uuid
-          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+          example: Unauthorized.
       type: object
     timestamps:
       properties:
@@ -64,12 +63,6 @@ components:
           - 'null'
           format: datetime
           example: '2021-01-11 01:51:26'
-      type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
       type: object
     stockMedia:
       allOf:
@@ -90,3 +83,10 @@ components:
         type: object
       - $ref: '#/components/schemas/idUUID'
       - $ref: '#/components/schemas/timestamps'
+    idUUID:
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a5e7c858-1f85-4fe2-8c1d-4c77cfc3204f
+      type: object

@@ -178,6 +178,58 @@ paths:
       - OAuth: []
 components:
   schemas:
+    domains:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/domainWithCanonical'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
+    domain_record_set:
+      properties:
+        cname:
+          type: string
+          example: cname
+        purpose:
+          type: string
+          example: dkim
+        host:
+          type: string
+          example: host.com
+        key:
+          type: string
+          example: 20210111035208pm._domainkey
+        value:
+          type: string
+          example: 9c2790de-7a48-47ea-8e4b-6ae8fbd16218.dkim.test.bonjoro.com
+        is_verified:
+          type: boolean
+          example: true
+      type: object
+    domainWithCanonical:
+      allOf:
+      - properties:
+          canonical:
+            type: array
+            items:
+              $ref: '#/components/schemas/domain'
+        type: object
+      - $ref: '#/components/schemas/domain'
     pagination:
       properties:
         current_page:
@@ -203,43 +255,6 @@ components:
         prev_page_url:
           type: integer
       type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    notFound:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
-      type: object
-    domainWithCanonical:
-      allOf:
-      - properties:
-          canonical:
-            type: array
-            items:
-              $ref: '#/components/schemas/domain'
-        type: object
-      - $ref: '#/components/schemas/domain'
-    domains:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/domainWithCanonical'
-        type: object
-      - $ref: '#/components/schemas/pagination'
     domain:
       properties:
         is_verified_as_sender:
@@ -280,24 +295,9 @@ components:
           items:
             $ref: '#/components/schemas/domain_record_set'
       type: object
-    domain_record_set:
+    unauthorized:
       properties:
-        cname:
+        message:
           type: string
-          example: cname
-        purpose:
-          type: string
-          example: dkim
-        host:
-          type: string
-          example: host.com
-        key:
-          type: string
-          example: 20210111035208pm._domainkey
-        value:
-          type: string
-          example: 9c2790de-7a48-47ea-8e4b-6ae8fbd16218.dkim.test.bonjoro.com
-        is_verified:
-          type: boolean
-          example: true
+          example: Unauthorized.
       type: object

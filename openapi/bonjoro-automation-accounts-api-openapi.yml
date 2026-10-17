@@ -152,6 +152,28 @@ paths:
       - OAuth: []
 components:
   schemas:
+    automationAccounts:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/automationAccount'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
     pagination:
       properties:
         current_page:
@@ -177,34 +199,6 @@ components:
         prev_page_url:
           type: integer
       type: object
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
-    notFound:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
-      type: object
-    automationAccounts:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/automationAccount'
-        type: object
-      - $ref: '#/components/schemas/pagination'
     automationAccount:
       allOf:
       - properties:
@@ -220,6 +214,12 @@ components:
             example: '2021-01-20 02:38:50'
         type: object
       - $ref: '#/components/schemas/idUUID'
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
+      type: object
     idUUID:
       properties:
         id:

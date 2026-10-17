@@ -34,12 +34,6 @@ paths:
                 $ref: '#/components/schemas/unauthorized'
 components:
   schemas:
-    unauthorized:
-      properties:
-        message:
-          type: string
-          example: Unauthorized.
-      type: object
     accessToken:
       properties:
         token_type:
@@ -54,6 +48,12 @@ components:
         refresh_token:
           type: string
           example: eyJ0eXAiOiJKV1QiLCJh...
+      type: object
+    unauthorized:
+      properties:
+        message:
+          type: string
+          example: Unauthorized.
       type: object
     authenticationPayload:
       properties:

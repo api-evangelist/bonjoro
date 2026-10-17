@@ -136,6 +136,40 @@ paths:
       - OAuth: []
 components:
   schemas:
+    notFound:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Not Found
+            status_code:
+              type: integer
+              example: 404
+          type: object
+      type: object
+    automationTriggers:
+      allOf:
+      - properties:
+          data:
+            type: array
+            items:
+              allOf:
+              - $ref: '#/components/schemas/automationTrigger'
+        type: object
+      - $ref: '#/components/schemas/pagination'
+    badRequest:
+      properties:
+        error:
+          properties:
+            message:
+              type: string
+              example: Error message
+            status_code:
+              type: integer
+              example: 400
+          type: object
+      type: object
     pagination:
       properties:
         current_page:
@@ -167,30 +201,6 @@ components:
           type: string
           example: Unauthorized.
       type: object
-    notFound:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Not Found
-            status_code:
-              type: integer
-              example: 404
-          type: object
-      type: object
-    badRequest:
-      properties:
-        error:
-          properties:
-            message:
-              type: string
-              example: Error message
-            status_code:
-              type: integer
-              example: 400
-          type: object
-      type: object
     automationTrigger:
       properties:
         uuid:
@@ -208,13 +218,3 @@ components:
           - 'null'
           format: uuid
       type: object
-    automationTriggers:
-      allOf:
-      - properties:
-          data:
-            type: array
-            items:
-              allOf:
-              - $ref: '#/components/schemas/automationTrigger'
-        type: object
-      - $ref: '#/components/schemas/pagination'
